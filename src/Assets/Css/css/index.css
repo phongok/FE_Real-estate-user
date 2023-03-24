@@ -1,0 +1,172 @@
+*,
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Fira Sans', sans-serif;
+}
+
+header {
+    display: flex;
+    background-color: #f9f9f9;
+    height: 80px;
+    border-bottom: #bebebe 1px solid;
+}
+
+header .openMenu {
+    font-size: 2rem;
+    margin-top: 20px;
+    margin-right: 20px;
+    display: none;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+header .logo img {
+    height: 60px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 0;
+    border-radius: 8px;
+  
+}
+
+header .MenuHeader {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    margin-top: 25px;
+    margin-left: 30px;
+   
+}
+
+header .MenuHeader li {
+    padding: 5px;
+    
+}
+header .MenuHeader li a {
+    display: inline-block;
+    /* padding: 5px; */
+    width: auto;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    text-align: center;
+    top: 0;
+    
+}
+
+header .MenuHeader li:hover {
+    border-color: red ;
+}
+
+header .MenuHeader .form_user {
+    width: 350px;
+    
+    margin-top: 0px;
+
+}
+
+header .MenuHeader .form_user button {
+   padding: 7px;
+   margin-left: 20px;
+    
+}
+
+header .closeMenu {
+    font-size: 2rem;
+    display: none;
+    cursor: pointer;
+}
+
+header .MenuHeader li ul li{
+    list-style-type: none;
+    /* margin-left: 3px; */
+ }
+
+
+
+header .MenuHeader li ul {
+    position: absolute;
+    margin-top: 3px;
+    display: none;
+    list-style: none;
+   
+}
+
+
+header .MenuHeader li:hover ul{
+    display: block;
+    background-color: #f9f9f9;
+    list-style: none;
+    z-index: 1000;
+}
+
+
+@media(max-width: 950px) {
+    header .logo {
+       justify-content: center;
+       align-items: center;
+    }
+
+    header  .MenuHeader {
+        height: 100%;
+        position: fixed;
+        margin-top: 0;
+        margin-left: 0;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: #f9f9f9;
+        transition: top 0.2s ease;
+        display: none;
+
+        border-right: #bebebe 1px solid;
+    }
+    header  .MenuHeader .closeMenu {
+        display: block;
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+    header .openMenu {
+        display: block;
+    }
+
+    .sell{
+        margin-top: 100px;
+    }
+    header  .MenuHeader li a  {
+        background: none;
+        font-size: 15px;
+        margin-top: 0;
+       
+    }
+    /* header  .MenuHeader li a:hover {
+        
+        background: none;
+        font-size: 15px;
+        z-index: 1000;
+       
+    } */
+
+    
+    header .MenuHeader .form_user {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        margin-left: 0;
+
+        
+    }
+
+
+
+    
+}
