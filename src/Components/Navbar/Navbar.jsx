@@ -27,7 +27,16 @@ const Navbar = () =>{
                         <li className="navItem">
                             <a href=" " className="navLink">
                                 Nhà đất bán
+                              
                             </a>
+
+                            <ul  >
+                                             <li><a className="haslink" href=" "> Bán căn hộ chung cư </a></li>
+                                             <li><a href=" "> Bán nhà riêng </a></li>
+                                             <li><a href=" "> Bán nhà biệt thự liền kề </a></li>
+                                             <li><a href=" "> Bán nhà mặt phố </a></li>
+                                             
+                                        </ul>
                         </li>
                         <li className="navItem">
                             <a href=" " className="navLink">

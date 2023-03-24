@@ -38,6 +38,48 @@
         }
     }
 
+    .navItem{ 
+
+        
+        ul {
+        position: absolute;
+        margin-top: 1px;
+        display: none;
+        list-style: none;
+        margin-left: 5px;
+        background: var(--whileColorDeam);
+       
+            a{
+                font-size: 1rem;
+                // margin-top: 5px;
+                
+                &:hover{
+                    color: var(--PrimaryColor);
+                }
+            }
+        }
+
+        
+
+    &:hover{
+
+        ul{
+            display: block;
+            background: var(--whileColorDeam);
+            list-style: none;
+            z-index: 1000;
+
+        }
+       
+    }
+}
+
+   
+       
+   
+
+   
+
     @media screen and (max-width: 568px) {
         .navBar{
             position: absolute;
@@ -128,7 +170,7 @@
                     .navLink{
                         color: var(--textColor);
                         padding: 0 0.45rem;
-                        font-size: 0.9rem;
+                        font-size: 1rem;
                         font-weight: 500;
 
                         &:hover{
@@ -158,6 +200,7 @@
             .navLists{
                 .navItem{
                     padding: 0 0.7rem;
+                    
                 }
             }
         }
