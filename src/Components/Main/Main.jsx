@@ -11,10 +11,10 @@ const Data=[
     {
         id: 1,
         imgSrc: img,
-        destTittle: 'Bora Bora',
+        destTittle: 'Chủ đầu tư thêm nên tìm kho lớn hơn, nên muốn bán lại xưởng đang dùng, diện tích lớn giá rẻ Bora',
         location: 'VietNam',
-        grade: 'CUL TURAL RELAX',
-        fees: '$700',
+        grade: '100m',
+        fees: '7ỷ vnđ',
         description:'Viet nam xinh dep Viet nam xinh dep'
 
     },
@@ -144,7 +144,7 @@ const Main = () =>{
                                     <div className="fees flex">
                                        <div className="grade">
                                             <span>{grade}
-                                                <small>+1</small>
+                                                <sup>2</sup>
                                             </span>
                                        </div>
                                        <div className="price">
@@ -153,12 +153,13 @@ const Main = () =>{
                                             </h5>
                                        </div>
                                     </div>
-                                    <div className="desc">
-                                        <p>{description}</p>
-                                    </div>
+                                    
+                                    <div className="flex btn_group " >
+                                    <p className="mt-1">20/12/2022</p>
                                     <button className="btn flex">
-                                        Chi tiết <TbClipboardCheck className="icon"/>
+                                        Lưu <TbClipboardCheck className="icon"/>
                                     </button>
+                                    </div>
                                 </div>
                             </div>
                         )

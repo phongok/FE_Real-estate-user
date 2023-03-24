@@ -78,7 +78,7 @@
 
                 .destTitle{
                     color: var(--blackColorc);
-                    font-size: 1.25rem;
+                    // font-size: 1.25rem;
                 }
                 .continent{
                     gap: .5rem;
@@ -111,9 +111,9 @@
 
                         small{
                             text-align: center;
-                            background: var(--SecondaryColor);
+                            // background: var(--SecondaryColor);
                             border-radius: 1rem;
-                            color: var(--whileColor);
+                            // color: var(--whileColor);
                             padding: 1px 10px;
                             font-size: 10px;
                         }
@@ -127,6 +127,10 @@
                     font-size: 13.5px;
                     color: var(--textColor);
                     font-weight: 500;
+                }
+
+                .btn_group{
+                    justify-content: space-between;
                 }
 
                 .btn{
