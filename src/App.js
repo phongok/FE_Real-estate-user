@@ -1,13 +1,18 @@
 import React from "react";
-// import './app.css'
+ import './app.css'
+import Home from "./Pages/Home";
 
 // import ForgotPassword from "./Pages/Forgot_Password";
 // import Register from "./Pages/Register";
-import Home from "./Pages/Home"
+// import Home from "./Pages/Home"
+import PostNews from './Pages/PostNews.jsx'
+
+
 const App = () =>{
     return(
         <>
-           <Home/>
+          {/* <Home/> */}
+          <PostNews/>
         </>
     )
 }

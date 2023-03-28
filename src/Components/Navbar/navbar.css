@@ -12,6 +12,15 @@
   --cardBG: rbg(225,225,235);
 }
 
+.btn {
+  padding: 0.6rem 1.5rem;
+  background: var(--gradientColor);
+  border-radius: 3rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 .header {
   position: fixed;
   display: flex;
@@ -40,13 +49,20 @@
   margin-top: 1px;
   display: none;
   list-style: none;
-  margin-left: 5px;
+  margin-left: 0px;
   background: var(--whileColorDeam);
 }
-.header .navItem ul a {
-  font-size: 1rem;
+.header .navItem ul li {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
-.header .navItem ul a:hover {
+.header .navItem ul li a {
+  font-size: 1rem;
+  color: var(--blackColor);
+  padding: 10px;
+  margin-top: 10px;
+}
+.header .navItem ul li a:hover {
   color: var(--PrimaryColor);
 }
 .header .navItem:hover ul {

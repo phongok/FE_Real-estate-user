@@ -11,8 +11,8 @@ const Data=[
     {
         id: 1,
         imgSrc: img,
-        destTittle: 'Chủ đầu tư thêm nên tìm kho lớn hơn, nên muốn bán lại xưởng đang dùng, diện tích lớn giá rẻ Bora',
-        location: 'VietNam',
+        destTittle: 'Chủ đầu tư thêm nên tìm kho lớn hơn, nên muốn bán lại xưởng đang dùng',
+        location: 'Quận 5, TPHCM',
         grade: '100m',
         fees: '7ỷ vnđ',
         description:'Viet nam xinh dep Viet nam xinh dep'

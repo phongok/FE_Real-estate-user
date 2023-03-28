@@ -44,7 +44,12 @@ const Footer = () =>{
                             </a>
                         </div>
                         <div className="footerParagraph" data-aos="fade-up">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam inventore eos fuga hic cum voluptatem minima, tempore non odio provident nobis ipsam at, doloremque sed cupiditate ipsum in, atque aoluta?
+                        Giấy ĐKKD số 0104630479 do Sở KHĐT TP Hà Nội cấp lần đầu ngày 02/06/2010 <br />
+                        Giấy phép ICP số 2399/GP-STTTT do Sở TTTT Hà Nội cấp ngày 4/9/2014 <br />
+                        Giấy phép GH ICP số 3832/GP-TTĐT do Sở TTTT Hà Nội cấp ngày 8/8/2019 <br />
+                        Giấy phép SĐ, BS GP ICP số 3833/GP-TTĐT do Sở TTTT Hà Nội cấp ngày 8/8/2019 <br />
+                        Giấy xác nhận số 1728/GXN-TTĐT do Sở TTTT Hà Nội cấp ngày 23/6/2020 <br />
+                        Giấy phép GH ICP số 2886/GP-TTĐT do Sở TTTT Hà Nội cấp ngày 09/08/2021
                             
                         </div>
 

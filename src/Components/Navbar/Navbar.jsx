@@ -1,4 +1,10 @@
 import React, {useState} from "react"
+
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Fade from '@mui/material/Fade';
+
 import './navbar.css'
 import {AiFillCloseCircle} from 'react-icons/ai'
 import {TbGridDots} from 'react-icons/tb'
@@ -12,6 +18,15 @@ const Navbar = () =>{
     const removeNav = () => {
         setActive('navBar ')
     }
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
     return(
        <section className="navBarSection">
@@ -31,10 +46,10 @@ const Navbar = () =>{
                             </a>
 
                             <ul  >
-                                             <li><a className="haslink" href=" "> Bán căn hộ chung cư </a></li>
-                                             <li><a href=" "> Bán nhà riêng </a></li>
-                                             <li><a href=" "> Bán nhà biệt thự liền kề </a></li>
-                                             <li><a href=" "> Bán nhà mặt phố </a></li>
+                                 <li><a className="haslink" href=" "> Bán căn hộ chung cư </a></li>
+                                 <li><a href=" "> Bán nhà riêng </a></li>
+                                 <li><a href=" "> Bán nhà biệt thự liền kề </a></li>
+                                 <li><a href=" "> Bán nhà mặt phố </a></li>
                                              
                                         </ul>
                         </li>
@@ -43,25 +58,41 @@ const Navbar = () =>{
                                 Nhà đất thuê
                             </a>
                         </li>
-                        <li className="navItem">
-                            <a href=" " className="navLink">
-                                Dự án
-                            </a>
-                        </li>
+                      
                         <li className="navItem">
                             <a href=" " className="navLink">
                                 Tin tức
                             </a>
                         </li>
+                       
                         <li className="navItem">
-                            <a href=" " className="navLink">
-                                Phân tích đánh giá
-                            </a>
-                        </li>
-                        <li className="navItem">
-                            <a href=" " className="navLink">
-                                Danh bạ
-                            </a>
+                           
+                            <div>
+                                 <Button
+                                    id="fade-button"
+                                    aria-controls={open ? 'fade-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    onClick={handleClick}
+                                >
+                                Tài khoản
+                                </Button>
+                                <Menu
+                                id="fade-menu"
+                                 MenuListProps={{
+                                'aria-labelledby': 'fade-button',
+                                }}
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                 TransitionComponent={Fade}
+                                    >
+                                <MenuItem onClick={handleClose}>Thông tin</MenuItem>
+                                <MenuItem onClick={handleClose}>Quản lí bài đăng</MenuItem>
+                                <MenuItem onClick={handleClose}>Đăng xuất</MenuItem>
+                                </Menu>
+                            </div>
+                          
                         </li>
                       
                         <button className="btn">

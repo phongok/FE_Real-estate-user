@@ -76,6 +76,7 @@
 }
 .main .secContent .singleDestination .cardInfo .continent {
   gap: 0.5rem;
+  margin-top: 10px;
 }
 .main .secContent .singleDestination .cardInfo .continent .icon {
   color: var(--textColor);
