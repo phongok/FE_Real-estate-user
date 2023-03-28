@@ -7,6 +7,52 @@ import '../Assets/Css/vendor/css/pages/page-auth.css'
 
 
 export default class Login extends React.Component{
+    constructor(props){
+        super(props)
+        this.state= {
+            "username":"",
+            "password":""
+        }
+    }
+
+    setParams = (event) =>{
+        this.setState({[event.target.name]: event.target.value})
+    }
+
+    login = () =>{
+        fetch('http://localhost:8081/authen/login', {
+        method: 'POST',
+        body: JSON.stringify({
+            username: this.state.username,
+            password: this.state.password
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        })
+        .then(response => response.text()) // Convert response body to text
+        .then(text => {
+            // console.log("mytest=",text); // Log response body to console
+               
+            if(text === "Account password is wrong!" ){
+                alert('Email, mật khẩu sai!')
+            }
+            else{
+                alert('Đăng nhập thành công!')
+                localStorage.setItem("token", text)
+
+            }
+            //.....doing something here
+        })
+        .catch(error => {
+            // Handle error
+            // 
+            alert('')
+            console.error(error);
+        });
+       
+        }
+
     render(){
         return  <div>
                     <div className="container-xxl">
@@ -23,14 +69,16 @@ export default class Login extends React.Component{
                                         <p className="mb-4">Vui lòng đăng nhập vào tài khoản của bạn và bắt đầu cuộc phiêu lưu</p>
                                         <form id="formAuthentication" className="mb-3" action="index.html" method="POST">
                                             <div className="mb-3 ">
-                                                <label for="email" style={{paddingLeft:0}} className="form-label" >Email</label>
+                                                <label for="email" style={{paddingLeft:0}} className="form-label"  >Email</label>
                                                 <input
                                                      type="text"
                                                      className="form-control"
                                                      id="email"
-                                                     name="email-username"
-                                                     placeholder="Nhập email hoặc SDT"
+                                                     name="username"
+                                                     placeholder="Nhập email"
                                                      autofocus
+
+                                                     onChange={this.setParams}
                                                 />
                                             </div>
                                             <div className="mb-3 form-password-toggle">
@@ -45,9 +93,12 @@ export default class Login extends React.Component{
                                                         type="password"
                                                         id="password"
                                                         className="form-control"
-                                                        name="password"
+                                                       
                                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                                         aria-describedby="password"
+                                                        name="password"
+
+                                                        onChange={this.setParams}
                                                     />
                                                     <span className="input-group-text cursor-pointer"><i className="bx bx-hide"></i></span>
                                                 </div>
@@ -59,7 +110,7 @@ export default class Login extends React.Component{
                                                 </div>
                                             </div>
                                             <div className="mb-3">
-                                                    <button className="btn btn-primary d-grid w-100" type="submit">Đăng nhập</button>
+                                                    <button className="btn btn-primary d-grid w-100" type="button" onClick={this.login}>Đăng nhập</button>
                                             </div>
                                         </form>
                                         <p className="text-center">
