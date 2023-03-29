@@ -89,7 +89,7 @@ export default function VerticalTabs() {
         3
       </TabPanel>
       <TabPanel value={value} index={6}>
-      
+      4
       </TabPanel>
       <TabPanel value={value} index={8}>
        5
