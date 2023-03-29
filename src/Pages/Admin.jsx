@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 
 
 import Dashboard from '../Components/Dashboard/Dashboard';
-import Product from '../Components/Product/Product';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -89,7 +89,7 @@ export default function VerticalTabs() {
         3
       </TabPanel>
       <TabPanel value={value} index={6}>
-       <Product/>
+      
       </TabPanel>
       <TabPanel value={value} index={8}>
        5
