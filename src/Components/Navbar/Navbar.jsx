@@ -8,6 +8,8 @@ import Fade from '@mui/material/Fade';
 import './navbar.css'
 import {AiFillCloseCircle} from 'react-icons/ai'
 import {TbGridDots} from 'react-icons/tb'
+
+import axios from "axios"
 const Navbar = () =>{
     const [active, setActive] = useState('navBar')
 
@@ -28,6 +30,25 @@ const Navbar = () =>{
       setAnchorEl(null);
     };
 
+   
+
+        let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8081/api/businessTypes',
+        headers: { }
+        };
+
+        axios.request(config)
+        .then((response) => {
+        console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+        console.log(error);
+        });
+
+    
+
     return(
        <section className="navBarSection">
             <header className="header flex">
@@ -41,16 +62,15 @@ const Navbar = () =>{
                     <ul className="navLists flex">
                         <li className="navItem">
                             <a href=" " className="navLink">
-                                Nhà đất bán
-                              
+                                Nhà đất bán   
                             </a>
 
-                            <ul  >
+                            <ul>
                                  <li><a className="haslink" href=" "> Bán căn hộ chung cư </a></li>
                                  <li><a href=" ">Bán nhà riêng </a></li>
                                  <li><a href=" ">Bán nhà biệt thự liền kề </a></li>
                                  <li><a href=" ">Bán nhà mặt phố </a></li>
-                                 </ul>
+                                </ul>
                         </li>
                         <li className="navItem">
                             <a href=" " className="navLink">

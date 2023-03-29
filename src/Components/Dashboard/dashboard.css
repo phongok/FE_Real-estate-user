@@ -13,24 +13,39 @@
   --cardHover: rbg(255,255,255);
 }
 
-.main {
-  margin-top: 0;
-}
-.main .grid {
-  display: grid;
-  align-items: center;
+.secContentDB {
   justify-content: space-between;
+  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  margin-left: 40px;
+  margin-right: 40px;
 }
-.main .item {
-  width: 350px;
-  background-color: aqua;
+.secContentDB .model-total-user {
+  width: 250px;
+  background: var(--gradientColor);
+  height: 300px;
+  border-radius: 10px;
+}
+.secContentDB .model-total-home {
+  width: 250px;
+  background: var(--gradientColor);
+  height: 300px;
+  border-radius: 10px;
+}
+.secContentDB .model-total-typebusiness {
+  width: 250px;
+  background: var(--gradientColor);
+  height: 300px;
+  border-radius: 10px;
+}
+.secContentDB .model-total-revenue {
+  width: 250px;
+  background: var(--gradientColor);
+  height: 300px;
+  border-radius: 10px;
 }
 
-@media screen and (min-width: 700px) {
-  .secContent {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .secContent .singleDestination {
-    height: auto;
-  }
+.grid {
+  display: grid;
+  align-items: center;
 }/*# sourceMappingURL=dashboard.css.map */

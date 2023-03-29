@@ -65,7 +65,8 @@
                     font-size: 1rem;
                     // margin-top: 5px;
                     color: var(--blackColor) ;
-                    padding: 0px;
+                    padding: 10px;
+                    margin-right: 10px;
                     margin-top: 10px;
                     &:hover{
                         color: var(--PrimaryColor);
@@ -76,24 +77,19 @@
 
         
 
-    &:hover{
+        &:hover{
 
-        ul{
-            display: block;
-            background: var(--whileColorDeam);
-            list-style: none;
-            z-index: 1000;
+            ul{
+              display: block;
+              background: var(--whileColorDeam);
+              list-style: none;
+              z-index: 1000;
+              
 
-        }
+           }
        
     }
 }
-
-   
-       
-   
-
-   
 
     @media screen and (max-width: 568px) {
         .navBar{
@@ -128,6 +124,8 @@
                             color: var(--PrimaryColor);
                         }
                     }
+
+                    
 
                     
                 }

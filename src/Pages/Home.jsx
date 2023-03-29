@@ -10,9 +10,14 @@ export default class Home extends React.Component{
     render(){
         return   <>
         <Navbar/>
+        <br />
+        <br />
+        <br />
+        <br />
+       
         <SlideShow/>
         <Main/>
-        <Main/>
+      
         <Footer/>
        
         </>
