@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 
-import Avatar from '@mui/material/Avatar';
+import Dashboard from '../Components/Dashboard/Dashboard';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -61,7 +61,7 @@ export default function VerticalTabs() {
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
 
-        <Avatar alt="Remy Sharp" src="https://i.imgur.com/LvbGQ7O.png" style={{width:200,height:200, marginLeft:20, marginTop:20, marginRight:20}} />
+        <img alt="Remy Sharp" src="https://i.imgur.com/LvbGQ7O.png" style={{width:200,height:100, marginLeft:20, marginTop:10, marginRight:20}} />
 
         <h5 style={{color: '#999999',marginTop:20 }}><i>--Thông tin</i></h5>
         <Tab label="Dashboad" {...a11yProps(2)} />
@@ -72,7 +72,7 @@ export default function VerticalTabs() {
 
         <h5 style={{color: '#999999', }}><i>--An ninh</i></h5>
 
-        <Tab label="Item Four" {...a11yProps(8)} />
+        <Tab label="Báo cáo" {...a11yProps(8)} />
         <Tab label="Item Five" {...a11yProps(9)} />
 
         <h5 style={{color: '#999999', }}><i>--Thống kê</i></h5>
@@ -80,7 +80,7 @@ export default function VerticalTabs() {
         <Tab label="Item Seven" {...a11yProps(12)} />
       </Tabs>
       <TabPanel value={value} index={2}>
-       1
+       <Dashboard/>
       </TabPanel>
       <TabPanel value={value} index={3}>
        2

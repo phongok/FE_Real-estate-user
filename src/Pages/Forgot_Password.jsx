@@ -4,6 +4,7 @@ import '../Assets/Css/vendor/css/theme-default.css'
 import '../Assets/Css/css/demo.css'
 import '../Assets/Css/vendor/libs/perfect-scrollbar/perfect-scrollbar.css'
 import '../Assets/Css/vendor/css/pages/page-auth.css'
+import { Link } from "react-router-dom";
 
 export default class ForgotPassword extends React.Component{
     render(){
@@ -23,7 +24,7 @@ export default class ForgotPassword extends React.Component{
                                         <p className="mb-4">Nhập email của bạn và chúng tôi sẽ gửi cho bạn hướng dẫn để đặt lại mật khẩu của bạn</p>
                                         <form id="formAuthentication" className="mb-3" action="index.html" method="POST">
                                             <div className="mb-3">
-                                                <label for="email" className="form-label">Email</label>
+                                                <label htmlFor="email" className="form-label">Email</label>
                                                 <input
                                                      type="text"
                                                      className="form-control"
@@ -36,10 +37,10 @@ export default class ForgotPassword extends React.Component{
                                             <button className="btn btn-primary d-grid w-100">Send Reset Link</button>
                                         </form>
                                         <div className="text-center">
-                                            <a href="auth-login-basic.html" className="d-flex align-items-center justify-content-center">
-                                               <i className="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
+                                           <Link to="/login">
+                                            <i className="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
                                              Đăng nhập
-                                            </a>
+                                           </Link>
                                         </div>
                                     </div>
                                 </div>

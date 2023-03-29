@@ -1,5 +1,5 @@
 import React from "react"
-import '../Assets/Css/home.css'
+// import '../Assets/Css/home.css'
 import Navbar from "../Components/Navbar/Navbar";
 import Post from "../Components/PostNews/Post"
 

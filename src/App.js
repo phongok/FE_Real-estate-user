@@ -1,21 +1,13 @@
 import React from "react";
+import { BrowserRouter as Router } from 'react-router-dom';
  import './app.css'
-import Home from "./Pages/Home";
+import RouterProvaider from "./Router/Router";
 
-// import ForgotPassword from "./Pages/Forgot_Password";
-// import Register from "./Pages/Register";
-// import Home from "./Pages/Home"
-// import PostNews from './Pages/PostNews.jsx'
-// import Admin from './Pages/Admin'
-// import Login from './Pages/Login'
 const App = () =>{
     return(
-        <>
-          <Home/>
-          {/* <PostNews/> */}
-          {/* <Admin/> */}
-          {/* <Login/> */}
-        </>
+        <Router>
+            <RouterProvaider/>
+        </Router>
     )
 }
 export default App

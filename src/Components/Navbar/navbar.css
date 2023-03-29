@@ -59,7 +59,7 @@
 .header .navItem ul li a {
   font-size: 1rem;
   color: var(--blackColor);
-  padding: 10px;
+  padding: 0px;
   margin-top: 10px;
 }
 .header .navItem ul li a:hover {

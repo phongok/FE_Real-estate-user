@@ -4,6 +4,7 @@ import '../Assets/Css/vendor/css/theme-default.css'
 import '../Assets/Css/css/demo.css'
 import '../Assets/Css/vendor/libs/perfect-scrollbar/perfect-scrollbar.css'
 import '../Assets/Css/vendor/css/pages/page-auth.css'
+import { Link } from "react-router-dom";
 export default class Register extends React.Component{
     render(){
         return <div>
@@ -22,7 +23,7 @@ export default class Register extends React.Component{
 
                       <form id="formAuthentication" className="mb-3" action="index.html" method="POST">
                         <div className="mb-3">
-                          <label for="username" className="form-label">Username</label>
+                          <label htmlFor="username" className="form-label">Username</label>
                           <input
                             type="text"
                             className="form-control"
@@ -33,7 +34,7 @@ export default class Register extends React.Component{
                           />
                         </div>
                         <div className="mb-3">
-                          <label for="email" className="form-label">Email</label>
+                          <label htmlFor="email" className="form-label">Email</label>
                           <input type="text" className="form-control" id="email" name="email" placeholder="Enter your email" />
                         </div>
                         <div className="mb-3 form-password-toggle">
@@ -54,7 +55,7 @@ export default class Register extends React.Component{
                         <div className="mb-3">
                           <div className="form-check">
                             <input className="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                            <label className="form-check-label" for="terms-conditions">I agree to privacy policy & terms
+                            <label className="form-check-label" htmlFor="terms-conditions">I agree to privacy policy & terms
                             </label>
                           </div>
                         </div>
@@ -62,9 +63,9 @@ export default class Register extends React.Component{
                       </form>
                             <p className="text-center">
                               <span>Already have an account? </span>
-                              <a href="auth-login-basic.html">
-                                <span>Đăng nhập</span>
-                              </a>
+                              <Link to="/login">
+                                  <span>Đăng nhập</span>
+                              </Link>
                             </p>
                           </div>
                         </div>
