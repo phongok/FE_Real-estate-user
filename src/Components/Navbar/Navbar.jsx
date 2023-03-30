@@ -10,6 +10,7 @@ import {AiFillCloseCircle} from 'react-icons/ai'
 import {TbGridDots} from 'react-icons/tb'
 
 import axios from "axios"
+import { Link, useNavigate } from "react-router-dom";
 const Navbar = () =>{
     const [active, setActive] = useState('navBar')
 
@@ -32,20 +33,20 @@ const Navbar = () =>{
 
    
 
-        let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: 'http://localhost:8081/api/businessTypes',
-        headers: { }
-        };
+        // let config = {
+        // method: 'get',
+        // maxBodyLength: Infinity,
+        // url: 'http://localhost:8081/api/businessTypes',
+        // headers: { }
+        // };
 
-        axios.request(config)
-        .then((response) => {
-        console.log(JSON.stringify(response.data));
-        })
-        .catch((error) => {
-        console.log(error);
-        });
+        // axios.request(config)
+        // .then((response) => {
+        // console.log(JSON.stringify(response.data));
+        // })
+        // .catch((error) => {
+        // console.log(error);
+        // });
 
     
 
@@ -53,9 +54,11 @@ const Navbar = () =>{
        <section className="navBarSection">
             <header className="header flex">
                 <div className="logoDiv">
-                    <a href=" " className="logo flex">
-                        <h2>Realestatevn</h2>
-                    </a>
+                   
+                        <Link to="/home">
+                            <h2>Realestatevn</h2>
+                        </Link>
+                    
                 </div>
 
                 <div onClick={removeNav} className={active}>
