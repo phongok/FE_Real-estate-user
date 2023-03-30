@@ -15,27 +15,27 @@ function Login  () {
                         <Carousel>
                                 <div>
                                     <img src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1666187221/cld-sample-4.jpg" alt='' />
-                                    <p className="legend">Ảnh 1</p>
+                                    {/* <p className="legend">Ảnh 1</p> */}
                                 </div>
                                 <div>
                                     <img src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1666187221/cld-sample-4.jpg" alt='' />
-                                    <p className="legend">Ảnh 2</p>
+                                    {/* <p className="legend">Ảnh 2</p> */}
                                 </div>
                                 <div>
                                     <img src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1666187221/cld-sample-4.jpg" alt='' />
-                                    <p className="legend">Ảnh 3</p>
+                                    {/* <p className="legend">Ảnh 3</p> */}
                                 </div>
                                 <div>
                                     <img src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1666187221/cld-sample-4.jpg" alt='' />
-                                    <p className="legend">Ảnh 4</p>
+                                    {/* <p className="legend">Ảnh 4</p> */}
                                 </div>
                                 <div>
                                     <img src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1666187221/cld-sample-4.jpg" alt='' />
-                                    <p className="legend">Ảnh 5</p>
+                                    {/* <p className="legend">Ảnh 5</p> */}
                                 </div>
                                 <div>
                                     <img src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1666187221/cld-sample-4.jpg" alt='' />
-                                    <p className="legend">Ảnh 6</p>
+                                    {/* <p className="legend">Ảnh 6</p> */}
                                 </div>
                         </Carousel>
                         </div>

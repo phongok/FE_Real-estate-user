@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 
 
 import Dashboard from '../Components/Dashboard/Dashboard';
-
+import FormInforAdmin from '../Components/Form_Infor_Admin/Form_Infor_Admin';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -83,7 +83,7 @@ export default function VerticalTabs() {
        <Dashboard/>
       </TabPanel>
       <TabPanel value={value} index={3}>
-       2
+        <FormInforAdmin/>
       </TabPanel>
       <TabPanel value={value} index={5}>
         3

@@ -56,20 +56,20 @@ const Navbar = () =>{
                 <div className="logoDiv">
                    
                         <Link to="/home">
-                            <h2>Realestatevn</h2>
+                            <h2 style={{margin:0}}>Realestatevn</h2>
                         </Link>
                     
                 </div>
 
                 <div onClick={removeNav} className={active}>
-                    <ul className="navLists flex">
+                    <ul style={{margin:0}} className="navLists flex">
                         <li className="navItem">
                             <a href=" " className="navLink">
                                 Nhà đất bán   
                             </a>
 
-                            <ul>
-                                 <li><a className="haslink" href=" "> Bán căn hộ chung cư </a></li>
+                            <ul >
+                                 <li ><a className="haslink" style={{paddingLeft:0}} href=" "> Bán căn hộ chung cư </a></li>
                                  <li><a href=" ">Bán nhà riêng </a></li>
                                  <li><a href=" ">Bán nhà biệt thự liền kề </a></li>
                                  <li><a href=" ">Bán nhà mặt phố </a></li>

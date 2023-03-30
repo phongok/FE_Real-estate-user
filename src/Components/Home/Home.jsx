@@ -21,7 +21,7 @@ const Home = () =>{
                     <span data-aos="fade-up" className="smallTest">
                         Our Packages
                     </span>
-                    <h1 data-aos="fade-up" className="homeTittle">
+                    <h1 data-aos="fade-up" className="homeTittle" style={{color: 'while'}}>
                         Seach your Holiday
                     </h1>
                 </div>
