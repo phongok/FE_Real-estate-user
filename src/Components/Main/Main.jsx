@@ -2,13 +2,15 @@ import React, {useEffect, useState} from "react";
 import './main.css'
 import {HiOutlineLocationMarker} from 'react-icons/hi'
 import {TbClipboardCheck} from 'react-icons/tb'
+
+
 import axios from "axios"
-
 import Aos from 'aos'
-
 import 'aos/dist/aos.css'
+// import { useNavigation } from "react-router-dom";
 
 const Main = () =>{
+
     const [listHome,setListHome] = useState([])
     useEffect(()=>{
         const fetchData =async()=>{
@@ -31,12 +33,8 @@ const Main = () =>{
         Aos.init({duration:2000}, [])
 
     },[])
-
-  
-   
-       
     return(
-        <section className="main container section">
+        <section className="main container section" >
             <div className="secTitle">
                 <h3 data-aos="fade-right" className="title">
                     Bất động sản dành cho bạn
@@ -47,7 +45,9 @@ const Main = () =>{
                 {
                     listHome?.map((Item, index)=>{
                         return(
-                            <div key={Item.id} data-aos="fade-up" className="singleDestination">
+                            <a key={Item.id} data-aos="fade-up" className="singleDestination" 
+                                href={`detail/${Item.id}`}
+                            >
                                 <div className="imageDiv">
                                     <img src={Item.url_img1} alt="sd"  />
                                 </div>
@@ -80,7 +80,7 @@ const Main = () =>{
                                     </button>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         )
                     })
                 }
