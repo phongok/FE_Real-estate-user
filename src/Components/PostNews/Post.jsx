@@ -143,7 +143,7 @@ export default function BasicTabs(props)  {
                 <textarea
                 
                 name="postContent"
-                rows={56}
+                rows={38}
                 cols={100}
                 />
              </div>

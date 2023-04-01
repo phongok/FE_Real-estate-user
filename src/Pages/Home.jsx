@@ -7,6 +7,7 @@ import Footer from "../Components/Footer/Footer";
 
 
 export default class Home extends React.Component{
+  
     render(){
         return   <>
         <Navbar/>

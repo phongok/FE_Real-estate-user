@@ -18,7 +18,7 @@ const [payload, setPayload] =useState({
 })
 
         const onSubmit =()=>{
-
+           
             let data = JSON.stringify({
                 "username": payload.username,
                 "password": payload.password
@@ -41,8 +41,11 @@ const [payload, setPayload] =useState({
 
                 if(response.status===200){
                 alert('Đăng nhập thành công!')
+                localStorage.setItem("username",payload.username)
                 localStorage.setItem("token", response.data)
+                
                 navigate("/home")
+
                 } 
    
                     

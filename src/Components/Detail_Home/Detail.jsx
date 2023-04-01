@@ -8,7 +8,7 @@ import axios from "axios"
 
 import './detailhome.css'
 import { useParams } from 'react-router-dom';
-function Login  () {
+function Detail  () {
 
     const {id} = useParams()
     const [dataDetail, setDataDetail] = useState()
@@ -67,7 +67,7 @@ function Login  () {
                        </Carousel>
                        </div>
                        <div className="detail-real-estate">
-                           <img alt="Remy Sharp" src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1666187221/cld-sample-4.jpg" style={{width:150, height:150, textAlign:'center', borderRadius:100, border: '2px solid black'}}/>
+                           <img alt="Remy Sharp" src={dataDetail?.user.url} style={{width:150, height:150, textAlign:'center', borderRadius:100, border: '2px solid black'}}/>
                            <br />
                            <br />
                            <h5 style={{textAlign:'center'}}>Được đăng bởi</h5>
@@ -133,4 +133,4 @@ function Login  () {
         </div>
         )
     }
-export default Login
+export default Detail

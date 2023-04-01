@@ -9,8 +9,8 @@ import './navbar.css'
 import {AiFillCloseCircle} from 'react-icons/ai'
 import {TbGridDots} from 'react-icons/tb'
 
-import axios from "axios"
-import { Link, useNavigate } from "react-router-dom";
+// import axios from "axios"
+import { Link , useNavigate} from "react-router-dom";
 const Navbar = () =>{
     const [active, setActive] = useState('navBar')
 
@@ -47,9 +47,32 @@ const Navbar = () =>{
         // .catch((error) => {
         // console.log(error);
         // });
+        const username = localStorage.getItem("username")
+        const navigate = useNavigate()
+        const checkUserInfor =()=>{
+            
+            if (username==="null") {
+                navigate("/login")
+            }
+            else{
+                navigate("/account")
+            }
+            
+        }
+
+        const checkUserPostNews =()=>{
+            
+            if (username==="null") {
+                navigate("/login")
+            }
+            else{
+                navigate("/postnews")
+            }
+            
+        }
 
     
-
+       
     return(
        <section className="navBarSection">
             <header className="header flex">
@@ -64,12 +87,12 @@ const Navbar = () =>{
                 <div onClick={removeNav} className={active}>
                     <ul style={{margin:0}} className="navLists flex">
                         <li className="navItem">
-                            <a href=" " className="navLink">
+                            <a   href={`list-reale-state-caterory/${1}`} className="navLink" >
                                 Nhà đất bán   
                             </a>
 
                             <ul >
-                                 <li ><a className="haslink" style={{paddingLeft:0}} href=" "> Bán căn hộ chung cư </a></li>
+                                 <li ><a  className="haslink" style={{paddingLeft:0}} href=" "> Bán căn hộ chung cư </a></li>
                                  <li><a href=" ">Bán nhà riêng </a></li>
                                  <li><a href=" ">Bán nhà biệt thự liền kề </a></li>
                                  <li><a href=" ">Bán nhà mặt phố </a></li>
@@ -97,7 +120,7 @@ const Navbar = () =>{
                                     aria-expanded={open ? 'true' : undefined}
                                     onClick={handleClick}
                                 >
-                                Tài khoản
+                                {username}
                                 </Button>
                                 <Menu
                                 id="fade-menu"
@@ -109,16 +132,17 @@ const Navbar = () =>{
                                 onClose={handleClose}
                                  TransitionComponent={Fade}
                                     >
-                                <MenuItem onClick={handleClose}>Thông tin</MenuItem>
+                                <MenuItem onClick={checkUserInfor}>Thông tin</MenuItem>
                                 <MenuItem onClick={handleClose}>Quản lí bài đăng</MenuItem>
                                 <MenuItem onClick={handleClose}>Đăng xuất</MenuItem>
+
                                 </Menu>
                             </div>
                           
                         </li>
                       
-                        <button className="btn">
-                            <a href=" ">Đăng tin</a>
+                        <button className="btn" onClick={checkUserPostNews}>
+                           <a href="http://"> Đăng tin</a>
                         </button>
                         <button className="btn">
                             <a href=" ">Đăng nhập</a>

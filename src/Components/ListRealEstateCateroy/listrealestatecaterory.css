@@ -1,0 +1,186 @@
+:root {
+  --PrimaryColor: hsl(199, 100%, 33%);
+  --SecondaryColor: hsl(187, 85%, 43%);
+  --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%));
+  --whileColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(201, 33%, 16%);
+  --textColor: hsl(240, 4%, 36%);
+  --whileColorDeam: hsl(0,0%, 93%);
+  --greyText: rgb(190,190,190);
+  --inputColor: rgb(239,239,239);
+  --bodyColor: rgb(240,240,246);
+  --cardBG: rbg(225,225,235);
+  --cardHover: rbg(255,255,255);
+}
+
+.main {
+  margin-top: 0;
+}
+.main .secTitle .title {
+  position: relative;
+  width: -moz-max-content;
+  width: max-content;
+  color: var(--textColor);
+  margin: 1rem 0;
+  z-index: 2;
+}
+.main .secTitle .title::after {
+  position: absolute;
+  content: "";
+  background: var(--SecondaryColor);
+  height: 5px;
+  width: 120px;
+  right: 0;
+  bottom: 5px;
+  z-index: -1;
+}
+.main .list-real-estate {
+  justify-content: center;
+  gap: 1.5rem;
+}
+.main .list-real-estate .singleDestination {
+  height: 100%;
+  display: grid;
+  row-gap: 10px;
+  border-radius: 10px;
+  align-items: center;
+  background: var(--cardBG);
+  box-shadow: 0 2px 4px rgba(140, 140, 141, 0.549);
+  overflow: hidden;
+}
+.main .list-real-estate .singleDestination:hover {
+  background: var(--cardHover);
+  box-shadow: 1 4px 4px rgba(85, 85, 114, 0.549);
+  transition: 0.3s ease;
+}
+.main .list-real-estate .singleDestination .imageDiv {
+  height: 180px;
+  width: 100%;
+  overflow: hidden;
+}
+.main .list-real-estate .singleDestination .imageDiv img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: 2s ease;
+}
+.main .list-real-estate .singleDestination .imageDiv:hover img {
+  transform: scale(1.1);
+}
+.main .list-real-estate .singleDestination .cardInfo {
+  padding: 1rem;
+}
+.main .list-real-estate .singleDestination .cardInfo .destTitle {
+  color: var(--blackColorc);
+}
+.main .list-real-estate .singleDestination .cardInfo .continent {
+  gap: 0.5rem;
+  margin-top: 10px;
+}
+.main .list-real-estate .singleDestination .cardInfo .continent .icon {
+  color: var(--textColor);
+  font-size: 18px;
+}
+.main .list-real-estate .singleDestination .cardInfo .continent .name {
+  color: var(--textColor);
+  font-weight: 400;
+  font-size: 14px;
+}
+.main .list-real-estate .singleDestination .cardInfo .fees {
+  width: 100%;
+  justify-content: space-between;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-top: 1.5px solid var(--greyText);
+  border-bottom: 1.5px solid var(--greyText);
+}
+.main .list-real-estate .singleDestination .cardInfo .fees .grade {
+  color: var(--textColor);
+  max-width: 100px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main .list-real-estate .singleDestination .cardInfo .fees .grade small {
+  text-align: center;
+  border-radius: 1rem;
+  padding: 1px 10px;
+  font-size: 10px;
+}
+.main .list-real-estate .singleDestination .cardInfo .fees .price {
+  font-size: 2rem;
+  color: var(--blackColor);
+}
+.main .list-real-estate .singleDestination .cardInfo .desc {
+  font-size: 13.5px;
+  color: var(--textColor);
+  font-weight: 500;
+}
+.main .list-real-estate .singleDestination .cardInfo .btn_group {
+  justify-content: space-between;
+}
+.main .list-real-estate .singleDestination .cardInfo .btn {
+  margin-top: 1rem;
+  color: var(--whileColor);
+  font-weight: 600;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.main .list-real-estate .singleDestination .cardInfo .btn .icon {
+  align-self: center;
+  font-size: 18px;
+}
+
+.filter {
+  position: fixed;
+  background-color: aqua;
+  top: 100px;
+  width: 300px;
+  right: 10%;
+  background: var(--whileColorDeam);
+  height: -moz-max-content;
+  height: max-content;
+  box-shadow: 0 2px 4px rgba(2, 15, 29, 0.242);
+}
+
+@media screen and (min-width: 300px) {
+  .title {
+    font-size: 1.5rem;
+    color: red;
+  }
+  .title::after {
+    width: 155px !important;
+  }
+  .list-real-estate {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .list-real-estate .singleDestination {
+    height: auto;
+  }
+}
+@media screen and (min-width: 700px) {
+  .list-real-estate {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .list-real-estate .singleDestination {
+    height: auto;
+  }
+}
+@media screen and (min-width: 700px) {
+  .list-real-estate {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .list-real-estate .singleDestination {
+    height: auto;
+  }
+}
+@media screen and (min-width: 1300px) {
+  .list-real-estate {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .list-real-estate .singleDestination {
+    height: auto;
+  }
+}/*# sourceMappingURL=listrealestatecaterory.css.map */

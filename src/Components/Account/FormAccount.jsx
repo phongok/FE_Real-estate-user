@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -10,8 +10,12 @@ import Avatar from '@mui/material/Avatar';
 import Input from '@mui/material/Input';
 import { Button } from '@mui/material';
 
+import axios from "axios" 
 
 function TabPanel(props) {
+ 
+
+
   const { children, value, index, ...other } = props;
 
   return (
@@ -51,6 +55,49 @@ export default function VerticalTabs() {
     setValue(newValue);
   };
 
+
+ // const token = localStorage.getItem("token")
+ const username = localStorage.getItem("username")
+
+ const [dataUser, setDataUser] = useState()
+ 
+ useEffect(()=>{
+
+   
+   let config = {
+     method: 'get',
+     maxBodyLength: Infinity,
+     url: `http://localhost:8081/api/users/${username}`,
+     headers: { }
+   };
+   
+   axios.request(config)
+   .then((response) => {
+     if(response?.status === 200){
+       setDataUser(response?.data)
+       
+   }
+   })
+   .catch((error) => {
+     console.log(error);
+   });
+   
+   
+
+ },[])
+
+  // const name = document.getElementById("name-user");
+  // name.value = dataUser?.name
+
+  // const email = document.getElementById("username-user");
+  // email.value = dataUser?.username
+
+  // const phone = document.getElementById("phone-user");
+  // phone.value = dataUser?.phone
+
+  // const surplus = document.getElementById("surplus-user");
+  // surplus.value = dataUser?.surplus
+
   return (
     <Box
       sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 600 }}
@@ -65,7 +112,7 @@ export default function VerticalTabs() {
 
        
       >
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" style={{width:200,height:200, marginLeft:20, marginTop:20, marginRight:20}} />
+        <Avatar alt="Remy Sharp" src={dataUser?.url} style={{width:200,height:200, marginLeft:20, marginTop:20, marginRight:20}} />
         <Button variant="outlined" style={{ marginTop:30, marginLeft:50, marginRight:50}}>Thay đổi</Button>
         <Tab label="Thông tin" {...a11yProps(2)} style={{marginTop:20}}/>
         <Tab label="Nạp tiền" {...a11yProps(3)} />
@@ -80,19 +127,19 @@ export default function VerticalTabs() {
                                     
  
                                     <label htmlFor="">Họ tên: </label>
-                                    <Input   style={{width:400}} /> <br /> <br />
+                                    <Input id="name-user"  style={{width:400}} value={dataUser?.name} /> <br /> <br />
 
                                     <label htmlFor="">Email: </label>
-                                    <Input  style={{width:400}} /> <br /> <br />
+                                    <Input id="username-user" style={{width:400}} value={dataUser?.email} /> <br /> <br />
                                     </div>
                             
                                     <div style={{width:'40%'} }>
  
                                     <label htmlFor="">SDT: </label>
-                                    <Input   style={{width:400}}/> <br /> <br />
+                                    <Input  id="phone-user"  style={{width:400}} value={dataUser?.phone}/> <br /> <br />
 
                                     <label htmlFor="">Số dư: </label>
-                                    <Input  style={{width:400}} /> <br /> <br />
+                                    <Input id="surplus-user" disabled  style={{width:400}} value={dataUser?.surplus}/> <br /> <br />
                                 </div>
                             </div>
 
