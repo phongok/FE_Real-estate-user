@@ -130,7 +130,7 @@ export default function VerticalTabs() {
                                     <Input id="name-user"  style={{width:400}} value={dataUser?.name} /> <br /> <br />
 
                                     <label htmlFor="">Email: </label>
-                                    <Input id="username-user" style={{width:400}} value={dataUser?.email} /> <br /> <br />
+                                    <Input id="username-user" style={{width:400}} value={dataUser?.username} /> <br /> <br />
                                     </div>
                             
                                     <div style={{width:'40%'} }>

@@ -17,7 +17,7 @@ const Main = () =>{
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8081/api/homes',
+                url: 'http://localhost:8081/api/realestates',
                 headers: { }
               };      
               axios.request(config)

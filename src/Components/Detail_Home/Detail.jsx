@@ -17,7 +17,7 @@ function Detail  () {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `http://localhost:8081/api/homes/${id}`,
+      url: `http://localhost:8081/api/realestates/${id}`,
       headers: { }
     };
     

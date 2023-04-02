@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React,  {useEffect, useState} from "react";
 import './dashboard.css'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
@@ -6,9 +6,30 @@ import {BiUserCircle} from 'react-icons/bi'
 import {AiFillHome} from 'react-icons/ai'
 import {BsFiletypeAac} from 'react-icons/bs'
 import {BiMoneyWithdraw} from 'react-icons/bi'
-const Dashboard = () =>{
 
+import axios from "axios"
+const Dashboard = () =>{
+    const [numberAccount,setnumberAccount] = useState()
     useEffect(()=>{
+        const Account = async()=>{
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:8081/api/users/count',
+                headers: { }
+              };
+              
+              axios.request(config)
+              .then((response) => {
+               setnumberAccount(response.data)
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+              
+        }
+
+        Account()
         Aos.init({duration:2000}, [])
     })
     return(
@@ -20,7 +41,7 @@ const Dashboard = () =>{
                         <BiUserCircle style={{fontSize:70, color: 'black', marginLeft:10,  }}/>
                         <h3 style={{color:'white', marginTop:10, textAlign:'left'  }}>      Total User       </h3>
                     </div>
-                    <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>100000</h3>
+                    <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>{numberAccount}</h3>
                 </div>
 
                 <div data-aos="fade-down" className="model-total-home">
@@ -51,11 +72,6 @@ const Dashboard = () =>{
                 </div>
 
               
-
-                
-
-             
-                
                
             </div>
         </section>
