@@ -8,6 +8,8 @@ import Box from '@mui/material/Box';
 
 import Dashboard from '../Components/Dashboard/Dashboard';
 import FormInforAdmin from '../Components/Form_Infor_Admin/Form_Infor_Admin';
+import UserManager from '../Components/UserManager/UserManager';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -69,15 +71,15 @@ export default function VerticalTabs() {
         <h5 style={{color: '#999999', }}><i>--Quản lí</i></h5>
         <Tab label="Người dùng" {...a11yProps(5)} />
         <Tab label="Sản phẩm" {...a11yProps(6)} />
-
+        <Tab label="Loại bài đăng" {...a11yProps(7)} />
         <h5 style={{color: '#999999', }}><i>--An ninh</i></h5>
 
-        <Tab label="Báo cáo" {...a11yProps(8)} />
-        <Tab label="Item Five" {...a11yProps(9)} />
+        <Tab label="Báo cáo" {...a11yProps(9)} />
+        <Tab label="Item Five" {...a11yProps(10)} />
 
         <h5 style={{color: '#999999', }}><i>--Thống kê</i></h5>
-        <Tab label="Doanh thu" {...a11yProps(11)} />
-        <Tab label="Item Seven" {...a11yProps(12)} />
+        <Tab label="Doanh thu" {...a11yProps(12)} />
+        <Tab label="Item Seven" {...a11yProps(13)} />
       </Tabs>
       <TabPanel value={value} index={2}>
        <Dashboard/>
@@ -86,21 +88,24 @@ export default function VerticalTabs() {
         <FormInforAdmin/>
       </TabPanel>
       <TabPanel value={value} index={5}>
-        3
+        <UserManager/>
       </TabPanel>
       <TabPanel value={value} index={6}>
       4
       </TabPanel>
-      <TabPanel value={value} index={8}>
-       5
+      <TabPanel value={value} index={7}>
+      4.1
       </TabPanel>
       <TabPanel value={value} index={9}>
+       5
+      </TabPanel>
+      <TabPanel value={value} index={10}>
        6
       </TabPanel>
-      <TabPanel value={value} index={11}>
+      <TabPanel value={value} index={12}>
        7
       </TabPanel>
-      <TabPanel value={value} index={12}>
+      <TabPanel value={value} index={13}>
       8
       </TabPanel>
     </Box>

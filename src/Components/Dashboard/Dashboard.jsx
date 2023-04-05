@@ -10,6 +10,10 @@ import {BiMoneyWithdraw} from 'react-icons/bi'
 import axios from "axios"
 const Dashboard = () =>{
     const [numberAccount,setnumberAccount] = useState()
+
+    const [numberRealState, setNumberRealState] = useState()
+
+    const [numberNewsType, setnumberNewsType] = useState()
     useEffect(()=>{
         const Account = async()=>{
             let config = {
@@ -29,7 +33,44 @@ const Dashboard = () =>{
               
         }
 
+        const RealState = async()=>{
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:8081/api/realestates/count',
+                headers: { }
+              };
+              
+              axios.request(config)
+              .then((response) => {
+                setNumberRealState(response.data)
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+        }
+
+        const NewsType = async()=>{
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:8081/api/newsTypes/count',
+                headers: { }
+              };
+              
+              axios.request(config)
+              .then((response) => {
+                setnumberNewsType(response.data)
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+              
+        }
+
         Account()
+        RealState()
+        NewsType()
         Aos.init({duration:2000}, [])
     })
     return(
@@ -50,7 +91,7 @@ const Dashboard = () =>{
                         <AiFillHome style={{fontSize:70, color: 'black', marginLeft:10,  }}/>
                         <h3 style={{color:'white', marginTop:10, textAlign:'center'  }}>Total real estate</h3>
                     </div>
-                    <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>100000</h3>
+                    <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>{numberRealState}</h3>
                 </div>
 
                 
@@ -58,9 +99,9 @@ const Dashboard = () =>{
                 <div data-aos="fade-up" className="model-total-typebusiness">
                 <div className="flex">
                         <BsFiletypeAac style={{fontSize:70, color: 'black', marginLeft:10,  }}/>
-                        <h3 style={{color:'white', marginTop:10, textAlign:'center'  }}>Business Type</h3>
+                        <h3 style={{color:'white', marginTop:10, textAlign:'center'  }}>News Type</h3>
                     </div>
-                    <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>100000</h3>
+                    <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>{numberNewsType}</h3>
                 </div>
 
                 <div data-aos="fade-left" className="model-total-revenue">
