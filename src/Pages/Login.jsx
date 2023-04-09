@@ -72,7 +72,7 @@ const [payload, setPayload] =useState({
                                 </div>
                                 <h4 className="mb-2">Chào mừng đến realestatevn! 👋</h4>
                                 <p className="mb-4">Vui lòng đăng nhập vào tài khoản của bạn và bắt đầu cuộc phiêu lưu</p>
-                                <form id="formAuthentication" className="mb-3" action="index.html" method="POST">
+                                <form id="formAuthentication" className="mb-3" method="POST">
                                     <div className="mb-3 ">
                                         <label htmlFor="email" style={{paddingLeft:0}} className="form-label"  >Email</label>
                                         <input

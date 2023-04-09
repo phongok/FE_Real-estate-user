@@ -10,6 +10,8 @@ import Dashboard from '../Components/Dashboard/Dashboard';
 import FormInforAdmin from '../Components/Form_Infor_Admin/Form_Infor_Admin';
 import UserManager from '../Components/UserManager/UserManager';
 
+import NewsTypeManager from '../Components/NewsTypeManager/NewsTypeManager';
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -52,7 +54,7 @@ export default function VerticalTabs() {
 
   return (
     <Box
-      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 700 }}
+      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 730 }}
     >
       <Tabs
         orientation="vertical"
@@ -61,9 +63,10 @@ export default function VerticalTabs() {
         onChange={handleChange}
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: 'divider' }}
+        style={{background: 'rgb(253, 251, 251)'}}
       >
 
-        <img alt="Remy Sharp" src="https://i.imgur.com/LvbGQ7O.png" style={{width:200,height:100, marginLeft:20, marginTop:10, marginRight:20}} />
+        <img alt="Remy Sharp" src="https://i.imgur.com/LvbGQ7O.png" style={{width:200,height:100, marginLeft:20, marginTop:0, marginRight:20}} />
 
         <h5 style={{color: '#999999',marginTop:20 }}><i>--Thông tin</i></h5>
         <Tab label="Dashboad" {...a11yProps(2)} />
@@ -94,7 +97,7 @@ export default function VerticalTabs() {
       4
       </TabPanel>
       <TabPanel value={value} index={7}>
-      4.1
+      <NewsTypeManager/>
       </TabPanel>
       <TabPanel value={value} index={9}>
        5

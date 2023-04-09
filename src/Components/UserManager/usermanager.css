@@ -14,13 +14,16 @@
 
 .admin-manager-user .form-search{
    align-items: center;
+   background: rgb(253, 251, 251);
+   width: 100%;
    
 }
 .admin-manager-user .form-data {
-   margin-top: 20px;
+   margin-top: 10px;
    border-radius: 10px;
    background: rgb(253, 251, 251);
    height: 480px;
+   width: 1240px;
   
 }
 
@@ -32,7 +35,7 @@
    
     border-collapse: collapse;
     text-align: center;
-    background: var(--greyText) ;
+    background: rgb(237, 237, 237) ;
 }
 .admin-manager-user .form-data .table-item{
     color: rgb(97, 97, 97);

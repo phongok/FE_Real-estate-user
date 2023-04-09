@@ -15,7 +15,6 @@ import'../Assets/Css/home.css'
 const RouterProvaider = () =>{
     return(
         <Routes>
-
            <Route path="/home"  element={<Home/>} />
            <Route path="/login" element={<Login/>} />
            <Route path="/register" element={<Register/>} />

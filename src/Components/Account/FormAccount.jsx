@@ -113,13 +113,13 @@ export default function VerticalTabs() {
        
       >
         <Avatar alt="Remy Sharp" src={dataUser?.url} style={{width:200,height:200, marginLeft:20, marginTop:20, marginRight:20}} />
-        <Button variant="outlined" style={{ marginTop:30, marginLeft:50, marginRight:50}}>Thay đổi</Button>
-        <Tab label="Thông tin" {...a11yProps(2)} style={{marginTop:20}}/>
-        <Tab label="Nạp tiền" {...a11yProps(3)} />
-        <Tab label="Đổi mật khẩu" {...a11yProps(4)} />
+       
+        <Tab label="Thông tin" {...a11yProps(1)} style={{marginTop:20}}/>
+        <Tab label="Nạp tiền" {...a11yProps(2)} />
+        <Tab label="Đổi mật khẩu" {...a11yProps(3)} />
        
       </Tabs>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={1}>
                       <div className='container'>
                       <form action="" method="post">
                             <div className='flex' style={{justifyContent:'space-between'}}>
@@ -148,10 +148,10 @@ export default function VerticalTabs() {
                        </form>
                       </div>
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={2}>
         Item Two
       </TabPanel>
-      <TabPanel value={value} index={4}>
+      <TabPanel value={value} index={3}>
         Item Three
       </TabPanel>
    
