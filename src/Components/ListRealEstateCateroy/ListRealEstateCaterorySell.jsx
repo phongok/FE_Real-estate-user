@@ -14,7 +14,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios" 
 import 'aos/dist/aos.css'
 
-function ListRealEstateCaterory  () {
+function ListRealEstateCaterorySell  () {
     const {idCaterory} = useParams()
     
     const [dataListRealEstateCaterory, setListRealEstateCaterory] = useState()
@@ -43,7 +43,7 @@ function ListRealEstateCaterory  () {
 
             <div>
                 <div className="container">
-                <h4 style={{color:'black'}}>Danh sách nhà mặt phố</h4>
+                <h4 style={{color:'black'}}>Danh sách nhà bán</h4>
                 </div>
                 <div className="flex container">
                    
@@ -153,4 +153,4 @@ function ListRealEstateCaterory  () {
     
         )
     }
-export default ListRealEstateCaterory
+export default ListRealEstateCaterorySell

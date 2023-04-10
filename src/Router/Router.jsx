@@ -8,7 +8,8 @@ import Register from "../Pages/Register";
 import ForgotPassword from "../Pages/Forgot_Password"
 import Admin from "../Pages/Admin"
 import ListRealEstateType from "../Pages/ListRealEstateType";
-import ListRealEstateCaterory from "../Pages/ListRealEstateCaterory";
+import ListRealEstateCaterorySell from "../Pages/ListRealEstateCaterorySell";
+import ListRealEstateCateroryRent from "../Pages/ListRealEstateCateroryRent";
 import Account from "../Pages/Account"
 import PostNews from "../Pages/PostNews"
 import'../Assets/Css/home.css'
@@ -22,7 +23,8 @@ const RouterProvaider = () =>{
            <Route path="/detail/:id" element={<Detail/>}/>
            <Route path="/admin" element={<Admin/>} />
            <Route path="/list-reale-state-type" element={<ListRealEstateType/>} />
-           <Route path="/list-reale-state-caterory/:idCaterory" element={<ListRealEstateCaterory/>} />
+           <Route path="/list-reale-state-caterory-sell" element={<ListRealEstateCaterorySell/>} />
+           <Route path="/list-reale-state-caterory-rent" element={<ListRealEstateCateroryRent/>} />
            <Route path="/account" element={<Account/>} />
            <Route path="/postnews" element={<PostNews/>} />
       </Routes>

@@ -1,6 +1,6 @@
 import React from "react"
 import Navbar from "../Components/Navbar/Navbar";
-import ListRealEstateCaterory from "../Components/ListRealEstateCateroy/ListRealEstateCaterory";
+import ListRealEstateCaterorySell from "../Components/ListRealEstateCateroy/ListRealEstateCaterorySell";
 
 
 
@@ -13,7 +13,7 @@ export default class ListRECaterory extends React.Component{
         <br />
         <br />
        
-        <ListRealEstateCaterory/>
+        <ListRealEstateCaterorySell/>
       
        
        

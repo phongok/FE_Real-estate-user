@@ -44,7 +44,9 @@ const Footer = () =>{
                             </a>
                         </div>
                         <div className="footerParagraph" data-aos="fade-up">
-                        Nguyễn Thanh Phong - Đồ án tốt nghiệp
+                        <p>Đồ án tốt nghiệp</p>
+                        <p>Nguyễn Thanh Phong-19503601</p>
+                        <p>Nguyễn Xuân Thành-18088021</p>
                             
                         </div>
 

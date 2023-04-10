@@ -56,20 +56,20 @@ function Register() {
 
   }
 
-  function sendVerificationEmail() {
-    const user = auth().currentUser;
+  // function sendVerificationEmail() {
+  //   const user = auth().currentUser;
   
-    user
-      .sendEmailVerification()
-      .then(() => {
-        // email xác thực đã được gửi
-        console.log("Thanhcong")
-      })
-      .catch((error) => {
-        // xử lý lỗi
-        console.log(error.message);
-      });
-  }
+  //   user
+  //     .sendEmailVerification()
+  //     .then(() => {
+  //       // email xác thực đã được gửi
+  //       console.log("Thanhcong")
+  //     })
+  //     .catch((error) => {
+  //       // xử lý lỗi
+  //       console.log(error.message);
+  //     });
+  // }
 
   return <div>
     <div className="container-xxl">
@@ -123,7 +123,7 @@ function Register() {
                   </div>
                 </div> */}
 
-                <button className="btn btn-primary d-grid w-100" onClick={sendVerificationEmail} >Đăng kí</button>
+                <button className="btn btn-primary d-grid w-100" onClick={Save} >Đăng kí</button>
 
               </form>
               <p className="text-center">

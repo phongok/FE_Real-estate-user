@@ -12,6 +12,8 @@ import 'aos/dist/aos.css'
 const Main = () =>{
 
     const [listHome,setListHome] = useState([])
+
+    
     useEffect(()=>{
         const fetchData =async()=>{
             let config = {

@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -9,8 +9,8 @@ import './navbar.css'
 import {AiFillCloseCircle} from 'react-icons/ai'
 import {TbGridDots} from 'react-icons/tb'
 
-// import axios from "axios"
-import { Link , useNavigate} from "react-router-dom";
+import axios from "axios"
+import { Link, useNavigate } from "react-router-dom";
 const Navbar = () =>{
     const [active, setActive] = useState('navBar')
 
@@ -33,20 +33,6 @@ const Navbar = () =>{
 
    
 
-        // let config = {
-        // method: 'get',
-        // maxBodyLength: Infinity,
-        // url: 'http://localhost:8081/api/businessTypes',
-        // headers: { }
-        // };
-
-        // axios.request(config)
-        // .then((response) => {
-        // console.log(JSON.stringify(response.data));
-        // })
-        // .catch((error) => {
-        // console.log(error);
-        // });
         const username = localStorage.getItem("username")
         const navigate = useNavigate()
         const checkUserInfor =()=>{
@@ -70,7 +56,53 @@ const Navbar = () =>{
             }
             
         }
+      
 
+        const [listNewsTypeSell,setlistNewsTypeSell] = useState([])
+        
+
+        const LoadNewsTypeSell = ()=>{
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:8081/api/newsTypesSell/listSell',
+                headers: { }
+              };
+              
+              axios.request(config)
+              .then((response) => {
+                setlistNewsTypeSell(response.data)
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+              
+        }
+
+
+        const [listNewsTypeRent,setlistNewsTypeRent] = useState([])
+
+        const LoadNewsTypeRent = ()=>{
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:8081/api/newsTypesRent/listRent',
+                headers: { }
+              };
+              
+              axios.request(config)
+              .then((response) => {
+                setlistNewsTypeRent(response.data)
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+        }
+       
+        useEffect(()=>{ 
+            LoadNewsTypeSell()
+            LoadNewsTypeRent()
+        },[])
     
        
     return(
@@ -86,29 +118,66 @@ const Navbar = () =>{
 
                 <div onClick={removeNav} className={active}>
                     <ul style={{margin:0}} className="navLists flex">
-                        <li className="navItem">
-                            <a   href={`list-reale-state-caterory/${1}`} className="navLink" >
-                                Nhà đất bán   
-                            </a>
-
-                            <ul >
-                                 <li ><a  className="haslink" style={{paddingLeft:0}} href=" "> Bán căn hộ chung cư </a></li>
-                                 <li><a href=" ">Bán nhà riêng </a></li>
-                                 <li><a href=" ">Bán nhà biệt thự liền kề </a></li>
-                                 <li><a href=" ">Bán nhà mặt phố </a></li>
-                                </ul>
-                        </li>
-                        <li className="navItem">
-                            <a href=" " className="navLink">
-                                Nhà đất thuê
-                            </a>
-                        </li>
                       
+
                         <li className="navItem">
-                            <a href=" " className="navLink">
-                                Tin tức
-                            </a>
-                        </li>
+                               <Link to="/list-reale-state-caterory-sell">
+                                    <a   className="navLink" >
+                                   Nhà đất bán
+                                </a>
+                               </Link>
+    
+                                <ul >
+
+                                    {
+                                        listNewsTypeSell?.map((ItemNTSell, index)=>{
+                                           return(
+                                            <li ><a  className="haslink" style={{paddingLeft:0}} href=" "> {ItemNTSell.name} </a></li>
+                                           )
+                                        })
+                                    }
+                                   
+                                     
+
+
+                                    </ul>
+                            </li>
+
+                            <li className="navItem">
+                               <Link  to="/list-reale-state-caterory-rent">
+                               <a   className="navLink" >
+                                   Nhà đất cho thuê
+                                </a>
+                               </Link>
+    
+                                <ul >
+
+                                    {
+
+                                        listNewsTypeRent?.map((ItemNTRent, index)=>{
+                                            return(
+                                                <li ><a  className="haslink" style={{paddingLeft:0}} href=" "> {ItemNTRent.name}</a></li>
+                                            )
+                                        })
+                                    }
+                                   
+                                    
+                                    </ul>
+                            </li>
+
+                            <li className="navItem">
+                                <a   className="navLink" >
+                                  Tin tức
+                                </a>
+    
+                                
+                            </li>
+
+                    
+
+                       
+                      
+                       
                        
                         <li className="navItem">
                            
