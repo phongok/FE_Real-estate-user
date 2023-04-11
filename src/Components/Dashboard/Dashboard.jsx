@@ -80,7 +80,7 @@ const Dashboard = () =>{
                 <div data-aos="fade-right" className="model-total-user">
                     <div className="flex">
                         <BiUserCircle style={{fontSize:70, color: 'black', marginLeft:10,  }}/>
-                        <h3 style={{color:'white', marginTop:10, textAlign:'left'  }}>      Total User       </h3>
+                        <h3 style={{color:'white', marginTop:10, textAlign:'left'  }}>      Người dùng       </h3>
                     </div>
                     <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>{numberAccount}</h3>
                 </div>
@@ -89,7 +89,7 @@ const Dashboard = () =>{
 
                 <div className="flex">
                         <AiFillHome style={{fontSize:70, color: 'black', marginLeft:10,  }}/>
-                        <h3 style={{color:'white', marginTop:10, textAlign:'center'  }}>Total real estate</h3>
+                        <h3 style={{color:'white', marginTop:10, textAlign:'center'  }}>Bất động sản</h3>
                     </div>
                     <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>{numberRealState}</h3>
                 </div>
@@ -99,7 +99,7 @@ const Dashboard = () =>{
                 <div data-aos="fade-up" className="model-total-typebusiness">
                 <div className="flex">
                         <BsFiletypeAac style={{fontSize:70, color: 'black', marginLeft:10,  }}/>
-                        <h3 style={{color:'white', marginTop:10, textAlign:'center'  }}>News Type</h3>
+                        <h3 style={{color:'white', marginTop:10, textAlign:'center'  }}>Loại bài đăng</h3>
                     </div>
                     <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>{numberNewsType}</h3>
                 </div>
@@ -107,7 +107,7 @@ const Dashboard = () =>{
                 <div data-aos="fade-left" className="model-total-revenue">
                 <div className="flex">
                         <BiMoneyWithdraw style={{fontSize:70, color: 'black', marginLeft:10,  }}/>
-                        <h3 style={{color:'white', marginTop:10, textAlign:'center' }}>Revenue</h3>
+                        <h3 style={{color:'white', marginTop:10, textAlign:'center' }}>Doanh thu</h3>
                     </div>
                     <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>100000</h3>
                 </div>

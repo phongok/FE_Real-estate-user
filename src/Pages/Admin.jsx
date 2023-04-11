@@ -78,11 +78,11 @@ export default function VerticalTabs() {
         <h5 style={{color: '#999999', }}><i>--An ninh</i></h5>
 
         <Tab label="Báo cáo" {...a11yProps(9)} />
-        <Tab label="Item Five" {...a11yProps(10)} />
+        <Tab label="Tài khoản bị cấm" {...a11yProps(10)} />
 
         <h5 style={{color: '#999999', }}><i>--Thống kê</i></h5>
         <Tab label="Doanh thu" {...a11yProps(12)} />
-        <Tab label="Item Seven" {...a11yProps(13)} />
+        <Tab label="Hóa đơn" {...a11yProps(13)} />
       </Tabs>
       <TabPanel value={value} index={2}>
        <Dashboard/>
