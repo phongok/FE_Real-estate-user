@@ -8,6 +8,7 @@ import axios from "axios"
 
 import './detailhome.css'
 import { useParams } from 'react-router-dom';
+
 function Detail  () {
 
     const {id} = useParams()
@@ -72,7 +73,9 @@ function Detail  () {
                            <br />
                            <h5 style={{textAlign:'center'}}>Được đăng bởi</h5>
                            <p style={{fontSize:30, fontWeight:'bold', color:'black', textAlign:'center'}}>{dataDetail?.user.name}</p>
+                           <a href={`/real-state-user/${dataDetail?.user.id}`}>
                            <Button variant="outlined">Xem các sản phẩm liên quan</Button> <br />
+                           </a>
                            <br />
                            <ul>
                                <li>SDT: {dataDetail?.user.phone}</li>

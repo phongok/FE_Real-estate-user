@@ -153,10 +153,10 @@ const Footer = () =>{
 
                         <div className="footerDiv flex">
                             <small>
-                                BEST TRAVEL WENSITE THEME
+                                Real-estate
                             </small>
                             <small>
-                                COPYRIGHTS RESERVED - ISRATECH 2022
+                                
                             </small>
                         </div>
                     </div>

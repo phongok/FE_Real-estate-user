@@ -8,42 +8,62 @@ import 'aos/dist/aos.css'
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-// import FormControl from '@mui/material/FormControl';
+
 import FormLabel from '@mui/material/FormLabel';
-import { useParams } from 'react-router-dom';
+
 import axios from "axios" 
+import Aos from 'aos'
 import 'aos/dist/aos.css'
 
+import Button from '@mui/material/Button';
+
 function ListRealEstateCateroryRent  () {
-    const {idCaterory} = useParams()
+
     
     const [dataListRealEstateCaterory, setListRealEstateCaterory] = useState()
+
+    const [page, setPage] = useState(0)
+    const [pageSize, setpageSize] = useState(4)
+
     useEffect(()=>{
-        console.log(idCaterory)
+        fetchData()
+        Aos.init({duration:2000}, [])
+    },[])
+
+    const seemore = () => {
+        const pg = page 
+
+        setpageSize(pageSize+4)
+
+        const pgSize = pageSize
+        
+        fetchData(pg, pgSize)
+    
+    }
+    const fetchData = async (pg = page, pgSize = pageSize) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8081/api/listrealestateRent',
-            headers: { }
-          };
-          
-          axios.request(config)
-          .then((response) => {
-            setListRealEstateCaterory(response.data)
-            console.log(dataListRealEstateCaterory)
-    
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+            url: `http://localhost:8081/api/listrealestateRent?page=${pg}&size=${pgSize}`,
+            headers: {}
+        };
 
-    },[])
+        axios.request(config)
+            .then((response) => {
+                setListRealEstateCaterory(response.data.content)
+                console.log(dataListRealEstateCaterory)
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
         return ( 
 
             <div>
                 <div className="container">
-                <h4 style={{color:'black'}}>Danh sách nhà cho thuê</h4>
+                <h4 style={{color:'black'}}>Danh sách nhà đất cho thuê</h4>
                 </div>
                 <div className="flex container">
                    
@@ -99,6 +119,10 @@ function ListRealEstateCateroryRent  () {
 
                                
                         </div>
+
+                        <div style={{ textAlign: "center" }}>
+                        <Button style={{ marginTop: 30, alignItems: "center" }} variant="outlined"  onClick={seemore}>Xem thêm</Button>
+                    </div>
                     </div>
 
                     <div className="filter" >
