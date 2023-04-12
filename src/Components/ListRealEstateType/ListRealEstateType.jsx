@@ -61,7 +61,7 @@ function ListRealEstateType  () {
 
             <div>
                 <div className="container">
-                <h4 style={{color:'black'}}>Danh sách nhà đất cho thuê</h4>
+                <h4 style={{color:'black'}}>Danh sách sản phẩm</h4>
                 </div>
                 <div className="flex container">
                    
