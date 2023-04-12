@@ -11,6 +11,8 @@ import {TbGridDots} from 'react-icons/tb'
 
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
+
+
 const Navbar = () =>{
     const [active, setActive] = useState('navBar')
 
@@ -132,7 +134,7 @@ const Navbar = () =>{
                                     {
                                         listNewsTypeSell?.map((ItemNTSell, index)=>{
                                            return(
-                                            <li ><a  className="haslink" style={{paddingLeft:0}} href=" "> {ItemNTSell.name} </a></li>
+                                            <li ><a   className="haslink" style={{paddingLeft:0}}  href={`list-reale-state-type/${ItemNTSell.id}`}> {ItemNTSell.name} </a></li>
                                            )
                                         })
                                     }
@@ -156,7 +158,7 @@ const Navbar = () =>{
 
                                         listNewsTypeRent?.map((ItemNTRent, index)=>{
                                             return(
-                                                <li ><a  className="haslink" style={{paddingLeft:0}} href=" "> {ItemNTRent.name}</a></li>
+                                                <li ><a  className="haslink" style={{paddingLeft:0}} href={`list-reale-state-type/${ItemNTRent.id}`}> {ItemNTRent.name}</a></li>
                                             )
                                         })
                                     }
@@ -188,8 +190,9 @@ const Navbar = () =>{
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
                                     onClick={handleClick}
+                                   
                                 >
-                                {username}
+                                {username} 
                                 </Button>
                                 <Menu
                                 id="fade-menu"

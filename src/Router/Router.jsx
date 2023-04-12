@@ -24,12 +24,14 @@ const RouterProvaider = () =>{
            <Route path="/forgotpassword" element={<ForgotPassword/>} />
            <Route path="/detail/:id" element={<Detail/>}/>
            <Route path="/admin" element={<Admin/>} />
-           <Route path="/list-reale-state-type" element={<ListRealEstateType/>} />
+           <Route path="/list-reale-state-type/:idNews" element={<ListRealEstateType/>} />
            <Route path="/list-reale-state-caterory-sell" element={<ListRealEstateCaterorySell/>} />
            <Route path="/list-reale-state-caterory-rent" element={<ListRealEstateCateroryRent/>} />
+           <Route path="/real-state-user/:iduser" element={<Real_Estate_User/>} />
+
            <Route path="/account" element={<Account/>} />
            <Route path="/postnews" element={<PostNews/>} />
-           <Route path="/real-state-user/:iduser" element={<Real_Estate_User/>} />
+          
       </Routes>
     )
 }
