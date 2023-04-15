@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react"
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -12,8 +12,54 @@ import UserManager from '../Components/UserManager/UserManager';
 
 import NewsTypeManager from '../Components/NewsTypeManager/NewsTypeManager';
 
+
+import { Link, useNavigate } from "react-router-dom";
+
+import axios from "axios"
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+
+  const [role, setrole] = useState('')
+
+
+
+
+
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    const checkRole = () => {
+    
+
+      let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8081/api/checkuser?token=${token}`,
+        headers: {}
+      };
+
+      axios.request(config)
+        .then((response) => {
+         if (response.status === 200) {
+          setrole(response.data.roles[0].name)
+          console.log(role)
+         }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+    }
+    checkRole()
+  }, [])
+
+
+  
+
+  // const navigate = useNavigate()
+
 
   return (
     <div
@@ -52,6 +98,7 @@ export default function VerticalTabs() {
     setValue(newValue);
   };
 
+  
   return (
     <Box
       sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 730 }}
@@ -63,53 +110,55 @@ export default function VerticalTabs() {
         onChange={handleChange}
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: 'divider' }}
-        style={{background: 'rgb(253, 251, 251)'}}
+        style={{ background: 'rgb(253, 251, 251)' }}
       >
+        <Link to="/home">
+          <img alt="Remy Sharp" src="https://i.imgur.com/LvbGQ7O.png" style={{ width: 200, height: 100, marginLeft: 20, marginTop: 0, marginRight: 20 }} />
+        </Link>
 
-        <img alt="Remy Sharp" src="https://i.imgur.com/LvbGQ7O.png" style={{width:200,height:100, marginLeft:20, marginTop:0, marginRight:20}} />
 
-        <h5 style={{color: '#999999',marginTop:20 }}><i>--Thông tin</i></h5>
+        <h5 style={{ color: '#999999', marginTop: 20 }}><i>--Thông tin</i></h5>
         <Tab label="Dashboad" {...a11yProps(2)} />
         <Tab label="Tài khoản" {...a11yProps(3)} />
-        <h5 style={{color: '#999999', }}><i>--Quản lí</i></h5>
+        <h5 style={{ color: '#999999', }}><i>--Quản lí</i></h5>
         <Tab label="Người dùng" {...a11yProps(5)} />
         <Tab label="Sản phẩm" {...a11yProps(6)} />
         <Tab label="Loại bài đăng" {...a11yProps(7)} />
-        <h5 style={{color: '#999999', }}><i>--An ninh</i></h5>
+        <h5 style={{ color: '#999999', }}><i>--An ninh</i></h5>
 
         <Tab label="Báo cáo" {...a11yProps(9)} />
         <Tab label="Tài khoản bị cấm" {...a11yProps(10)} />
 
-        <h5 style={{color: '#999999', }}><i>--Thống kê</i></h5>
+        <h5 style={{ color: '#999999', }}><i>--Thống kê</i></h5>
         <Tab label="Doanh thu" {...a11yProps(12)} />
         <Tab label="Hóa đơn" {...a11yProps(13)} />
       </Tabs>
       <TabPanel value={value} index={2}>
-       <Dashboard/>
+        <Dashboard />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <FormInforAdmin/>
+        <FormInforAdmin />
       </TabPanel>
       <TabPanel value={value} index={5}>
-        <UserManager/>
+        <UserManager />
       </TabPanel>
       <TabPanel value={value} index={6}>
-      4
+        4
       </TabPanel>
       <TabPanel value={value} index={7}>
-      <NewsTypeManager/>
+        <NewsTypeManager />
       </TabPanel>
       <TabPanel value={value} index={9}>
-       5
+        5
       </TabPanel>
       <TabPanel value={value} index={10}>
-       6
+        6
       </TabPanel>
       <TabPanel value={value} index={12}>
-       7
+        7
       </TabPanel>
       <TabPanel value={value} index={13}>
-      8
+        8
       </TabPanel>
     </Box>
   );

@@ -4,16 +4,18 @@ import './usermanager.css'
 import IconButton from '@mui/material/IconButton';
 
 import { RxUpdate } from 'react-icons/rx'
-import { AiFillDelete } from 'react-icons/ai'
+import { AiFillLock } from 'react-icons/ai'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from "axios"
+
+import Avatar from '@mui/material/Avatar';
 
 const UserManager = () => {
 
     const [usersList, setUsersList] = useState([])
 
-    const [page, setPage] = useState(1)  
+    const [page, setPage] = useState(1)
     const [pageSize] = useState(10)
     const [totalCount, setTotalCount] = useState(0)
     const [keyword, setKeyword] = useState("")
@@ -24,27 +26,28 @@ const UserManager = () => {
         getUsersList()
     }, [])
 
-    const prevPage = async() => {
-        const kw =  keyword
+    const prevPage = async () => {
+        const kw = keyword
         const pg = page === 1 ? 1 : page - 1
         getUsersList(kw, pg)
         setPage(pg)
+        
     }
 
-    const nextPage = async() => {
-        const kw =  keyword
+    const nextPage = async () => {
+        const kw = keyword
         const pg = page < Math.ceil(totalCount / pageSize) ? page + 1 : page
         getUsersList(kw, pg)
         setPage(pg)
     }
 
     const search = () => {
-        const kw =  keyword
+        const kw = keyword
         const pg = page
         getUsersList(kw, pg)
     }
 
-    const getUsersList = async (kw = keyword, pg = page, pgSize = pageSize ) => {
+    const getUsersList = async (kw = keyword, pg = page, pgSize = pageSize) => {
 
         let config = {
             method: 'get',
@@ -66,7 +69,7 @@ const UserManager = () => {
             });
     }
 
-   
+
 
 
     const ShowUpdateForm = () => {
@@ -85,11 +88,13 @@ const UserManager = () => {
                     <thead>
                         <tr>
                             <th style={{ width: 50 }} className="table-title">Id</th>
+                            <th style={{ width: 50 }} className="table-title">Avatar</th>
                             <th style={{ width: 200 }} className="table-title">Họ tên</th>
                             <th style={{ width: 150 }} className="table-title" >Email</th>
+                            <th style={{ width: 50 }} className="table-title" >Quyền</th>
                             <th style={{ width: 150 }} className="table-title" >Số dư</th>
-                            <th style={{ width: 250 }} className="table-title">URL Avatar</th>
-                            <th style={{ width: 200 }} className="table-title">Trạng thái</th>
+                          
+                            <th style={{ width: 150 }} className="table-title">Trạng thái</th>
                             <th style={{ width: 200 }} className="table-title">Action</th>
                         </tr>
                     </thead>
@@ -98,21 +103,23 @@ const UserManager = () => {
                             usersList?.map((Item, index) => {
                                 return (
                                     <tr>
-                                        <th style={{ width: 50 }} className="table-item">{Item.id}</th>
-                                        <th style={{ width: 200 }} className="table-item">{Item.name}</th>
-                                        <th style={{ width: 150 }} className="table-item" >{Item.username}</th>
+                                        <th style={{ width: 100 }} className="table-item">{Item.id}</th>
+
+                                        <th style={{ width: 50 }} className="table-item">  <Avatar alt="Remy Sharp" src={Item.url} /></th>
+                                        <th style={{ width: 250 }} className="table-item">{Item.name}</th>
+                                        <th style={{ width: 200 }} className="table-item" >{Item.username}</th>
+                                        <th style={{ width: 50 }} className="table-item" >{Item.roles[0].name}</th>
                                         <th style={{ width: 150 }} className="table-item" >{Item.surplus}</th>
-                                        <th style={{ width: 250 }} className="table-item">{Item.url}</th>
-                                        {/* <th style={{ width: 200 }} className="table-item">{Item.status===true ?"Đang hoạt động" : "Đã khóa"}</th> */}
-                                        {Item.status? (<th style={{ width: 250 }} className="table-item">Đang hoạt động</th>):
-                                        <th style={{ width: 250 }} className="table-item">Đã khóa</th>
-                                        }
+                                      
+                                        <th style={{ width: 150 }} className="table-item">{Item.status}</th>
+                                        
                                         <th style={{ width: 200 }} className="table-item">
                                             <IconButton aria-label="delete" color="primary" onClick={ShowUpdateForm}>
                                                 <RxUpdate style={{ color: '#33FFBB' }} />
                                             </IconButton>
-                                            <IconButton aria-label="delete" color="primary" >
-                                                <AiFillDelete style={{ color: 'red' }} />
+                                            <IconButton aria-label="delete" color="primary"   >
+                                                <AiFillLock style={{ color: 'red' }}  />
+                                                
                                             </IconButton>
                                         </th>
                                     </tr>
@@ -130,7 +137,7 @@ const UserManager = () => {
                 <div className="flex form-button">
                     <Button variant="contained" onClick={prevPage}>Prev</Button>
 
-                    <p style={{marginLeft:20, marginRight:20, paddingTop:10}}>{page}</p>
+                    <p style={{ marginLeft: 20, marginRight: 20, paddingTop: 10 }}>{page}</p>
                     <Button variant="contained" onClick={nextPage} >Next</Button>
                 </div>
             </div>

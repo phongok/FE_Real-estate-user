@@ -35,30 +35,8 @@ const Navbar = () =>{
 
    
 
-        const username = localStorage.getItem("username")
-        const navigate = useNavigate()
-        const checkUserInfor =()=>{
-            
-            if (username==="null") {
-                navigate("/login")
-            }
-            else{
-                navigate("/account")
-            }
-            
-        }
-
-        const checkUserPostNews =()=>{
-            
-            if (username==="null") {
-                navigate("/login")
-            }
-            else{
-                navigate("/postnews")
-            }
-            
-        }
-      
+       
+        
 
         const [listNewsTypeSell,setlistNewsTypeSell] = useState([])
         
@@ -100,11 +78,61 @@ const Navbar = () =>{
                 console.log(error);
               });
         }
+
+        const token  = localStorage.getItem("token")
+      
+        const [username, setusername] = useState("")
+
+        const getUser = ()=>{
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `http://localhost:8081/api/checkuser?token=${token}`,
+                headers: { }
+              };
+              
+              axios.request(config)
+              .then((response) => {
+                setusername(response.data.username)
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+        }
+
+        const navigate = useNavigate()
+
+        const checkUserInfor =()=>{
+            
+            if (username==="null") {
+                navigate("/login")
+            }
+            else{
+                navigate("/account")
+            }
+            
+        }
+
+        const checkUserPostNews =()=>{
+            
+            if (username==="null") {
+                navigate("/login")
+            }
+            else{
+                navigate("/postnews")
+            }
+            
+        }
+      
        
         useEffect(()=>{ 
             LoadNewsTypeSell()
             LoadNewsTypeRent()
+            getUser()
         },[])
+
+
+
     
        
     return(
@@ -204,7 +232,7 @@ const Navbar = () =>{
                                 onClose={handleClose}
                                  TransitionComponent={Fade}
                                     >
-                                <MenuItem onClick={checkUserInfor}>Thông tin</MenuItem>
+                                <MenuItem onClick={checkUserInfor} >Thông tin</MenuItem>
                                 <MenuItem onClick={handleClose}>Quản lí bài đăng</MenuItem>
                                 <MenuItem onClick={handleClose}>Đăng xuất</MenuItem>
 
@@ -213,8 +241,8 @@ const Navbar = () =>{
                           
                         </li>
                       
-                        <button className="btn" onClick={checkUserPostNews}>
-                           <a href="http://"> Đăng tin</a>
+                        <button className="btn" onClick={checkUserPostNews} >
+                           <a href=" "> Đăng tin</a>
                         </button>
                         <button className="btn">
                             <a href=" ">Đăng nhập</a>

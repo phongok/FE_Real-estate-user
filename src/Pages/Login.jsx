@@ -41,7 +41,7 @@ const [payload, setPayload] =useState({
 
                 if(response.status===200){
                 alert('Đăng nhập thành công!')
-                localStorage.setItem("username",payload.username)
+              
                 localStorage.setItem("token", response.data)
                 
                 navigate("/home")

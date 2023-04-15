@@ -4,7 +4,7 @@ import './newstypemanager.css'
 import IconButton from '@mui/material/IconButton';
 
 import { RxUpdate } from 'react-icons/rx'
-import { AiFillDelete } from 'react-icons/ai'
+import { AiFillLock } from 'react-icons/ai'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
@@ -96,7 +96,9 @@ const NewsTypeManager = () => {
     };
 
 
-   
+
+
+
 
 
 
@@ -113,7 +115,7 @@ const NewsTypeManager = () => {
 
         axios.request(config)
             .then((response) => {
-               
+
                 setlistCaterory(response.data)
                 // console.log(listCaterory)
             })
@@ -121,65 +123,115 @@ const NewsTypeManager = () => {
                 console.log(error);
             });
     }
-    
 
 
 
-    const [age, setAge] = React.useState('');
+
+    const [age, setAge] = React.useState(1);
 
     const handleChangeSelectCaterory = (event) => {
-      
+
         setAge(event.target.value);
 
-        console.log(age)
-       
+
+
     };
 
-    const [nameNewsType, setnameNewsType] = React.useState(1);
-    const saveNewsType = ()=>{
+    const [nameNewsType, setnameNewsType] = React.useState("");
+
+    const saveNewsType = () => {
         let data = JSON.stringify({
             "category": {
-              "id": age
+                "id": age
             },
             "name": nameNewsType
-          });
-          
-          let config = {
+        });
+
+        let config = {
             method: 'post',
             maxBodyLength: Infinity,
             url: 'http://localhost:8081/api/newsTypes',
-            headers: { 
-              'Content-Type': 'application/json'
+            headers: {
+                'Content-Type': 'application/json'
             },
-            data : data
-          };
-          
-          axios.request(config)
-          .then((response) => {
-            if (response.status===200) {
-                alert('Thêm thành công')
-                handleCloseDialogCreate()
-                getUsersList()
-            } else {
-                
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-          
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    alert('Thêm thành công')
+                    handleCloseDialogCreate()
+                    getUsersList()
+                } else {
+
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
     }
 
-    const ShowUpdateForm = () => {
+
+
+    const handleChangeSelectCateroryUpDate = (event) => {
+
+        setAge(event.target.value);
+
         console.log(age)
-    }
+
+    };
+
+
+
+
+    const [nameNewsTypeUpdate, setnameNewsTypeUpdate] = React.useState("");
+    const [idNewsTypeUpdate, setidNewsTypeUpdate] = React.useState(0);
+
+
+
+    const [open1, setOpen1] = React.useState(false);
+
+    const handleClickOpenDialogUpdate = () => {
+        setOpen1(true);
+    };
+
+    const handleCloseDialogUpdate = () => {
+        setOpen1(false);
+    };
+
+    const [status, setStatus] = React.useState("Đang hoạt đọng");
+
+    const handleChangeSelectStatus = (event) => {
+
+        setStatus(event.target.value);
+        console.log(status)
+
+
+
+    };
+
+
+    // const ClickUpDateDelete = (event) => {
+
+    //     setidNewsTypeUpdate(event.target.key);
+
+    //     console.log(idNewsTypeUpdate)
+
+    // };
+
+
+
+
+
     return (
         <div className="admin-manager-user">
             <div className="container flex form-search">
                 <TextField id="outlined-basic" label="Nhập thông tin tìm kiếm" variant="outlined" style={{ width: 700, }}
                     onChange={(e) => setKeyword(e.target.value)} />
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={search}>Tìm kiếm</Button>
-               
+
 
                 <div>
                     <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={handleClickOpenDialogCreate}>
@@ -201,12 +253,12 @@ const NewsTypeManager = () => {
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
 
-                            <br />
+                                <br />
 
                                 <Box sx={{ minWidth: 200 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="demo-simple-select-label">Doanh mục</InputLabel>
-                                        
+
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
@@ -219,7 +271,7 @@ const NewsTypeManager = () => {
                                                 listCaterory?.map((ItemCate) => {
                                                     return (
                                                         <MenuItem value={ItemCate.id} >{ItemCate.name}</MenuItem>
-                                                      
+
                                                     )
                                                 }
                                                 )
@@ -233,10 +285,10 @@ const NewsTypeManager = () => {
 
                             </DialogContentText>
                         </DialogContent>
-                        
+
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                                <TextField id="outlined-basic" label="Tên loại bài đăng" variant="outlined" style={{ marginTop: 20 }}  onChange={event => setnameNewsType(event.target.value)} />
+                                <TextField id="outlined-basic" label="Tên loại bài đăng" variant="outlined" style={{ marginTop: 20 }} onChange={event => setnameNewsType(event.target.value)} />
                             </DialogContentText>
                         </DialogContent>
 
@@ -272,14 +324,116 @@ const NewsTypeManager = () => {
                                             <th style={{ width: 250 }} className="table-item">{Item.category.name}</th>
                                             <th style={{ width: 200 }} className="table-item" >{Item.name}</th>
 
-                                            <th style={{ width: 150 }} className="table-item" >{Item.action}</th>
+                                            <th style={{ width: 150 }} className="table-item" >{Item.status}</th>
 
                                             <th style={{ width: 200 }} className="table-item">
-                                                <IconButton aria-label="delete" color="primary" onClick={ShowUpdateForm}>
+
+                                                <IconButton aria-label="delete" color="primary" onClick={() => {
+                                                    setidNewsTypeUpdate(Item.id)
+                                                    console.log(idNewsTypeUpdate)
+                                                    setAge(Item.category.id)
+                                                    handleClickOpenDialogUpdate()
+                                                }}>
                                                     <RxUpdate style={{ color: '#33FFBB' }} />
                                                 </IconButton>
+
+                                                <Dialog
+                                                    open={open1}
+                                                    onClose={handleCloseDialogUpdate}
+                                                    aria-labelledby="alert-dialog-title"
+                                                    aria-describedby="alert-dialog-description"
+
+                                                >
+                                                    <DialogTitle id="alert-dialog-title">
+                                                        {"Cập nhật loại bài đăng"}
+                                                    </DialogTitle>
+                                                    <DialogContent>
+                                                        <DialogContentText id="alert-dialog-description">
+
+                                                            <br />
+
+                                                            <Box sx={{ minWidth: 200 }}>
+                                                                <FormControl fullWidth>
+                                                                    <InputLabel id="demo-simple-select-label">Doanh mục</InputLabel>
+
+                                                                    <Select
+                                                                        labelId="demo-simple-select-label"
+                                                                        id="demo-simple-select"
+                                                                        value={age}
+                                                                        label="Doanh mục"
+                                                                        onChange={handleChangeSelectCateroryUpDate}
+                                                                    >
+
+                                                                        {
+                                                                            listCaterory?.map((ItemCate) => {
+                                                                                return (
+                                                                                    <MenuItem value={ItemCate.id} >{ItemCate.name}</MenuItem>
+
+                                                                                )
+                                                                            }
+                                                                            )
+
+                                                                        }
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </Box>
+
+
+
+                                                        </DialogContentText>
+                                                    </DialogContent>
+
+                                                    <DialogContent>
+                                                        <DialogContentText id="alert-dialog-description">
+                                                            <TextField id="outlined-basic" label="Tên loại bài đăng" variant="outlined" style={{ marginTop: 20 }} value={Item.name} onChange={event => setnameNewsTypeUpdate(event.target.value)} />
+                                                        </DialogContentText>
+                                                    </DialogContent>
+
+                                                    <DialogContent>
+                                                        <DialogContentText id="alert-dialog-description">
+
+                                                            <br />
+
+                                                            <Box sx={{ minWidth: 200 }}>
+                                                                <FormControl fullWidth>
+                                                                    <InputLabel id="demo-simple-select-label">Trạng thái</InputLabel>
+
+                                                                    <Select
+                                                                        labelId="demo-simple-select-label"
+                                                                        id="demo-simple-select"
+                                                                        value={status}
+                                                                        label="Doanh mục"
+                                                                        onChange={handleChangeSelectStatus}
+                                                                    >
+
+
+                                                                        <MenuItem value = "Đang hoạt động" >Đang hoạt động</MenuItem>
+                                                                        <MenuItem value = "Đã khóa" >Đã khóa</MenuItem>
+
+
+
+                                                                    </Select>
+                                                                </FormControl>
+                                                            </Box>
+
+
+
+                                                        </DialogContentText>
+                                                    </DialogContent>
+
+
+                                                    <DialogActions>
+                                                        <Button onClick={handleCloseDialogUpdate}>Đóng</Button>
+                                                        <Button autoFocus>
+                                                            Cập nhật
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Dialog>
+
+
+
                                                 <IconButton aria-label="delete" color="primary" >
-                                                    <AiFillDelete style={{ color: 'red' }} />
+                                                    <AiFillLock style={{ color: 'red' }} />
                                                 </IconButton>
                                             </th>
                                         </tr>
