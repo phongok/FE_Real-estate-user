@@ -22,6 +22,7 @@ const RouterProvaider = () =>{
            <Route path="/home"  element={<Home/>} />
            <Route path="/login" element={<Login/>} />
            <Route path="/register" element={<Register/>} />
+           
            <Route path="/forgotpassword" element={<ForgotPassword/>} />
            <Route path="/detail/:id" element={<Detail/>}/>
            <Route path="/admin" element={<Admin/>} />

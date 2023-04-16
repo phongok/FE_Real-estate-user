@@ -1,20 +1,30 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore'
+import { initializeApp } from "firebase/compat/app";
+
 const firebaseConfig = {
-    apiKey: "AIzaSyBGjcd0NJ4HqwP5qTLoMAjT6iLxyY3uDog",
-    authDomain: "realstate-ac254.firebaseapp.com",
-    projectId: "realstate-ac254",
-    storageBucket: "realstate-ac254.appspot.com",
-    messagingSenderId: "1002590552899",
-    appId: "1:1002590552899:web:18159b373738851a8ba5f6",
-    measurementId: "G-Q91XRQRQ5E"
-};
+    apiKey: "AIzaSyD8q_BzcLKDJQv8_az8C3uZvZ-R5B3kqm4",
+    authDomain: "realstate-d9def.firebaseapp.com",
+    projectId: "realstate-d9def",
+    storageBucket: "realstate-d9def.appspot.com",
+    messagingSenderId: "789202840133",
+    appId: "1:789202840133:web:ee9dce2de04deb1db1512c",
+    measurementId: "G-PTFGYD7M2C"
+  };
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth();
+  let app;
+
+  if (firebase.apps.length === 0) {
+    app = firebase.initializeApp(firebaseConfig);
+  } else {
+    app = firebase.app();
+  }
+  
+  const db = app.firestore();
+  const auth = firebase.auth();
+  
+  export { db, auth };
+
+

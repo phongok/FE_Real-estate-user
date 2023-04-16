@@ -1,10 +1,10 @@
 import React, {  useState } from "react";
 
-import '../Assets/Css/vendor/css/core.css'
-import '../Assets/Css/vendor/css/theme-default.css'
-import '../Assets/Css/css/demo.css'
-import '../Assets/Css/vendor/libs/perfect-scrollbar/perfect-scrollbar.css'
-import '../Assets/Css/vendor/css/pages/page-auth.css'
+// import '../Assets/Css/vendor/css/core.css'
+// import '../Assets/Css/vendor/css/theme-default.css'
+// import '../Assets/Css/css/demo.css'
+// import '../Assets/Css/vendor/libs/perfect-scrollbar/perfect-scrollbar.css'
+// import '../Assets/Css/vendor/css/pages/page-auth.css'
 
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
