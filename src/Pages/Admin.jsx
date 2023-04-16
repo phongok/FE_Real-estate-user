@@ -22,12 +22,6 @@ function TabPanel(props) {
 
   const [role, setrole] = useState('')
 
-
-
-
-
-
-
   useEffect(() => {
     const token = localStorage.getItem("token")
     const checkRole = () => {
@@ -113,7 +107,7 @@ export default function VerticalTabs() {
         style={{ background: 'rgb(253, 251, 251)' }}
       >
         <Link to="/home">
-          <img alt="Remy Sharp" src="https://i.imgur.com/LvbGQ7O.png" style={{ width: 200, height: 100, marginLeft: 20, marginTop: 0, marginRight: 20 }} />
+          <img alt="Remy Sharp" src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1681648678/LvbGQ7O_jlmaxx.png" style={{ width: 200, height: 100, marginLeft: 20, marginTop: 0, marginRight: 20 }} />
         </Link>
 
 

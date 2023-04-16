@@ -66,8 +66,12 @@ const [payload, setPayload] =useState({
                         <div className="card">
                             <div className="card-body">
                                 <div className="app-brand justify-content-center">
-                                    <a href="index.html" className="app-brand-link gap-2">
-                                        <img src="https://i.imgur.com/LvbGQ7O.png" style={{width: 100 }} alt="logo"/>   
+                                    <a href=" " className="app-brand-link gap-2">
+
+                                    <Link to="/home">
+                                        <img src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1681648678/LvbGQ7O_jlmaxx.png" style={{width: 100 }} alt="logo"/>   
+                                    </Link>
+                                       
                                     </a>
                                 </div>
                                 <h4 className="mb-2">Chào mừng đến realestatevn! 👋</h4>
@@ -133,6 +137,8 @@ const [payload, setPayload] =useState({
                                 </form>
                                 <p className="text-center">
                                     <Link to="/register">
+                                    
+                                    
                                     <span>Tạo tài khoản</span>
                                     </Link>
                                 </p>

@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 // import '../Assets/Css/vendor/css/core.css'
 // import '../Assets/Css/vendor/css/theme-default.css'
 // import '../Assets/Css/css/demo.css'
@@ -34,17 +34,17 @@ function Register() {
             // Thông báo cho người dùng biết email xác nhận đã được gửi
             alert("Xác nhận email bằng cách nhấp vào link")
 
-           
-        
+
+
 
           })
           .catch((error) => {
             // Xử lý lỗi
           });
 
-         
 
-         
+
+
 
       })
       .catch((error) => {
@@ -53,21 +53,22 @@ function Register() {
       });
 
 
-      auth.onAuthStateChanged((user) => {
-        console.log('Doi xac thuc')
-        if (user) {
-          console.log(user)
-          if (user.emailVerified) {
-            // User is signed in and email is verified
-            console.log("da xac thuc")
-          } else {
-            // User is signed in but email is not verified
-          }
+    auth.onAuthStateChanged((user) => {
+      console.log('Doi xac thuc')
+      if (user) {
+        console.log(user)
+        if (user.emailVerified) {
+          // User is signed in and email is verified
+          console.log("da xac thuc")
         } else {
-          // User is signed out
+          // User is signed in but email is not verified
+          console.log("chua xac thuc")
         }
+      } else {
+        // User is signed out
+      }
 
-       });  
+    });
 
 
 
@@ -119,9 +120,11 @@ function Register() {
           <div className="card">
             <div className="card-body">
               <div className="app-brand justify-content-center">
-                <a href=" " className="app-brand-link gap-2">
-                  <img src="https://i.imgur.com/LvbGQ7O.png" style={{ width: 100 }} alt="logo" />
-                </a>
+
+
+                <Link to="/home">
+                  <img src="https://res.cloudinary.com/dps8mwvsi/image/upload/v1681648678/LvbGQ7O_jlmaxx.png" style={{ width: 100 }} alt="logo" />
+                </Link>
               </div>
 
 
