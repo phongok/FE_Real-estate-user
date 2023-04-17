@@ -82,6 +82,7 @@ const Navbar = () =>{
         const token  = localStorage.getItem("token")
       
         const [username, setusername] = useState("")
+        const [isPostNews, setPostNews] = useState("")
 
         const getUser = ()=>{
             let config = {
@@ -93,18 +94,23 @@ const Navbar = () =>{
               
               axios.request(config)
               .then((response) => {
+                console.log(response)
                 setusername(response.data.username)
+               if(response.status===500){
+                setPostNews = "No"
+               }
               })
               .catch((error) => {
                 console.log(error);
+                
               });
         }
 
         const navigate = useNavigate()
 
         const checkUserInfor =()=>{
-            
-            if (username==="null") {
+            console.log(isPostNews)
+            if (isPostNews==="No") {
                 navigate("/login")
             }
             else{
@@ -114,13 +120,32 @@ const Navbar = () =>{
         }
 
         const checkUserPostNews =()=>{
-            
-            if (username==="null") {
-                navigate("/login")
-            }
-            else{
+
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `http://localhost:8081/api/checkuser?token=${token}`,
+                headers: { }
+              };
+              
+              axios.request(config)
+              .then((response) => {
+               
+               if(response.status===200){
                 navigate("/postnews")
-            }
+                    
+               }
+               if(response.status === 500){
+                navigate("/login")
+               }
+               
+
+              })
+              .catch((error) => {
+                console.log(error);
+                navigate("/login")
+                
+              });
             
         }
       
@@ -242,13 +267,13 @@ const Navbar = () =>{
                         </li>
                       
                         <button className="btn" onClick={checkUserPostNews} >
-                           <a href=" "> Đăng tin</a>
+                           <a > Đăng tin</a>
                         </button>
                         <button className="btn">
-                            <a href=" ">Đăng nhập</a>
+                            <a >Đăng nhập</a>
                         </button>
                         <button className="btn">
-                            <a href=" ">Đăng kí</a>
+                            <a  >Đăng kí</a>
                         </button>
 
                         <div className="closeNavbar">

@@ -187,8 +187,10 @@ export default function BasicTabs(props) {
     const [img6Rent, setimg6Rent] = useState("")
     const [decriptionRent, setdecriptionRent] = useState("")
 
+    const [idRealEstate, setidRealEstate] = useState(0)
 
-    const SaveNewsRealstateSell = async () => {
+
+    const SaveNewsRealstateSell = () => {
       let data = JSON.stringify({
         "category": {
           "id": 1
@@ -229,7 +231,11 @@ export default function BasicTabs(props) {
       axios.request(config)
       .then((response) => {
         if (response.status===200) {
+          setidRealEstate(response.data.id)
           alert("Đăng tin thành công")
+          saveBill()
+          deductmoneypost()
+
         }
       })
       .catch((error) => {
@@ -237,7 +243,7 @@ export default function BasicTabs(props) {
       });
     }
 
-    const SaveNewsRealstateRent = async () => {
+    const SaveNewsRealstateRent =  () => {
       let data = JSON.stringify({
         "category": {
           "id": 2
@@ -278,7 +284,10 @@ export default function BasicTabs(props) {
       axios.request(config)
       .then((response) => {
         if (response.status===200) {
+          setidRealEstate(response.data.id)
           alert("Đăng tin thành công")
+          saveBill()
+          deductmoneypost()
         }
       })
       .catch((error) => {
@@ -289,20 +298,22 @@ export default function BasicTabs(props) {
     const CheckSurplusSell = async () => {
       if (surplus>50000) {
         SaveNewsRealstateSell()
-        deductmoneypost()
+        
+       
       }
       else{
-        alert("Số dư không đủ 100000đ!, Vui lòng nạp thêm tiền")
+        alert("Số dư không đủ 50000đ!, Vui lòng nạp thêm tiền")
       }
     }
 
     const CheckSurplusRent = async () => {
       if (surplus>50000) {
         SaveNewsRealstateRent()
-        deductmoneypost()
+        
+      
       }
       else{
-        alert("Số dư không đủ 100000đ!, Vui lòng nạp thêm tiền")
+        alert("Số dư không đủ 50000đ!, Vui lòng nạp thêm tiền")
       }
     }
 
@@ -316,7 +327,40 @@ export default function BasicTabs(props) {
       
       axios.request(config)
       .then((response) => {
-        alert("Số dư của bạn -100000đ")
+         alert("Số dư của bạn -50000đ")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
+    const saveBill = ()=>{
+      let data = JSON.stringify({
+        "user": {
+          "id": iduser
+        },
+        "realEstate": {
+          "id": idRealEstate
+        },
+        "datepay": daySubmit,
+        "timepay": daySubmit,
+        "totalmoney": 50000
+      });
+      
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8081/api/bills',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      
+      axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        alert("save bill thanh cong")
       })
       .catch((error) => {
         console.log(error);
