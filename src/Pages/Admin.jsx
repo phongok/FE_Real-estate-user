@@ -9,9 +9,10 @@ import Box from '@mui/material/Box';
 import Dashboard from '../Components/Dashboard/Dashboard';
 import FormInforAdmin from '../Components/Form_Infor_Admin/Form_Infor_Admin';
 import UserManager from '../Components/UserManager/UserManager';
+import UserLockManager from "../Components/UserLockManager/UserLockManager";
 
 import NewsTypeManager from '../Components/NewsTypeManager/NewsTypeManager';
-
+import BillManager from "../Components/BillManager/BillManager";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -146,13 +147,13 @@ export default function VerticalTabs() {
         5
       </TabPanel>
       <TabPanel value={value} index={10}>
-        6
+       <UserLockManager/>
       </TabPanel>
       <TabPanel value={value} index={12}>
         7
       </TabPanel>
       <TabPanel value={value} index={13}>
-        8
+        <BillManager/>
       </TabPanel>
     </Box>
   );
