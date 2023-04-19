@@ -14,6 +14,8 @@ const Dashboard = () =>{
     const [numberRealState, setNumberRealState] = useState()
 
     const [numberNewsType, setnumberNewsType] = useState()
+
+    const [revenue, setrevenue] = useState()
     useEffect(()=>{
         const Account = async()=>{
             let config = {
@@ -67,10 +69,30 @@ const Dashboard = () =>{
               });
               
         }
+        const Revenue = async()=>{
+          let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:8081/api/getRevenue',
+            headers: { }
+          };
+          
+          axios.request(config)
+          .then((response) => {
+            setrevenue(response.data)
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          
+            
+      }
+
 
         Account()
         RealState()
         NewsType()
+        Revenue()
         Aos.init({duration:2000}, [])
     })
     return(
@@ -109,7 +131,7 @@ const Dashboard = () =>{
                         <BiMoneyWithdraw style={{fontSize:70, color: 'black', marginLeft:10,  }}/>
                         <h3 style={{color:'white', marginTop:10, textAlign:'center' }}>Doanh thu</h3>
                     </div>
-                    <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>100000</h3>
+                    <h3 style={{color:'white', textAlign:'center', fontSize:60, marginTop:40, }}>{revenue}</h3>
                 </div>
 
               

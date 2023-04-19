@@ -22,16 +22,10 @@ const BillManager = () => {
     const [page, setPage] = useState(1)
     const [pageSize] = useState(20)
     const [totalCount, setTotalCount] = useState(0)
-   
 
-    const [from, setFrom] = useState("")
-    const [to, setTo] = useState("")
 
-    function handleDateFromChange(date) {
-        // Lấy giá trị ngày được chọn dưới dạng đối tượng Date
-        setFrom(date)
-        console.log('Ngày đã chọn:', from);
-      }
+
+
     const [offset, setOffset] = useState(0)
 
     useEffect(() => {
@@ -39,38 +33,52 @@ const BillManager = () => {
     }, [])
 
     const prevPage = async () => {
-        const f = from
-        const t = to
+        const f = from  ? new Date(from) : null;
+        const t = to ? new Date(to) : null;
+        const f1 = f.toISOString().slice(0, 10);
+        const t1 = t.toISOString().slice(0, 10);
+        console.log(f1)
+        console.log(t1)
         const pg = page === 1 ? 1 : page - 1
-        getUsersList(f,t, pg)
+        getUsersList(f1, t1, pg)
         setPage(pg)
 
     }
 
     const nextPage = async () => {
-        const f = from
-        const t = to
+        const f = from  ? new Date(from) : null;
+        const t = to ? new Date(to) : null;
+        const f1 = f.toISOString().slice(0, 10);
+        const t1 = t.toISOString().slice(0, 10);
+        console.log(f1)
+        console.log(t1)
         const pg = page < Math.ceil(totalCount / pageSize) ? page + 1 : page
-        getUsersList(f,t, pg)
+      
+        getUsersList(f1, t1, pg)
+      
         setPage(pg)
     }
 
     const search = () => {
-        const f = from
-        const t = to
+        const f = from  ? new Date(from) : null;
+        const t = to ? new Date(to) : null;
+        const f1 = f.toISOString().slice(0, 10);
+        const t1 = t.toISOString().slice(0, 10);
+        console.log(f1)
+        console.log(t1)
         const pg = page
-        getUsersList(f,t, pg)
+        getUsersList(f1, t1, pg)
     }
 
     const getUsersList = async (f = from, t = to, pg = page, pgSize = pageSize) => {
 
-        
+
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/bills-paging?page=${pg-1}&size=${pgSize}&from=${f}&to=${t}`,
-            headers: { }
-          };
+            url: `http://localhost:8081/api/bills-paging?page=${pg - 1}&size=${pgSize}&from=${f}&to=${t}`,
+            headers: {}
+        };
 
         axios.request(config)
             .then((response) => {
@@ -86,11 +94,19 @@ const BillManager = () => {
     }
 
 
+    const [from, setFrom] = useState(null)
+    const [to, setTo] = useState(null)
 
-
-    const ShowUpdateForm = ()  => {
-        alert('Update')
+    const int = async() =>{
+        const f = from  ? new Date(from) : null;
+        const t = to ? new Date(to) : null;
+        // const f1 = f.toISOString().slice(0, 10);
+        // const t1 = t.toISOString().slice(0, 10);
+        console.log(f)
+        console.log(t)
     }
+
+  
     return (
         <div className="admin-manager-user">
             <div className="container flex form-search">
@@ -98,7 +114,8 @@ const BillManager = () => {
                     <label htmlFor="" style={{ marginTop: 15 }}><h4>Từ:</h4> </label>
                     <div style={{ marginLeft: 20 }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker onChange={handleDateFromChange} />
+                            <DatePicker value={from}
+                                onChange={(newValueFrom) => setFrom(newValueFrom)} />
                         </LocalizationProvider>
                     </div>
                 </div>
@@ -107,28 +124,29 @@ const BillManager = () => {
                     <label htmlFor="" style={{ marginTop: 15 }}><h4>Đến:</h4> </label>
                     <div style={{ marginLeft: 20 }}>
                         <LocalizationProvider dateAdapter={AdapterDayjs} >
-                            <DatePicker />
+                            <DatePicker value={to}
+                                onChange={(newValueTo) => setTo(newValueTo)} />
                         </LocalizationProvider>
                     </div>
                 </div>
 
 
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={search}>Tìm kiếm</Button>
-                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button>
+                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={int}>In</Button>
             </div>
             <div className="form-data">
                 <table style={{}} >
                     <thead>
                         <tr>
-                            <th style={{ width: 50 }} className="table-title">Id</th>
+                            <th style={{ width: 100 }} className="table-title">Id</th>
                             <th style={{ width: 300 }} className="table-title" >Tiêu đề</th>
-                            <th style={{ width: 50 }} className="table-title" >Người dùng</th>
-                            <th style={{ width: 50 }} className="table-title">Ngày thanh toán</th>
+                            <th style={{ width: 200 }} className="table-title" >Người dùng</th>
+                            <th style={{ width: 200 }} className="table-title">Ngày thanh toán</th>
                             <th style={{ width: 200 }} className="table-title">Giờ thanh toán</th>
-                            <th style={{ width: 150 }} className="table-title" >Tổng thành tiền</th>
+                            <th style={{ width: 200 }} className="table-title" >Tổng thành tiền</th>
 
-                           
-                          
+
+
                         </tr>
                     </thead>
                     <tbody>
@@ -138,16 +156,16 @@ const BillManager = () => {
                                     <tr>
                                         <th style={{ width: 100 }} className="table-item">{Item.id}</th>
 
-                                     
+
                                         <th style={{ width: 300 }} className="table-item">{Item.realEstate.name}</th>
                                         <th style={{ width: 200 }} className="table-item" >{Item.user.username}</th>
-                                        
+
                                         <th style={{ width: 200 }} className="table-item" >{Item.datepay}</th>
 
                                         <th style={{ width: 200 }} className="table-item">{Item.timepay}</th>
                                         <th style={{ width: 200 }} className="table-item">{Item.totalmoney}</th>
 
-                                        
+
                                     </tr>
                                 )
                             })

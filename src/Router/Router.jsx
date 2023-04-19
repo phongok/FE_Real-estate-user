@@ -25,7 +25,9 @@ const RouterProvaider = () =>{
            
            <Route path="/forgotpassword" element={<ForgotPassword/>} />
            <Route path="/detail/:id" element={<Detail/>}/>
+
            <Route path="/admin" element={<Admin/>} />
+           
            <Route path="/list-reale-state-type/:idNews" element={<ListRealEstateType/>} />
            <Route path="/list-reale-state-caterory-sell" element={<ListRealEstateCaterorySell/>} />
            <Route path="/list-reale-state-caterory-rent" element={<ListRealEstateCateroryRent/>} />

@@ -10,7 +10,7 @@ import Dashboard from '../Components/Dashboard/Dashboard';
 import FormInforAdmin from '../Components/Form_Infor_Admin/Form_Infor_Admin';
 import UserManager from '../Components/UserManager/UserManager';
 import UserLockManager from "../Components/UserLockManager/UserLockManager";
-
+import ReportManager from "../Components/ReportManager/ReportManager";
 import NewsTypeManager from '../Components/NewsTypeManager/NewsTypeManager';
 import BillManager from "../Components/BillManager/BillManager";
 
@@ -21,8 +21,7 @@ import axios from "axios"
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
-  const [role, setrole] = useState('')
-
+  const navigate = useNavigate()
   useEffect(() => {
     const token = localStorage.getItem("token")
     const checkRole = () => {
@@ -37,13 +36,18 @@ function TabPanel(props) {
 
       axios.request(config)
         .then((response) => {
-         if (response.status === 200) {
-          setrole(response.data.roles[0].name)
-          console.log(role)
+         if (response.status === 500) {
+          // setrole(response.data.roles[0].name)
+          navigate("/login")
+         
+         }
+         if (response.data.roles[0].name!=="admin") {
+          navigate("/login")
          }
         })
         .catch((error) => {
           console.log(error);
+          navigate("/login")
         });
 
     }
@@ -144,7 +148,7 @@ export default function VerticalTabs() {
         <NewsTypeManager />
       </TabPanel>
       <TabPanel value={value} index={9}>
-        5
+        <ReportManager/>
       </TabPanel>
       <TabPanel value={value} index={10}>
        <UserLockManager/>

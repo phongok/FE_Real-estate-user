@@ -1,60 +1,58 @@
 import React, { useEffect, useState } from "react";
-import './userlockmanager.css'
+import './ReportManager.css'
 
 import IconButton from '@mui/material/IconButton';
 
-import Modal from 'react-modal';
-import { AiFillUnlock } from 'react-icons/ai'
+import { GrFormView } from 'react-icons/gr'
+import { TiTick } from 'react-icons/ti'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from "axios"
 
 import Avatar from '@mui/material/Avatar';
 
-const UserLockManager = () => {
+const ReportManager = () => {
 
     const [usersList, setUsersList] = useState([])
 
     const [page, setPage] = useState(1)
     const [pageSize] = useState(10)
     const [totalCount, setTotalCount] = useState(0)
-    const [keyword, setKeyword] = useState("")
+  
 
     const [offset, setOffset] = useState(0)
 
-
-    const [idUser, setIdUser] = useState('')
     useEffect(() => {
         getUsersList()
     }, [])
 
     const prevPage = async () => {
-        const kw = keyword
+      
         const pg = page === 1 ? 1 : page - 1
-        getUsersList(kw, pg)
+        getUsersList( pg)
         setPage(pg)
-
+        
     }
 
     const nextPage = async () => {
-        const kw = keyword
+       
         const pg = page < Math.ceil(totalCount / pageSize) ? page + 1 : page
-        getUsersList(kw, pg)
+        getUsersList( pg)
         setPage(pg)
     }
 
-    const search = () => {
-        const kw = keyword
-        const pg = page
-        getUsersList(kw, pg)
-    }
+    // const search = () => {
+    //     const kw = keyword
+    //     const pg = page
+    //     getUsersList(kw, pg)
+    // }
 
-    const getUsersList = async (kw = keyword, pg = page, pgSize = pageSize) => {
+    const getUsersList = async ( pg = page, pgSize = pageSize) => {
 
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/users-lock?page=${pg - 1}&size=${pgSize}&keyword=${kw}`,
+            url: `http://localhost:8081/api/reports-paging?page=${pg - 1}&size=${pgSize}`,
             headers: {}
         };
 
@@ -71,51 +69,32 @@ const UserLockManager = () => {
             });
     }
 
-    
 
-    const unlock = () => {
-        let config = {
-            method: 'put',
-            maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/unclockuser?userid=${idUser}`,
-            headers: { }
-          };
-          
-          axios.request(config)
-          .then((response) => {
-           if (response.status===200) {
-            alert("Mở khóa thành công")
-           }
-          
-          })
-          .catch((error) => {
-            console.log(error);
-            alert("Mở khóa thất bại")
-          });
-          
+
+
+    const ShowUpdateForm = () => {
+        alert('Update')
     }
-
-
     return (
         <div className="admin-manager-user">
-            <div className="container flex form-search">
+            {/* <div className="container flex form-search">
                 <TextField id="outlined-basic" label="Nhập thông tin tìm kiếm" variant="outlined" style={{ width: 700, }}
                     onChange={(e) => setKeyword(e.target.value)} />
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={search}>Tìm kiếm</Button>
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button>
-            </div>
+            </div> */}
             <div className="form-data">
                 <table style={{}} >
                     <thead>
                         <tr>
                             <th style={{ width: 50 }} className="table-title">Id</th>
-                            <th style={{ width: 50 }} className="table-title">Avatar</th>
-                            <th style={{ width: 200 }} className="table-title">Họ tên</th>
-                            <th style={{ width: 150 }} className="table-title" >Email</th>
-                            <th style={{ width: 50 }} className="table-title" >Quyền</th>
-                            <th style={{ width: 150 }} className="table-title" >Số dư</th>
-
-                            <th style={{ width: 150 }} className="table-title">Trạng thái</th>
+                            <th style={{ width: 50 }} className="table-title">Người báo cáo</th>
+                            <th style={{ width: 200 }} className="table-title">Người bị báo cáo</th>
+                            <th style={{ width: 150 }} className="table-title" >Ngày báo cáo</th>
+                            <th style={{ width: 50 }} className="table-title" >Trạng thái</th>
+                            <th style={{ width: 150 }} className="table-title" >Nội dung</th>
+                          
+                       
                             <th style={{ width: 200 }} className="table-title">Action</th>
                         </tr>
                     </thead>
@@ -126,28 +105,22 @@ const UserLockManager = () => {
                                     <tr>
                                         <th style={{ width: 100 }} className="table-item">{Item.id}</th>
 
-                                        <th style={{ width: 50 }} className="table-item">  <Avatar alt="Remy Sharp" src={Item.url} /></th>
-                                        <th style={{ width: 250 }} className="table-item">{Item.name}</th>
-                                        <th style={{ width: 200 }} className="table-item" >{Item.username}</th>
-                                        <th style={{ width: 50 }} className="table-item" >{Item.roles[0].name}</th>
-                                        <th style={{ width: 150 }} className="table-item" >{Item.surplus}</th>
-
-                                        <th style={{ width: 150 }} className="table-item">{Item.status}</th>
-
+                                      
+                                        <th style={{ width: 250 }} className="table-item">{Item.accuser.id}</th>
+                                        <th style={{ width: 200 }} className="table-item" >{Item.cheat.id}</th>
+                                        <th style={{ width: 50 }} className="table-item" >{Item.dateReport}</th>
+                                        <th style={{ width: 150 }} className="table-item" >{Item.status}</th>
+                                      
+                                        <th style={{ width: 150 }} className="table-item">{Item.content}</th>
+                                        
                                         <th style={{ width: 200 }} className="table-item">
-
-                                            <IconButton aria-label="delete" color="primary" onClick={
-                                                   ()=>{
-                                                    setIdUser(Item.id)
-                                                    console.log(idUser)
-                                                     unlock()
-                                                   } }  >
-                                                <AiFillUnlock style={{ color: 'red' }} 
-                                                 />
-
+                                            <IconButton aria-label="delete" color="primary" onClick={ShowUpdateForm}>
+                                                <GrFormView style={{ color: '#33FFBB' }} />
                                             </IconButton>
-
-
+                                            <IconButton aria-label="delete" color="primary"   >
+                                                <TiTick style={{ color: '#1BFD00' }}  />
+                                                
+                                            </IconButton>
                                         </th>
                                     </tr>
                                 )
@@ -171,4 +144,4 @@ const UserLockManager = () => {
         </div>
     )
 }
-export default UserLockManager
+export default ReportManager
