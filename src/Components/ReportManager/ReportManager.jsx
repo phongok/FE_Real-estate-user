@@ -9,8 +9,12 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from "axios"
 
-import Avatar from '@mui/material/Avatar';
 
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 const ReportManager = () => {
 
     const [usersList, setUsersList] = useState([])
@@ -18,26 +22,44 @@ const ReportManager = () => {
     const [page, setPage] = useState(1)
     const [pageSize] = useState(10)
     const [totalCount, setTotalCount] = useState(0)
-  
+
 
     const [offset, setOffset] = useState(0)
+
+    const [idReport, setIdReport] = useState("")
+
+
+
+    const [idReportFind, setIdReportFind] = useState("")
+
+    const [accuser, setaccuser] = useState("")
+
+    const [cheat, setcheat] = useState("")
+
+    const [dateReport, setdateReport] = useState("")
+
+    const [status, setstatus] = useState("")
+    const [content, setcontent] = useState("")
+
+
+
 
     useEffect(() => {
         getUsersList()
     }, [])
 
     const prevPage = async () => {
-      
+
         const pg = page === 1 ? 1 : page - 1
-        getUsersList( pg)
+        getUsersList(pg)
         setPage(pg)
-        
+
     }
 
     const nextPage = async () => {
-       
+
         const pg = page < Math.ceil(totalCount / pageSize) ? page + 1 : page
-        getUsersList( pg)
+        getUsersList(pg)
         setPage(pg)
     }
 
@@ -47,7 +69,29 @@ const ReportManager = () => {
     //     getUsersList(kw, pg)
     // }
 
-    const getUsersList = async ( pg = page, pgSize = pageSize) => {
+    const stickReport = async () => {
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8081/api/stickreport?reportid=${idReport}`,
+            headers: {}
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    alert("Đánh dấu thành công")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                alert("Đánh dấu thất bại")
+            });
+    }
+
+
+
+    const getUsersList = async (pg = page, pgSize = pageSize) => {
 
         let config = {
             method: 'get',
@@ -70,11 +114,27 @@ const ReportManager = () => {
     }
 
 
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const [open1, setOpen1] = React.useState(false);
+
+    const handleClickOpen1 = () => {
+        setOpen1(true);
+    };
+
+    const handleClose1 = () => {
+        setOpen1(false);
+    };
 
 
-    const ShowUpdateForm = () => {
-        alert('Update')
-    }
     return (
         <div className="admin-manager-user">
             {/* <div className="container flex form-search">
@@ -93,8 +153,8 @@ const ReportManager = () => {
                             <th style={{ width: 150 }} className="table-title" >Ngày báo cáo</th>
                             <th style={{ width: 50 }} className="table-title" >Trạng thái</th>
                             <th style={{ width: 150 }} className="table-title" >Nội dung</th>
-                          
-                       
+
+
                             <th style={{ width: 200 }} className="table-title">Action</th>
                         </tr>
                     </thead>
@@ -105,22 +165,131 @@ const ReportManager = () => {
                                     <tr>
                                         <th style={{ width: 100 }} className="table-item">{Item.id}</th>
 
-                                      
+
                                         <th style={{ width: 250 }} className="table-item">{Item.accuser.id}</th>
                                         <th style={{ width: 200 }} className="table-item" >{Item.cheat.id}</th>
                                         <th style={{ width: 50 }} className="table-item" >{Item.dateReport}</th>
                                         <th style={{ width: 150 }} className="table-item" >{Item.status}</th>
-                                      
+
                                         <th style={{ width: 150 }} className="table-item">{Item.content}</th>
-                                        
-                                        <th style={{ width: 200 }} className="table-item">
-                                            <IconButton aria-label="delete" color="primary" onClick={ShowUpdateForm}>
-                                                <GrFormView style={{ color: '#33FFBB' }} />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" color="primary"   >
-                                                <TiTick style={{ color: '#1BFD00' }}  />
-                                                
-                                            </IconButton>
+
+                                        <th style={{ width: 200, }} className="table-item">
+                                            <div className="flex" style={{ justifyContent: "center" }}>
+                                                <div>
+                                                    <IconButton aria-label="delete" color="primary" onClick={() => {
+                                                        setIdReportFind(Item.id)
+                                                        setaccuser(Item.accuser.username)
+                                                        setcheat(Item.cheat.username)
+                                                        setdateReport(Item.dateReport)
+                                                        setstatus(Item.status)
+                                                        setcontent(Item.content)
+                                                        handleClickOpen1()
+                                                    }} >
+                                                        <GrFormView style={{ color: '#33FFBB' }} />
+                                                    </IconButton>
+
+                                                    <Dialog
+                                                        open={open1}
+                                                        onClose={handleClose1}
+                                                        aria-labelledby="alert-dialog-title"
+                                                        aria-describedby="alert-dialog-description"
+                                                        style={{ width: 1500 }}
+                                                    >
+                                                        <DialogTitle id="alert-dialog-title">
+                                                            {"Thông tin?"}
+                                                        </DialogTitle>
+                                                        <DialogContent>
+                                                            <DialogContentText id="alert-dialog-description">
+
+                                                                <div>   <label htmlFor="">Người báo cáo: </label>
+                                                                    <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={accuser} />
+                                                                </div>
+
+
+
+                                                                <div>  <label htmlFor="">Người bị báo cáo: </label>
+                                                                    <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={cheat} />
+                                                                </div>
+
+
+                                                                <div>  <label htmlFor="">Ngày báo cáo: </label>
+                                                                    <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={dateReport} />
+                                                                </div>
+
+
+                                                                <div>  <label htmlFor="">Trạng thái: </label>
+                                                                    <TextField id="outlined-basic"  variant="outlined" style={{ marginTop: 10, width: 550 }} value={status} />
+                                                                </div>
+
+                                                                <div style={{ marginTop: 10 }}>
+                                                                    <label htmlFor="">Nội dung: </label>
+                                                                    <textarea style={{marginTop:10}}
+                                                                        value={content}
+                                                                        name="postContent"
+                                                                        rows={12}
+                                                                        cols={65}
+                                                                    // onChange={event => setdecriptionSell(event.target.value)}
+                                                                    />
+                                                                </div>
+                                                            </DialogContentText>
+                                                        </DialogContent>
+                                                        <DialogActions>
+
+                                                            <Button onClick={handleClose1} >
+                                                                Đóng
+                                                            </Button>
+
+
+                                                        </DialogActions>
+                                                    </Dialog>
+                                                </div>
+
+                                                <div >
+                                                    <IconButton aria-label="delete" color="primary" key={Item.id} onClick={() => {
+                                                        // setIdUser(Item.id)
+                                                        // console.log(idUser)
+                                                        // handleClickOpen()
+
+                                                        setIdReport(Item.id)
+                                                        console.log(idReport)
+
+                                                        handleClickOpen()
+                                                    }}>
+
+                                                        <TiTick style={{ color: '#1BFD00' }} />
+
+                                                    </IconButton>
+
+                                                    <Dialog
+                                                        open={open}
+                                                        onClose={handleClose}
+                                                        aria-labelledby="alert-dialog-title"
+                                                        aria-describedby="alert-dialog-description"
+                                                    >
+                                                        <DialogTitle id="alert-dialog-title">
+                                                            {"Thông báo?"}
+                                                        </DialogTitle>
+                                                        <DialogContent>
+                                                            <DialogContentText id="alert-dialog-description">
+                                                                Bạn muốn đánh dấu đã xem tin này?
+                                                            </DialogContentText>
+                                                        </DialogContent>
+                                                        <DialogActions>
+                                                            <Button onClick={() => {
+                                                                stickReport()
+                                                                const pg = page
+                                                                getUsersList(pg)
+                                                                handleClose()
+                                                               
+                                                            }} >Đồng ý</Button>
+                                                            <Button onClick={handleClose} >
+                                                                Đóng
+                                                            </Button>
+                                                        </DialogActions>
+                                                    </Dialog>
+                                                </div>
+
+                                            </div>
                                         </th>
                                     </tr>
                                 )

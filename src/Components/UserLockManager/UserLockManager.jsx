@@ -3,13 +3,20 @@ import './userlockmanager.css'
 
 import IconButton from '@mui/material/IconButton';
 
-import Modal from 'react-modal';
 import { AiFillUnlock } from 'react-icons/ai'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from "axios"
 
 import Avatar from '@mui/material/Avatar';
+
+
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const UserLockManager = () => {
 
@@ -24,6 +31,32 @@ const UserLockManager = () => {
 
 
     const [idUser, setIdUser] = useState('')
+
+
+    const unlock = async () => {
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8081/api/unlockuser?userid=${idUser}`,
+            headers: {}
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    alert("Mở khóa thành công")
+                    handleClose()
+                }
+
+            })
+            .catch((error) => {
+                console.log(error);
+                alert("Mở khóa thất bại")
+            });
+
+    }
+
     useEffect(() => {
         getUsersList()
     }, [])
@@ -71,29 +104,17 @@ const UserLockManager = () => {
             });
     }
 
-    
 
-    const unlock = () => {
-        let config = {
-            method: 'put',
-            maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/unclockuser?userid=${idUser}`,
-            headers: { }
-          };
-          
-          axios.request(config)
-          .then((response) => {
-           if (response.status===200) {
-            alert("Mở khóa thành công")
-           }
-          
-          })
-          .catch((error) => {
-            console.log(error);
-            alert("Mở khóa thất bại")
-          });
-          
-    }
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
 
 
     return (
@@ -121,7 +142,7 @@ const UserLockManager = () => {
                     </thead>
                     <tbody>
                         {
-                            usersList?.map((Item, index) => {
+                            usersList?.map((Item) => {
                                 return (
                                     <tr>
                                         <th style={{ width: 100 }} className="table-item">{Item.id}</th>
@@ -136,16 +157,40 @@ const UserLockManager = () => {
 
                                         <th style={{ width: 200 }} className="table-item">
 
-                                            <IconButton aria-label="delete" color="primary" onClick={
-                                                   ()=>{
+                                            <div>
+                                                <IconButton aria-label="delete" color="primary" key={Item.id} onClick={() => {
                                                     setIdUser(Item.id)
                                                     console.log(idUser)
-                                                     unlock()
-                                                   } }  >
-                                                <AiFillUnlock style={{ color: 'red' }} 
-                                                 />
+                                                    handleClickOpen()
+                                                }}>
 
-                                            </IconButton>
+                                                    <AiFillUnlock style={{ color: 'red' }}
+                                                    />
+
+                                                </IconButton>
+
+                                                <Dialog
+                                                    open={open}
+                                                    onClose={handleClose}
+                                                    aria-labelledby="alert-dialog-title"
+                                                    aria-describedby="alert-dialog-description"
+                                                >
+                                                    <DialogTitle id="alert-dialog-title">
+                                                        {"Thông báo?"}
+                                                    </DialogTitle>
+                                                    <DialogContent>
+                                                        <DialogContentText id="alert-dialog-description">
+                                                            Bạn có chắc mở khác người dùng này
+                                                        </DialogContentText>
+                                                    </DialogContent>
+                                                    <DialogActions>
+                                                        <Button onClick={unlock}>Đồng ý</Button>
+                                                        <Button onClick={handleClose} >
+                                                            Đóng
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Dialog>
+                                            </div>
 
 
                                         </th>
