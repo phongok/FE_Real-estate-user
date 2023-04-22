@@ -37,6 +37,10 @@ function ListRealEstateCaterorySell() {
         fetchData(pg, pgSize)
     
     }
+    const [acreageMin, setacreageMin] = React.useState('');
+    const [acreageMax, setacreageMax] = React.useState('');
+    const [priceMin, setpriceMin] = React.useState('');
+    const [priceMax, setpriceMax] = React.useState('');
 
     const [area, setArea] = React.useState('');
 
@@ -45,11 +49,30 @@ function ListRealEstateCaterorySell() {
         console.log(area)
     };
 
-    const fetchData = async (pg = page, pgSize = pageSize) => {
+    
+    const Filler = async () => {
+        const pg =page
+        const pgSize = pageSize
+       const are = area
+       const priMin = priceMin
+       const priMax = priceMax
+       const acrMin = acreageMin
+       const acrMax =  acreageMax
+       console.log(are)
+       console.log(priMin)
+       console.log(priMax)
+       console.log(acrMin)
+       console.log(acrMax)
+        fetchData(pg, pgSize , are, priMin, priMax, acrMin, acrMax)
+    
+    }
+   
+
+    const fetchData = async (pg = page, pgSize = pageSize,are =area ,priMin = priceMin, priMax = priceMax, acrMin = acreageMin, acrMax = acreageMax) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/listrealestateSell?page=${pg}&size=${pgSize}`,
+            url: `http://localhost:8081/api/listrealestateSell?page=${pg}&size=${pgSize}&area=${are}&priceMin=${priMin}&priceMax=${priMax}&acreageMin=${acrMin}&acreageMax=${acrMax}`,
             headers: {}
         };
 
@@ -63,6 +86,8 @@ function ListRealEstateCaterorySell() {
                 console.log(error);
             });
     }
+
+  
 
     return (
 
@@ -132,21 +157,21 @@ function ListRealEstateCaterorySell() {
                 <div className="filter" >
                     <h4 style={{ fontWeight: 'bold', paddingLeft: 20, paddingTop: 15 }}>Lọc theo tiêu chí</h4>
                     <form action="" method="post">
-                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color:'black' }}>Chọn theo giá</FormLabel>
-                        <div style={{textAlign:"center"}}>
-                        <TextField id="outlined-basic" label="Từ" variant="outlined" />
-                       
-                        <TextField id="outlined-basic" label="Đến" variant="outlined"  style={{marginTop:10}}/>
+                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color: 'black' }}>Chọn theo giá</FormLabel>
+                        <div style={{ textAlign: "center" }}>
+                            <TextField id="outlined-basic" label="Từ" variant="outlined" onChange={event => setpriceMin(event.target.value)} />
+
+                            <TextField id="outlined-basic" label="Đến" variant="outlined" onChange={event => setpriceMax(event.target.value)} style={{ marginTop: 10 }} />
                         </div>
-                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color:'black', marginTop:15 }}>Chọn theo khu vực</FormLabel>
+                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color: 'black', marginTop: 15 }}>Chọn theo khu vực</FormLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={area }
+                            value={area}
                             label="Chọn khu vực"
                             onChange={handleChangeArea}
 
-                            style={{ width: '200px', height: 40, marginLeft:45 }}
+                            style={{ width: '200px', height: 40, marginLeft: 45 }}
                         >
                             <MenuItem value={"An Giang"}>An Giang</MenuItem>
                             <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
@@ -213,16 +238,16 @@ function ListRealEstateCaterorySell() {
 
                         </Select>
 
-                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40 , color:'black', marginTop:15}}>Chọn theo diện tích (m vuông)</FormLabel>
-                        <div style={{textAlign:"center"}}>
-                        <TextField id="outlined-basic" label="Từ" variant="outlined" />
-                       
-                        <TextField id="outlined-basic" label="Đến" variant="outlined"  style={{marginTop:10}}/>
+                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color: 'black', marginTop: 15 }}>Chọn theo diện tích (m vuông)</FormLabel>
+                        <div style={{ textAlign: "center" }}>
+                            <TextField id="outlined-basic" label="Từ" variant="outlined" onChange={event => setacreageMin(event.target.value)} />
+
+                            <TextField id="outlined-basic" label="Đến" variant="outlined" style={{ marginTop: 10 }} onChange={event => setacreageMax(event.target.value)} />
                         </div>
 
-                      <div style={{textAlign: 'center', marginTop:10, marginBottom:10}}>
-                      <Button variant="contained">Áp dụng</Button>
-                      </div>
+                        <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
+                            <Button variant="contained" onClick={Filler}>Áp dụng</Button>
+                        </div>
                     </form>
                 </div>
             </div>

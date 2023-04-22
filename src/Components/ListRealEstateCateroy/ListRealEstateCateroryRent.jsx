@@ -51,7 +51,7 @@ function ListRealEstateCateroryRent() {
     //     console.log(AreaSell)
     // };
 
-    const seemore = () => {
+    const seemore =  async() => {
         const pg = page
 
         setpageSize(pageSize + 4)
@@ -87,12 +87,26 @@ function ListRealEstateCateroryRent() {
         console.log(area)
     };
 
-    const Filler = () => {
-        console.log(priceMin)
-        console.log(priceMax)
-        console.log(acreageMin)
-        console.log(acreageMax)
-        console.log(area)
+    const Filler = async () => {
+        const pg =page
+        const pgSize = pageSize
+       const are = area
+       const priMin = priceMin
+       const priMax = priceMax
+       const acrMin = acreageMin
+       const acrMax =  acreageMax
+       console.log(are)
+       console.log(priMin)
+       console.log(priMax)
+       console.log(acrMin)
+       console.log(acrMax)
+
+
+   
+        fetchData(pg, pgSize , are, priMin, priMax, acrMin, acrMax)
+       
+  
+
     }
 
     return (
