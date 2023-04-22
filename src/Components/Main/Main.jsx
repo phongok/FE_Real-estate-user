@@ -7,6 +7,7 @@ import {TbClipboardCheck} from 'react-icons/tb'
 import axios from "axios"
 import Aos from 'aos'
 import 'aos/dist/aos.css'
+import { red } from "@mui/material/colors";
 // import { useNavigation } from "react-router-dom";
 
 const Main = () =>{
@@ -64,19 +65,19 @@ const Main = () =>{
                                     </span>
                                     <div className="fees flex">
                                        <div className="grade">
-                                            <span>{Item.acreage}
+                                            <span style={{color:'black'}}>{Item.acreage}
                                                 <sup>2</sup>
                                             </span>
                                        </div>
                                        <div className="price">
-                                            <h5>
-                                                {Item.price}
+                                            <h5 style={{ marginTop:13, color:'black '}}>
+                                                {Item.price} VND
                                             </h5>
                                        </div>
                                     </div>
                                     
                                     <div className="flex btn_group " >
-                                    <p className="mt-1">{Item.dateSubmitted}</p>
+                                    <p className="mt-1" style={{color:'black'}}>{Item.dateSubmitted}</p>
                                     <button className="btn flex">
                                         Lưu <TbClipboardCheck className="icon"/>
                                     </button>

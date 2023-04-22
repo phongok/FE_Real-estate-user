@@ -3,18 +3,14 @@ import { HiOutlineLocationMarker } from 'react-icons/hi'
 import { TbClipboardCheck } from 'react-icons/tb'
 import './listrealestatecaterory.css'
 
-import 'aos/dist/aos.css'
-
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 // import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { useParams } from 'react-router-dom';
-import axios from "axios"
-import Aos from 'aos'
-import 'aos/dist/aos.css'
 
+import axios from "axios"
+
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 function ListRealEstateCaterorySell() {
@@ -27,7 +23,7 @@ function ListRealEstateCaterorySell() {
 
     useEffect(() => {
         fetchData()
-        Aos.init({duration:2000}, [])
+      
 
     }, [])
 
@@ -41,6 +37,14 @@ function ListRealEstateCaterorySell() {
         fetchData(pg, pgSize)
     
     }
+
+    const [area, setArea] = React.useState('');
+
+    const handleChangeArea = (event) => {
+        setArea(event.target.value);
+        console.log(area)
+    };
+
     const fetchData = async (pg = page, pgSize = pageSize) => {
         let config = {
             method: 'get',
@@ -74,7 +78,7 @@ function ListRealEstateCaterorySell() {
                         {
                             dataListRealEstateCaterory?.map((Item, index) => {
                                 return (
-                                    <a className="singleDestination" data-aos="fade-up" href={`detail/${Item.id}`}>
+                                    <a className="singleDestination"  href={`detail/${Item.id}`}>
                                         <div className="imageDiv">
                                             <img src={Item.url_img1} alt="sd" />
                                         </div>
@@ -89,20 +93,20 @@ function ListRealEstateCaterorySell() {
                                             </span>
                                             <div className="fees flex">
                                                 <div className="grade">
-                                                    <span>
+                                                    <span style={{color:'black'}}>
                                                         {Item.acreage}m
                                                         <sup>2</sup>
                                                     </span>
                                                 </div>
                                                 <div className="price">
-                                                    <h5>
+                                                    <h5 style={{color:'black'}}>
                                                         {Item.price}
                                                     </h5>
                                                 </div>
                                             </div>
 
                                             <div className="flex btn_group " >
-                                                <p className="mt-1">{Item.dateSubmitted}</p>
+                                                <p className="mt-1" style={{color:'black'}}>{Item.dateSubmitted}</p>
                                                 <button className="btn flex" >
                                                     Lưu <TbClipboardCheck className="icon" />
                                                 </button>
@@ -128,47 +132,97 @@ function ListRealEstateCaterorySell() {
                 <div className="filter" >
                     <h4 style={{ fontWeight: 'bold', paddingLeft: 20, paddingTop: 15 }}>Lọc theo tiêu chí</h4>
                     <form action="" method="post">
-                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40 }}>Chọn theo giá</FormLabel>
-                        <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="female"
-                            name="radio-buttons-group"
-                            style={{ marginLeft: 60 }}
+                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color:'black' }}>Chọn theo giá</FormLabel>
+                        <div style={{textAlign:"center"}}>
+                        <TextField id="outlined-basic" label="Từ" variant="outlined" />
+                       
+                        <TextField id="outlined-basic" label="Đến" variant="outlined"  style={{marginTop:10}}/>
+                        </div>
+                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color:'black', marginTop:15 }}>Chọn theo khu vực</FormLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={area }
+                            label="Chọn khu vực"
+                            onChange={handleChangeArea}
+
+                            style={{ width: '200px', height: 40, marginLeft:45 }}
                         >
-                            <FormControlLabel value="duoi1toi" control={<Radio />} label="Dưới 1tỷ" />
-                            <FormControlLabel value="1den5toi" control={<Radio />} label="1 tỷ - 5 tỷ" />
-                            <FormControlLabel value="5toiden10toi" control={<Radio />} label="5 tỷ - 10 tỷ" />
-                            <FormControlLabel value="10toi" control={<Radio />} label="Trên 10 tỷ " />
+                            <MenuItem value={"An Giang"}>An Giang</MenuItem>
+                            <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
+                            <MenuItem value={"Bạc Liêu"}>Bạc Liêu</MenuItem>
+                            <MenuItem value={"Bắc Giang"}>Bắc Giang</MenuItem>
+                            <MenuItem value={"Bắc Kạn"}>Bắc Kạn </MenuItem>
+                            <MenuItem value={"Bắc Ninh"}>Bắc Ninh</MenuItem>
+                            <MenuItem value={"Bến Tre"}>Bến Tre</MenuItem>
+                            <MenuItem value={"Bình Dương"}>Bình Dương</MenuItem>
+                            <MenuItem value={"Bình Định"}>Bình Định</MenuItem>
+                            <MenuItem value={"Bình Phước"}>Bình Phước</MenuItem>
+                            <MenuItem value={"Bình Thuận"}>Bình Thuận</MenuItem>
+                            <MenuItem value={"Cà Mau"}>Cà Mau</MenuItem>
+                            <MenuItem value={"Cao Bằng"}>Cao Bằng</MenuItem>
+                            <MenuItem value={"Cần Thơ"}>Cần Thơ</MenuItem>
+                            <MenuItem value={"Đà Nẵng"}>Đà Nẵng</MenuItem>
+                            <MenuItem value={"Đắk Lắk"}>Đắk Lắk</MenuItem>
+                            <MenuItem value={"Đắk Nông"}>Đắk Nông</MenuItem>
+                            <MenuItem value={"Điện Biên"}>Điện Biên</MenuItem>
+                            <MenuItem value={"Đồng Nai"}>Đồng Nai</MenuItem>
+                            <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
+                            <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
+                            <MenuItem value={"Hà Nam"}>Hà Nam</MenuItem>
+                            <MenuItem value={"Hà Nội"}>Hà Nội</MenuItem>
+                            <MenuItem value={"Hà Tĩnh"}>Hà Tĩnh</MenuItem>
+                            <MenuItem value={"Hải Dương"}>Hải Dương</MenuItem>
+                            <MenuItem value={"Hải Phòng"}>Hải Phòng</MenuItem>
+                            <MenuItem value={"Hậu Giang"}>Hậu Giang</MenuItem>
+                            <MenuItem value={"Hòa Bình"}>Hòa Bình</MenuItem>
+                            <MenuItem value={"TP Hồ Chí Minh"}>TP Hồ Chí Minh</MenuItem>
+                            <MenuItem value={"Hưng Yên"}>Hưng Yên</MenuItem>
+                            <MenuItem value={"Khánh Hòa"}>Khánh Hòa</MenuItem>
+                            <MenuItem value={"Kiên Giang"}>Kiên Giang</MenuItem>
+                            <MenuItem value={"Kon Tum"}>Kon Tum</MenuItem>
+                            <MenuItem value={"Lai Châu"}>Lai Châu</MenuItem>
+                            <MenuItem value={"Lạng Sơn"}>Lạng Sơn</MenuItem>
+                            <MenuItem value={"Lào Cai"}>Lào Cai</MenuItem>
+                            <MenuItem value={"Lâm Đồng"}>Lâm Đồng</MenuItem>
+                            <MenuItem value={"Long An"}>Long An</MenuItem>
+                            <MenuItem value={"Nam Định"}>Nam Định</MenuItem>
+                            <MenuItem value={"Nghệ An"}>Nghệ An</MenuItem>
+                            <MenuItem value={"Ninh Bình"}>Ninh Bình</MenuItem>
+                            <MenuItem value={"Ninh Thuận"}>Ninh Thuận</MenuItem>
+                            <MenuItem value={"Phú Thọ"}>Phú Thọ</MenuItem>
+                            <MenuItem value={"Phú Yên"}>Phú Yên</MenuItem>
+                            <MenuItem value={"Quảng Bình"}>Quảng Bình</MenuItem>
+                            <MenuItem value={"Quảng Nam"}>Quảng Nam</MenuItem>
+                            <MenuItem value={"Quảng Ngãi"}>Quảng Ngãi</MenuItem>
+                            <MenuItem value={"Quảng Ninh"}>Quảng Ninh</MenuItem>
+                            <MenuItem value={"Quảng Trị"}>Quảng Trị</MenuItem>
+                            <MenuItem value={"Sóc Trăng"}>Sóc Trăng</MenuItem>
+                            <MenuItem value={"Sơn La"}>Sơn La</MenuItem>
+                            <MenuItem value={"Tây Ninh"}>Tây Ninh</MenuItem>
+                            <MenuItem value={"Thái Bình"}>Thái Bình</MenuItem>
+                            <MenuItem value={"Thái Nguyên"}>Thái Nguyên</MenuItem>
+                            <MenuItem value={"Thanh Hóa"}>Thanh Hóa</MenuItem>
+                            <MenuItem value={"Thừa Thiên Huế"}>Thừa Thiên Huế</MenuItem>
+                            <MenuItem value={"Tiền Giang"}>Tiền Giang</MenuItem>
+                            <MenuItem value={"Trà Vinh"}>Trà Vinh</MenuItem>
+                            <MenuItem value={"Tuyên Quang"}>Tuyên Quang</MenuItem>
+                            <MenuItem value={"Vĩnh Long"}>Vĩnh Long</MenuItem>
+                            <MenuItem value={"Vĩnh Phúc"}>Vĩnh Phúc</MenuItem>
+                            <MenuItem value={"Yên Bái"}>Yên Bái</MenuItem>
 
-                        </RadioGroup>
+                        </Select>
 
-                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40 }}>Chọn theo khu vực</FormLabel>
-                        <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="female"
-                            name="radio-buttons-group"
-                            style={{ marginLeft: 60 }}
-                        >
-                            <FormControlLabel value="miennam" control={<Radio />} label="Miền nam" />
-                            <FormControlLabel value="mientrung" control={<Radio />} label="Miền trung" />
-                            <FormControlLabel value="mienbac" control={<Radio />} label="Miền bắc" />
+                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40 , color:'black', marginTop:15}}>Chọn theo diện tích (m vuông)</FormLabel>
+                        <div style={{textAlign:"center"}}>
+                        <TextField id="outlined-basic" label="Từ" variant="outlined" />
+                       
+                        <TextField id="outlined-basic" label="Đến" variant="outlined"  style={{marginTop:10}}/>
+                        </div>
 
-
-                        </RadioGroup>
-
-                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40 }}>Chọn theo diện tích (m vuông)</FormLabel>
-                        <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue="female"
-                            name="radio-buttons-group"
-                            style={{ marginLeft: 60 }}
-                        >
-                            <FormControlLabel value="duoi100" control={<Radio />} label="Dưới 100" />
-                            <FormControlLabel value="100-300" control={<Radio />} label="100 - 300" />
-                            <FormControlLabel value="tren300" control={<Radio />} label="Trên 300" />
-
-
-                        </RadioGroup>
+                      <div style={{textAlign: 'center', marginTop:10, marginBottom:10}}>
+                      <Button variant="contained">Áp dụng</Button>
+                      </div>
                     </form>
                 </div>
             </div>
