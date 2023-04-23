@@ -5,9 +5,9 @@ import './listrealestatetype.css'
 
 import 'aos/dist/aos.css'
 
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 
 import FormLabel from '@mui/material/FormLabel';
 
@@ -25,12 +25,24 @@ function ListRealEstateType  () {
     const [page, setPage] = useState(0)
     const [pageSize, setpageSize] = useState(4)
 
+    const [acreageMin, setacreageMin] = React.useState('');
+    const [acreageMax, setacreageMax] = React.useState('');
+    const [priceMin, setpriceMin] = React.useState('');
+    const [priceMax, setpriceMax] = React.useState('');
+
+    const [area, setArea] = React.useState('');
+
+    const handleChangeArea = (event) => {
+        setArea(event.target.value);
+        console.log(area)
+    };
+
     useEffect(()=>{
         fetchData()
         Aos.init({duration:2000}, [])
     },[])
 
-    const seemore = () => {
+    const seemore = async() => {
         const pg = page 
 
         setpageSize(pageSize+4)
@@ -40,11 +52,11 @@ function ListRealEstateType  () {
         fetchData(pg, pgSize)
     
     }
-    const fetchData = async (pg = page, pgSize = pageSize) => {
+    const fetchData = async (pg = page, pgSize = pageSize,are =area ,priMin = priceMin, priMax = priceMax, acrMin = acreageMin, acrMax = acreageMax) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/realestates-newstype/${idNews}?page=${pg}&size=${pgSize}`,
+            url: `http://localhost:8081/api/realestates-newstype/${idNews}?page=${pg}&size=${pgSize}&area=${are}&priceMin=${priMin}&priceMax=${priMax}&acreageMin=${acrMin}&acreageMax=${acrMax}`,
             headers: { }
           };
           
@@ -57,6 +69,22 @@ function ListRealEstateType  () {
           });
     }
 
+    const Filler = async () => {
+        const pg =page
+        const pgSize = pageSize
+       const are = area
+       const priMin = priceMin
+       const priMax = priceMax
+       const acrMin = acreageMin
+       const acrMax =  acreageMax
+       console.log(are)
+       console.log(priMin)
+       console.log(priMax)
+       console.log(acrMin)
+       console.log(acrMax)
+        fetchData(pg, pgSize , are, priMin, priMax, acrMin, acrMax)
+    
+    }
         return ( 
 
             <div>
@@ -123,52 +151,103 @@ function ListRealEstateType  () {
                     </div>
                     </div>
 
-                    <div className="filter" >
-                        <h4 style={{fontWeight: 'bold', paddingLeft:20, paddingTop:15}}>Lọc theo tiêu chí</h4>
-                          <form action="" method="post">
-                          <FormLabel id="demo-radio-buttons-group-label" style={{marginLeft:40}}>Chọn theo giá</FormLabel>
-                            <RadioGroup 
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="female"
-                                name="radio-buttons-group"
-                                style={{marginLeft:60}}
-                            >
-                                <FormControlLabel value="duoi1toi" control={<Radio />} label="Dưới 1tỷ" />
-                                <FormControlLabel value="1den5toi" control={<Radio />} label="1 tỷ - 5 tỷ" />
-                                <FormControlLabel value="5toiden10toi" control={<Radio />} label="5 tỷ - 10 tỷ" />
-                                <FormControlLabel value="10toi" control={<Radio />} label="Trên 10 tỷ " />
-                                
-                            </RadioGroup>
+                    
+                <div className="filter" >
+                    <h4 style={{ fontWeight: 'bold', paddingLeft: 20, paddingTop: 15 }}>Lọc theo tiêu chí</h4>
+                    <form action="" method="post">
+                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color: 'black' }}>Chọn theo giá</FormLabel>
+                        <div style={{ textAlign: "center" }}>
+                            <TextField id="outlined-basic" label="Từ" variant="outlined" onChange={event => setpriceMin(event.target.value)} />
 
-                            <FormLabel id="demo-radio-buttons-group-label" style={{marginLeft:40}}>Chọn theo khu vực</FormLabel>
-                            <RadioGroup 
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="female"
-                                name="radio-buttons-group"
-                                style={{marginLeft:60}}
-                            >
-                                <FormControlLabel value="miennam" control={<Radio />} label="Miền nam" />
-                                <FormControlLabel value="mientrung" control={<Radio />} label="Miền trung" />
-                                <FormControlLabel value="mienbac" control={<Radio />} label="Miền bắc" />
-                                
-                                
-                            </RadioGroup>
+                            <TextField id="outlined-basic" label="Đến" variant="outlined" onChange={event => setpriceMax(event.target.value)} style={{ marginTop: 10 }} />
+                        </div>
+                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color: 'black', marginTop: 15 }}>Chọn theo khu vực</FormLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={area}
+                            label="Chọn khu vực"
+                            onChange={handleChangeArea}
 
-                            <FormLabel id="demo-radio-buttons-group-label" style={{marginLeft:40}}>Chọn theo diện tích (m vuông)</FormLabel>
-                            <RadioGroup 
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="female"
-                                name="radio-buttons-group"
-                                style={{marginLeft:60}}
-                            >
-                                <FormControlLabel value="duoi100" control={<Radio />} label="Dưới 100" />
-                                <FormControlLabel value="100-300" control={<Radio />} label="100 - 300" />
-                                <FormControlLabel value="tren300" control={<Radio />} label="Trên 300" />
-                                
-                                
-                            </RadioGroup>
-                          </form>
-                    </div>
+                            style={{ width: '200px', height: 40, marginLeft: 45 }}
+                        >
+                            <MenuItem value={"An Giang"}>An Giang</MenuItem>
+                            <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
+                            <MenuItem value={"Bạc Liêu"}>Bạc Liêu</MenuItem>
+                            <MenuItem value={"Bắc Giang"}>Bắc Giang</MenuItem>
+                            <MenuItem value={"Bắc Kạn"}>Bắc Kạn </MenuItem>
+                            <MenuItem value={"Bắc Ninh"}>Bắc Ninh</MenuItem>
+                            <MenuItem value={"Bến Tre"}>Bến Tre</MenuItem>
+                            <MenuItem value={"Bình Dương"}>Bình Dương</MenuItem>
+                            <MenuItem value={"Bình Định"}>Bình Định</MenuItem>
+                            <MenuItem value={"Bình Phước"}>Bình Phước</MenuItem>
+                            <MenuItem value={"Bình Thuận"}>Bình Thuận</MenuItem>
+                            <MenuItem value={"Cà Mau"}>Cà Mau</MenuItem>
+                            <MenuItem value={"Cao Bằng"}>Cao Bằng</MenuItem>
+                            <MenuItem value={"Cần Thơ"}>Cần Thơ</MenuItem>
+                            <MenuItem value={"Đà Nẵng"}>Đà Nẵng</MenuItem>
+                            <MenuItem value={"Đắk Lắk"}>Đắk Lắk</MenuItem>
+                            <MenuItem value={"Đắk Nông"}>Đắk Nông</MenuItem>
+                            <MenuItem value={"Điện Biên"}>Điện Biên</MenuItem>
+                            <MenuItem value={"Đồng Nai"}>Đồng Nai</MenuItem>
+                            <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
+                            <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
+                            <MenuItem value={"Hà Nam"}>Hà Nam</MenuItem>
+                            <MenuItem value={"Hà Nội"}>Hà Nội</MenuItem>
+                            <MenuItem value={"Hà Tĩnh"}>Hà Tĩnh</MenuItem>
+                            <MenuItem value={"Hải Dương"}>Hải Dương</MenuItem>
+                            <MenuItem value={"Hải Phòng"}>Hải Phòng</MenuItem>
+                            <MenuItem value={"Hậu Giang"}>Hậu Giang</MenuItem>
+                            <MenuItem value={"Hòa Bình"}>Hòa Bình</MenuItem>
+                            <MenuItem value={"TP Hồ Chí Minh"}>TP Hồ Chí Minh</MenuItem>
+                            <MenuItem value={"Hưng Yên"}>Hưng Yên</MenuItem>
+                            <MenuItem value={"Khánh Hòa"}>Khánh Hòa</MenuItem>
+                            <MenuItem value={"Kiên Giang"}>Kiên Giang</MenuItem>
+                            <MenuItem value={"Kon Tum"}>Kon Tum</MenuItem>
+                            <MenuItem value={"Lai Châu"}>Lai Châu</MenuItem>
+                            <MenuItem value={"Lạng Sơn"}>Lạng Sơn</MenuItem>
+                            <MenuItem value={"Lào Cai"}>Lào Cai</MenuItem>
+                            <MenuItem value={"Lâm Đồng"}>Lâm Đồng</MenuItem>
+                            <MenuItem value={"Long An"}>Long An</MenuItem>
+                            <MenuItem value={"Nam Định"}>Nam Định</MenuItem>
+                            <MenuItem value={"Nghệ An"}>Nghệ An</MenuItem>
+                            <MenuItem value={"Ninh Bình"}>Ninh Bình</MenuItem>
+                            <MenuItem value={"Ninh Thuận"}>Ninh Thuận</MenuItem>
+                            <MenuItem value={"Phú Thọ"}>Phú Thọ</MenuItem>
+                            <MenuItem value={"Phú Yên"}>Phú Yên</MenuItem>
+                            <MenuItem value={"Quảng Bình"}>Quảng Bình</MenuItem>
+                            <MenuItem value={"Quảng Nam"}>Quảng Nam</MenuItem>
+                            <MenuItem value={"Quảng Ngãi"}>Quảng Ngãi</MenuItem>
+                            <MenuItem value={"Quảng Ninh"}>Quảng Ninh</MenuItem>
+                            <MenuItem value={"Quảng Trị"}>Quảng Trị</MenuItem>
+                            <MenuItem value={"Sóc Trăng"}>Sóc Trăng</MenuItem>
+                            <MenuItem value={"Sơn La"}>Sơn La</MenuItem>
+                            <MenuItem value={"Tây Ninh"}>Tây Ninh</MenuItem>
+                            <MenuItem value={"Thái Bình"}>Thái Bình</MenuItem>
+                            <MenuItem value={"Thái Nguyên"}>Thái Nguyên</MenuItem>
+                            <MenuItem value={"Thanh Hóa"}>Thanh Hóa</MenuItem>
+                            <MenuItem value={"Thừa Thiên Huế"}>Thừa Thiên Huế</MenuItem>
+                            <MenuItem value={"Tiền Giang"}>Tiền Giang</MenuItem>
+                            <MenuItem value={"Trà Vinh"}>Trà Vinh</MenuItem>
+                            <MenuItem value={"Tuyên Quang"}>Tuyên Quang</MenuItem>
+                            <MenuItem value={"Vĩnh Long"}>Vĩnh Long</MenuItem>
+                            <MenuItem value={"Vĩnh Phúc"}>Vĩnh Phúc</MenuItem>
+                            <MenuItem value={"Yên Bái"}>Yên Bái</MenuItem>
+
+                        </Select>
+
+                        <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color: 'black', marginTop: 15 }}>Chọn theo diện tích (m vuông)</FormLabel>
+                        <div style={{ textAlign: "center" }}>
+                            <TextField id="outlined-basic" label="Từ" variant="outlined" onChange={event => setacreageMin(event.target.value)} />
+
+                            <TextField id="outlined-basic" label="Đến" variant="outlined" style={{ marginTop: 10 }} onChange={event => setacreageMax(event.target.value)} />
+                        </div>
+
+                        <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
+                            <Button variant="contained" onClick={Filler}>Áp dụng</Button>
+                        </div>
+                    </form>
+                </div>
                 </div>
            
             </div>

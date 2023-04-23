@@ -145,7 +145,7 @@ function ListRealEstateCateroryRent() {
                                                 </div>
                                                 <div className="price">
                                                     <h5>
-                                                        {Item.price}
+                                                        {Item.price} VND
                                                     </h5>
                                                 </div>
                                             </div>

@@ -152,7 +152,7 @@ const ReportManager = () => {
                             <th style={{ width: 200 }} className="table-title">Người bị báo cáo</th>
                             <th style={{ width: 150 }} className="table-title" >Ngày báo cáo</th>
                             <th style={{ width: 50 }} className="table-title" >Trạng thái</th>
-                            <th style={{ width: 150 }} className="table-title" >Nội dung</th>
+                            {/* <th style={{ width: 150 }} className="table-title" >Nội dung</th> */}
 
 
                             <th style={{ width: 200 }} className="table-title">Action</th>
@@ -166,12 +166,12 @@ const ReportManager = () => {
                                         <th style={{ width: 100 }} className="table-item">{Item.id}</th>
 
 
-                                        <th style={{ width: 250 }} className="table-item">{Item.accuser.id}</th>
-                                        <th style={{ width: 200 }} className="table-item" >{Item.cheat.id}</th>
-                                        <th style={{ width: 50 }} className="table-item" >{Item.dateReport}</th>
-                                        <th style={{ width: 150 }} className="table-item" >{Item.status}</th>
+                                        <th style={{ width: 250 }} className="table-item">{Item.accuser.username}</th>
+                                        <th style={{ width: 250 }} className="table-item" >{Item.cheat.username}</th>
+                                        <th style={{ width: 100 }} className="table-item" >{Item.dateReport}</th>
+                                        <th style={{ width: 200 }} className="table-item" >{Item.status}</th>
 
-                                        <th style={{ width: 150 }} className="table-item">{Item.content}</th>
+                                        {/* <th style={{ width: 150 }} className="table-item">{Item.content}</th> */}
 
                                         <th style={{ width: 200, }} className="table-item">
                                             <div className="flex" style={{ justifyContent: "center" }}>
@@ -271,7 +271,7 @@ const ReportManager = () => {
                                                         </DialogTitle>
                                                         <DialogContent>
                                                             <DialogContentText id="alert-dialog-description">
-                                                                Bạn muốn đánh dấu đã xem tin này?
+                                                                Bạn muốn đánh dấu đã xác nhận tin này?
                                                             </DialogContentText>
                                                         </DialogContent>
                                                         <DialogActions>

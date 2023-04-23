@@ -27,25 +27,15 @@ function Register() {
 
     auth.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-
-
         auth.currentUser.sendEmailVerification()
           .then(() => {
             // Thông báo cho người dùng biết email xác nhận đã được gửi
             alert("Xác nhận email bằng cách nhấp vào link")
-
-
-
-
+            Save()
           })
           .catch((error) => {
             // Xử lý lỗi
           });
-
-
-
-
-
       })
       .catch((error) => {
         // Xử lý lỗi khi đăng ký tài khoản
@@ -53,22 +43,22 @@ function Register() {
       });
 
 
-    auth.onAuthStateChanged((user) => {
-      console.log('Doi xac thuc')
-      if (user) {
-        console.log(user)
-        if (user.emailVerified) {
-          // User is signed in and email is verified
-          console.log("da xac thuc")
-        } else {
-          // User is signed in but email is not verified
-          console.log("chua xac thuc")
-        }
-      } else {
-        // User is signed out
-      }
+    // auth.onAuthStateChanged((user) => {
+    //   console.log('Doi xac thuc')
+    //   if (user) {
+    //     console.log(user)
+    //     if (user.emailVerified) {
+    //       // User is signed in and email is verified
+    //       console.log("da xac thuc")
+    //     } else {
+    //       // User is signed in but email is not verified
+    //       console.log("chua xac thuc")
+    //     }
+    //   } else {
+    //     // User is signed out
+    //   }
 
-    });
+    // });
 
 
 
@@ -95,7 +85,7 @@ function Register() {
 
         console.log(response)
         if (response.status === 200) {
-          alert('Đăng kí thành công!')
+          // alert('Đăng kí thành công!')
         }
         else {
           alert('Đăng kí không thành công hãy kiểm tra lại!')

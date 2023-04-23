@@ -561,7 +561,7 @@ export default function BasicTabs(props) {
             <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceSell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
 
 
-            <label htmlFor="">Diện tích: </label>
+            <label htmlFor="">Diện tích tổng thể: </label>
             <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageSell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
 
             <label htmlFor="">Địa chỉ: </label>
@@ -732,7 +732,7 @@ export default function BasicTabs(props) {
             <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceRent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
 
 
-            <label htmlFor="">Diện tích: </label>
+            <label htmlFor="">Diện tích tổng thể: </label>
             <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageRent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
 
             <label htmlFor="">Địa chỉ: </label>

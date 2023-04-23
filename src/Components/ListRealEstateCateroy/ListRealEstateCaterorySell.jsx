@@ -125,7 +125,7 @@ function ListRealEstateCaterorySell() {
                                                 </div>
                                                 <div className="price">
                                                     <h5 style={{color:'black'}}>
-                                                        {Item.price}
+                                                        {Item.price} VND
                                                     </h5>
                                                 </div>
                                             </div>

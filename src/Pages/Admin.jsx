@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Dashboard from '../Components/Dashboard/Dashboard';
 import FormInforAdmin from '../Components/Form_Infor_Admin/Form_Infor_Admin';
 import UserManager from '../Components/UserManager/UserManager';
+import RealEstateManager from "../Components/RealEstateManager/RealEstateManager";
 import UserLockManager from "../Components/UserLockManager/UserLockManager";
 import ReportManager from "../Components/ReportManager/ReportManager";
 import NewsTypeManager from '../Components/NewsTypeManager/NewsTypeManager';
@@ -142,7 +143,7 @@ export default function VerticalTabs() {
         <UserManager />
       </TabPanel>
       <TabPanel value={value} index={6}>
-        4
+       <RealEstateManager/>
       </TabPanel>
       <TabPanel value={value} index={7}>
         <NewsTypeManager />

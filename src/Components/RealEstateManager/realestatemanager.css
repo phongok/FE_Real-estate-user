@@ -1,0 +1,66 @@
+:root{
+    --PrimaryColor: hsl(199, 100%, 33%);
+    --SecondaryColor: hsl(187, 85%, 43%);
+    --gradientColor: linear-gradient(to right, hsl(187, 85%, 43%));
+    --whileColor: hsl(0, 0%, 100%);
+    --blackColor: hsl(201, 33%, 16%);
+    --textColor: hsl(240, 4%, 36%);
+    --whileColorDeam: hsl(0,0%, 93%);
+    --greyText: rgb(190,190,190);
+    --inputColor: rgb(239,239,239);
+    --bodyColor: rgb(240,240,246);
+    --cardBG: rbg(225,225,235);
+}
+
+.admin-manager-user .form-search{
+   align-items: center;
+   background: rgb(253, 251, 251);
+   width: 100%;
+   
+}
+.admin-manager-user .form-data {
+   margin-top: 10px;
+   border-radius: 10px;
+   background: rgb(253, 251, 251);
+   height: 480px;
+   width: 1240px;
+  
+}
+
+.admin-manager-user .form-data .table-title{
+    font-family: "Times New Roman", Times, serif;
+    color: black;
+    font-size: 20px;
+    /* border: 1px solid black; */
+   
+    border-collapse: collapse;
+    text-align: center;
+    background: rgb(237, 237, 237) ;
+}
+.admin-manager-user .form-data .table-item{
+    color: rgb(97, 97, 97);
+    font-size: 15px;
+    font-family: "Times New Roman", Times, serif;
+    text-align: center;
+}
+
+
+
+
+
+.admin-manager-user .form-page{
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px;
+    background: rgb(253, 251, 251);
+}
+
+.admin-manager-user .form-page .form-button{
+   justify-content: center;
+}
+
+.admin-manager-user .form-page .form-button .page-number{
+    font-size: 20px;
+   
+    padding: 10px;
+ }
