@@ -175,21 +175,8 @@ const NewsTypeManager = () => {
 
 
 
-    const handleChangeSelectCateroryUpDate = (event) => {
 
-        setAge(event.target.value);
-
-        console.log(age)
-
-    };
-
-
-
-
-    const [nameNewsTypeUpdate, setnameNewsTypeUpdate] = React.useState("");
-    const [idNewsTypeUpdate, setidNewsTypeUpdate] = React.useState(0);
-
-
+    //////////////////////////////////////////////
 
     const [open1, setOpen1] = React.useState(false);
 
@@ -201,7 +188,25 @@ const NewsTypeManager = () => {
         setOpen1(false);
     };
 
-    const [status, setStatus] = React.useState("Đang hoạt đọng");
+    const [nameNewsTypeUpdate, setnameNewsTypeUpdate] = React.useState("");
+    const [idNewsTypeUpdate, setidNewsTypeUpdate] = React.useState(0);
+
+    const [cateroryUpdate, setCateroryUpdate] = React.useState('');
+    const handleChangeSelectCateroryUpDate = (event) => {
+
+        setCateroryUpdate(event.target.value);
+
+        console.log(age)
+
+    };
+
+
+
+
+
+
+
+    const [status, setStatus] = React.useState("Đang hoạt động");
 
     const handleChangeSelectStatus = (event) => {
 
@@ -213,17 +218,78 @@ const NewsTypeManager = () => {
     };
 
 
-    // const ClickUpDateDelete = (event) => {
 
-    //     setidNewsTypeUpdate(event.target.key);
+    const UpdateAction = async () => {
+        let data = JSON.stringify({
+            "id": idNewsTypeUpdate,
+            "category": {
+                "id": cateroryUpdate
+            },
+            "name": nameNewsTypeUpdate,
+            "status": status
+        });
 
-    //     console.log(idNewsTypeUpdate)
+        let config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:8081/api/newsTypes',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
 
-    // };
+        axios.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                if (response.status === 200) {
+                    alert("Cập nhật thành công")
+                }
+                handleCloseDialogUpdate()
+                getUsersList()
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }
 
 
+    const [openDelete, setOpenDelete] = React.useState(false);
 
+    const handleClickOpenDelete = () => {
+        setOpenDelete(true);
+    };
 
+    const handleCloseDelete = () => {
+        setOpenDelete(false);
+    };
+
+    const [idNewsTypeLock, setidNewsTypeLock] = React.useState('');
+
+const LockNewsType = async()=>{
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8081/api/newsTypesLock?idNewsType=${idNewsTypeLock}`,
+        headers: { }
+      };
+      
+      axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        if (response.status===200) {
+            alert("Khóa thành công")
+            handleCloseDelete()
+            getUsersList()
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      
+}
 
     return (
         <div className="admin-manager-user">
@@ -331,7 +397,10 @@ const NewsTypeManager = () => {
                                                 <IconButton aria-label="delete" color="primary" onClick={() => {
                                                     setidNewsTypeUpdate(Item.id)
                                                     console.log(idNewsTypeUpdate)
-                                                    setAge(Item.category.id)
+
+                                                    setCateroryUpdate(Item.category.id)
+                                                    setnameNewsTypeUpdate(Item.name)
+                                                    setStatus(Item.status)
                                                     handleClickOpenDialogUpdate()
                                                 }}>
                                                     <RxUpdate style={{ color: '#33FFBB' }} />
@@ -359,7 +428,7 @@ const NewsTypeManager = () => {
                                                                     <Select
                                                                         labelId="demo-simple-select-label"
                                                                         id="demo-simple-select"
-                                                                        value={age}
+                                                                        value={cateroryUpdate}
                                                                         label="Doanh mục"
                                                                         onChange={handleChangeSelectCateroryUpDate}
                                                                     >
@@ -385,7 +454,7 @@ const NewsTypeManager = () => {
 
                                                     <DialogContent>
                                                         <DialogContentText id="alert-dialog-description">
-                                                            <TextField id="outlined-basic" label="Tên loại bài đăng" variant="outlined" style={{ marginTop: 20 }} value={Item.name} onChange={event => setnameNewsTypeUpdate(event.target.value)} />
+                                                            <TextField id="outlined-basic" label="Tên loại bài đăng" variant="outlined" style={{ marginTop: 20 }} value={nameNewsTypeUpdate} onChange={event => setnameNewsTypeUpdate(event.target.value)} />
                                                         </DialogContentText>
                                                     </DialogContent>
 
@@ -407,8 +476,8 @@ const NewsTypeManager = () => {
                                                                     >
 
 
-                                                                        <MenuItem value = "Đang hoạt động" >Đang hoạt động</MenuItem>
-                                                                        <MenuItem value = "Đã khóa" >Đã khóa</MenuItem>
+                                                                        <MenuItem value="Đang hoạt động" >Đang hoạt động</MenuItem>
+                                                                        <MenuItem value="Đã khóa" >Đã khóa</MenuItem>
 
 
 
@@ -424,17 +493,43 @@ const NewsTypeManager = () => {
 
                                                     <DialogActions>
                                                         <Button onClick={handleCloseDialogUpdate}>Đóng</Button>
-                                                        <Button autoFocus>
+                                                        <Button autoFocus onClick={UpdateAction}>
                                                             Cập nhật
                                                         </Button>
                                                     </DialogActions>
                                                 </Dialog>
 
 
+                                               
+                                                    <IconButton aria-label="delete" color="primary" onClick={() => {
+                                                        setidNewsTypeLock(Item.id)
+                                                        console.log(idNewsTypeLock)
+                                                        handleClickOpenDelete()
+                                                    }}>
+                                                        <AiFillLock style={{ color: 'red' }} />
+                                                    </IconButton>
 
-                                                <IconButton aria-label="delete" color="primary" >
-                                                    <AiFillLock style={{ color: 'red' }} />
-                                                </IconButton>
+                                                    <Dialog
+                                                        open={openDelete}
+                                                        onClose={handleCloseDelete}
+                                                        aria-labelledby="alert-dialog-title"
+                                                        aria-describedby="alert-dialog-description"
+                                                    >
+                                                        <DialogTitle id="alert-dialog-title">
+                                                            {"Thông báo?"}
+                                                        </DialogTitle>
+                                                        <DialogContent>
+                                                            <DialogContentText id="alert-dialog-description">
+                                                                Bạn có chắc khóa loại tin này không
+                                                            </DialogContentText>
+                                                        </DialogContent>
+                                                        <DialogActions>
+                                                            <Button onClick={LockNewsType}>Đồng ý</Button>
+                                                            <Button onClick={handleCloseDelete} >
+                                                                Đóng
+                                                            </Button>
+                                                        </DialogActions>
+                                                    </Dialog>
                                             </th>
                                         </tr>
                                     )
