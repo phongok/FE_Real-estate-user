@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 
 import { RxUpdate } from 'react-icons/rx'
 import { AiFillLock } from 'react-icons/ai'
-import {IoLogoUsd} from 'react-icons/io'
+import { IoLogoUsd } from 'react-icons/io'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from "axios"
@@ -16,6 +16,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+
+
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 const UserManager = () => {
@@ -33,12 +40,69 @@ const UserManager = () => {
         getUsersList()
     }, [])
 
+    const [opencreate, setOpenCreate] = React.useState(false);
+
+    const handleClickOpenDialogCreate = () => {
+        setOpenCreate(true);
+    };
+
+    const handleCloseDialogCreate = () => {
+        setOpenCreate(false);
+    };
+
+    const [roleCreate, setRoleCreate] = React.useState('');
+    const handleChangeSelectRoleCreate = (event) => {
+
+        setRoleCreate(event.target.value);
+
+        console.log(roleCreate)
+
+    };
+
+    const [userName, setuserName] = useState("")
+    const [password, setPassword] = useState("")
+
+    const CreateUser = async()=>{
+        let data = JSON.stringify({
+            "username": userName,
+            "password": password
+          });
+          
+          let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8081/api/user/create?role=${roleCreate}`,
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : data
+          };
+          
+          axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            if (response.status===200) {
+                alert("Thêm thành công")
+                handleCloseDialogCreate()
+                getUsersList()
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          
+    }
+
+
+    ////
+
+
     const prevPage = async () => {
         const kw = keyword
         const pg = page === 1 ? 1 : page - 1
         getUsersList(kw, pg)
         setPage(pg)
-        
+
     }
 
     const nextPage = async () => {
@@ -89,27 +153,27 @@ const UserManager = () => {
 
     const [idUserLock, setidUserLock] = React.useState('');
 
-    const LockUser = async()=>{
+    const LockUser = async () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
             url: `http://localhost:8081/api/lockuser?userid=${idUserLock}`,
-            headers: { }
-          };
-          
-          axios.request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-            if (response.status===200) {
-                alert('Khóa thành công')
-                handleCloseLock()
-                getUsersList()
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-          
+            headers: {}
+        };
+
+        axios.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                if (response.status === 200) {
+                    alert('Khóa thành công')
+                    handleCloseLock()
+                    getUsersList()
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
     }
 
 
@@ -127,26 +191,26 @@ const UserManager = () => {
     const [idUserMoney, setIdUserMoney] = React.useState('');
     const [money, setMoney] = React.useState('');
 
-    const PublicMoney = async()=>{
+    const PublicMoney = async () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
             url: `http://localhost:8081/api/user/publicmoney?userid=${idUserMoney}&money=${money}`,
-            headers: { }
-          };
-          
-          axios.request(config)
-          .then((response) => {
-          if (response.status===200) {
-            alert('Cộng tiền thành công')
-            handleCloseMoney()
-            getUsersList()
-          }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-          
+            headers: {}
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    alert('Cộng tiền thành công')
+                    handleCloseMoney()
+                    getUsersList()
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
     }
 
 
@@ -159,6 +223,96 @@ const UserManager = () => {
                 <TextField id="outlined-basic" label="Nhập thông tin tìm kiếm" variant="outlined" style={{ width: 700, }}
                     onChange={(e) => setKeyword(e.target.value)} />
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={search}>Tìm kiếm</Button>
+                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={handleClickOpenDialogCreate}>
+                    Thêm
+                </Button>
+
+
+
+                <Dialog
+                    open={opencreate}
+                    onClose={handleCloseDialogCreate}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Thêm tài khoản"}
+                    </DialogTitle>
+                    
+                    <DialogContent>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                <TextField id="outlined-basic" label="Username" variant="outlined"     onChange={event => setuserName(event.target.value)} />
+                            </DialogContentText>
+                        </DialogContent>
+
+                        <DialogContent>
+                            <input
+                                type="password"
+                                // id="password"
+                                className="form-control"
+                                style={{height:55, width:220, marginLeft:0, marginRight:0}}
+                                placeholder="Nhập mật khẩu"
+                                aria-describedby="password"
+
+                                onChange={event => setPassword(event.target.value)}
+                               
+                            />
+                        </DialogContent>
+
+
+                        <DialogContentText id="alert-dialog-description">
+
+                            <br />
+
+                            <Box sx={{ minWidth: 200 }}>
+
+
+                                <FormControl fullWidth>
+
+
+
+                                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
+
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={roleCreate}
+                                        label="Doanh mục"
+                                        onChange={handleChangeSelectRoleCreate}
+                                    >
+
+
+                                        <MenuItem value={1} >admin</MenuItem>
+
+                                        <MenuItem value={2} >user</MenuItem>
+
+
+                                    </Select>
+
+
+
+                                </FormControl>
+
+                            </Box>
+
+
+
+                        </DialogContentText>
+                    </DialogContent>
+
+
+
+
+                    <DialogActions>
+                        <Button onClick={handleCloseDialogCreate}>Đóng</Button>
+                        <Button  onClick={CreateUser}>
+                            Lưu
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button>
             </div>
             <div className="form-data">
@@ -171,7 +325,7 @@ const UserManager = () => {
                             <th style={{ width: 150 }} className="table-title" >Email</th>
                             <th style={{ width: 50 }} className="table-title" >Quyền</th>
                             <th style={{ width: 150 }} className="table-title" >Số dư</th>
-                          
+
                             <th style={{ width: 150 }} className="table-title">Trạng thái</th>
                             <th style={{ width: 200 }} className="table-title">Action</th>
                         </tr>
@@ -188,15 +342,15 @@ const UserManager = () => {
                                         <th style={{ width: 200 }} className="table-item" >{Item.username}</th>
                                         <th style={{ width: 50 }} className="table-item" >{Item.roles[0].name}</th>
                                         <th style={{ width: 150 }} className="table-item" >{Item.surplus}</th>
-                                      
+
                                         <th style={{ width: 150 }} className="table-item">{Item.status}</th>
-                                        
+
                                         <th style={{ width: 200 }} className="table-item">
                                             <IconButton aria-label="delete" color="primary" onClick={ShowUpdateForm}>
                                                 <RxUpdate style={{ color: '#33FFBB' }} />
                                             </IconButton>
 
-                                            <IconButton aria-label="delete" color="primary" onClick={()=>{
+                                            <IconButton aria-label="delete" color="primary" onClick={() => {
                                                 setIdUserMoney(Item.id)
                                                 handleClickOpenMoney()
                                             }}>
@@ -204,59 +358,59 @@ const UserManager = () => {
                                             </IconButton>
 
                                             <Dialog
-                                                    open={openMoney}
-                                                    onClose={handleCloseMoney}
-                                                    aria-labelledby="alert-dialog-title"
-                                                    aria-describedby="alert-dialog-description"
-                                                >
-                                                    <DialogTitle id="alert-dialog-title">
-                                                        {"Thông báo?"}
-                                                    </DialogTitle>
-                                                    <DialogContent>
-                                                       
-                                                        <DialogContentText id="alert-dialog-description">
-                                                            <TextField id="outlined-basic" label="Nhập số tiền muốn cộng" variant="outlined" style={{ marginTop: 20 }} onChange={event => setMoney(event.target.value)} />
-                                                        </DialogContentText>
-                                                    </DialogContent>
-                                                    <DialogActions>
-                                                        <Button onClick={PublicMoney} >Đồng ý</Button>
-                                                        <Button onClick={handleCloseMoney} >
-                                                            Đóng
-                                                        </Button>
-                                                    </DialogActions>
-                                                </Dialog>
+                                                open={openMoney}
+                                                onClose={handleCloseMoney}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+                                            >
+                                                <DialogTitle id="alert-dialog-title">
+                                                    {"Thông báo?"}
+                                                </DialogTitle>
+                                                <DialogContent>
 
-                                            <IconButton aria-label="delete" color="primary" onClick={()=>{
+                                                    <DialogContentText id="alert-dialog-description">
+                                                        <TextField id="outlined-basic" label="Nhập số tiền muốn cộng" variant="outlined" style={{ marginTop: 20 }} onChange={event => setMoney(event.target.value)} />
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={PublicMoney} >Đồng ý</Button>
+                                                    <Button onClick={handleCloseMoney} >
+                                                        Đóng
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
+
+                                            <IconButton aria-label="delete" color="primary" onClick={() => {
                                                 setidUserLock(Item.id)
                                                 handleClickOpenLock()
                                             }}  >
 
-                                                <AiFillLock style={{ color: 'red' }}  />
-                                                
+                                                <AiFillLock style={{ color: 'red' }} />
+
                                             </IconButton>
 
                                             <Dialog
-                                                    open={openLock}
-                                                    onClose={handleCloseLock}
-                                                    aria-labelledby="alert-dialog-title"
-                                                    aria-describedby="alert-dialog-description"
-                                                >
-                                                    <DialogTitle id="alert-dialog-title">
-                                                        {"Thông báo?"}
-                                                    </DialogTitle>
-                                                    <DialogContent>
-                                                        <DialogContentText id="alert-dialog-description">
+                                                open={openLock}
+                                                onClose={handleCloseLock}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+                                            >
+                                                <DialogTitle id="alert-dialog-title">
+                                                    {"Thông báo?"}
+                                                </DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText id="alert-dialog-description">
                                                         Bạn có chắc khóa tài khoản
-                                                        </DialogContentText>
-                                                       
-                                                    </DialogContent>
-                                                    <DialogActions>
-                                                        <Button onClick={LockUser} >Đồng ý</Button>
-                                                        <Button onClick={handleCloseLock} >
-                                                            Đóng
-                                                        </Button>
-                                                    </DialogActions>
-                                                </Dialog>
+                                                    </DialogContentText>
+
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={LockUser} >Đồng ý</Button>
+                                                    <Button onClick={handleCloseLock} >
+                                                        Đóng
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
                                         </th>
                                     </tr>
                                 )
