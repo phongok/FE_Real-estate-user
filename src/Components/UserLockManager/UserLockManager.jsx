@@ -47,6 +47,7 @@ const UserLockManager = () => {
                 if (response.status === 200) {
                     alert("Mở khóa thành công")
                     handleClose()
+                    getUsersList()
                 }
 
             })
@@ -180,7 +181,7 @@ const UserLockManager = () => {
                                                     </DialogTitle>
                                                     <DialogContent>
                                                         <DialogContentText id="alert-dialog-description">
-                                                            Bạn có chắc mở khác người dùng này
+                                                            Bạn có chắc mở khóa người dùng này?
                                                         </DialogContentText>
                                                     </DialogContent>
                                                     <DialogActions>

@@ -10,7 +10,11 @@ import TextField from '@mui/material/TextField';
 import axios from "axios"
 
 import Avatar from '@mui/material/Avatar';
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 const UserManager = () => {
 
     const [usersList, setUsersList] = useState([])
@@ -70,7 +74,40 @@ const UserManager = () => {
     }
 
 
+    const [openLock, setOpenLock] = React.useState(false);
 
+    const handleClickOpenLock = () => {
+        setOpenLock(true);
+    };
+
+    const handleCloseLock = () => {
+        setOpenLock(false);
+    };
+
+    const [idUserLock, setidUserLock] = React.useState('');
+
+    const LockUser = async()=>{
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8081/api/lockuser?userid=${idUserLock}`,
+            headers: { }
+          };
+          
+          axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            if (response.status===200) {
+                alert('Khóa thành công')
+                handleCloseLock()
+                getUsersList()
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          
+    }
 
     const ShowUpdateForm = () => {
         alert('Update')
@@ -117,10 +154,37 @@ const UserManager = () => {
                                             <IconButton aria-label="delete" color="primary" onClick={ShowUpdateForm}>
                                                 <RxUpdate style={{ color: '#33FFBB' }} />
                                             </IconButton>
-                                            <IconButton aria-label="delete" color="primary"   >
+
+                                            <IconButton aria-label="delete" color="primary" onClick={()=>{
+                                                setidUserLock(Item.id)
+                                                handleClickOpenLock()
+                                            }}  >
+
                                                 <AiFillLock style={{ color: 'red' }}  />
                                                 
                                             </IconButton>
+
+                                            <Dialog
+                                                    open={openLock}
+                                                    onClose={handleCloseLock}
+                                                    aria-labelledby="alert-dialog-title"
+                                                    aria-describedby="alert-dialog-description"
+                                                >
+                                                    <DialogTitle id="alert-dialog-title">
+                                                        {"Thông báo?"}
+                                                    </DialogTitle>
+                                                    <DialogContent>
+                                                        <DialogContentText id="alert-dialog-description">
+                                                            Bạn có chắc khóa tài khoản
+                                                        </DialogContentText>
+                                                    </DialogContent>
+                                                    <DialogActions>
+                                                        <Button onClick={LockUser} >Đồng ý</Button>
+                                                        <Button onClick={handleCloseLock} >
+                                                            Đóng
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Dialog>
                                         </th>
                                     </tr>
                                 )
