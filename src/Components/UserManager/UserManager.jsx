@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 
 import { RxUpdate } from 'react-icons/rx'
 import { AiFillLock } from 'react-icons/ai'
+import {IoLogoUsd} from 'react-icons/io'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from "axios"
@@ -15,6 +16,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+
+
 const UserManager = () => {
 
     const [usersList, setUsersList] = useState([])
@@ -109,6 +112,44 @@ const UserManager = () => {
           
     }
 
+
+    ///////////////////////
+    const [openMoney, setOpenMoney] = React.useState(false);
+
+    const handleClickOpenMoney = () => {
+        setOpenMoney(true);
+    };
+
+    const handleCloseMoney = () => {
+        setOpenMoney(false);
+    };
+
+    const [idUserMoney, setIdUserMoney] = React.useState('');
+    const [money, setMoney] = React.useState('');
+
+    const PublicMoney = async()=>{
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8081/api/user/publicmoney?userid=${idUserMoney}&money=${money}`,
+            headers: { }
+          };
+          
+          axios.request(config)
+          .then((response) => {
+          if (response.status===200) {
+            alert('Cộng tiền thành công')
+            handleCloseMoney()
+            getUsersList()
+          }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          
+    }
+
+
     const ShowUpdateForm = () => {
         alert('Update')
     }
@@ -156,6 +197,36 @@ const UserManager = () => {
                                             </IconButton>
 
                                             <IconButton aria-label="delete" color="primary" onClick={()=>{
+                                                setIdUserMoney(Item.id)
+                                                handleClickOpenMoney()
+                                            }}>
+                                                <IoLogoUsd style={{ color: '#33FFBB' }} />
+                                            </IconButton>
+
+                                            <Dialog
+                                                    open={openMoney}
+                                                    onClose={handleCloseMoney}
+                                                    aria-labelledby="alert-dialog-title"
+                                                    aria-describedby="alert-dialog-description"
+                                                >
+                                                    <DialogTitle id="alert-dialog-title">
+                                                        {"Thông báo?"}
+                                                    </DialogTitle>
+                                                    <DialogContent>
+                                                       
+                                                        <DialogContentText id="alert-dialog-description">
+                                                            <TextField id="outlined-basic" label="Nhập số tiền muốn cộng" variant="outlined" style={{ marginTop: 20 }} onChange={event => setMoney(event.target.value)} />
+                                                        </DialogContentText>
+                                                    </DialogContent>
+                                                    <DialogActions>
+                                                        <Button onClick={PublicMoney} >Đồng ý</Button>
+                                                        <Button onClick={handleCloseMoney} >
+                                                            Đóng
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Dialog>
+
+                                            <IconButton aria-label="delete" color="primary" onClick={()=>{
                                                 setidUserLock(Item.id)
                                                 handleClickOpenLock()
                                             }}  >
@@ -175,8 +246,9 @@ const UserManager = () => {
                                                     </DialogTitle>
                                                     <DialogContent>
                                                         <DialogContentText id="alert-dialog-description">
-                                                            Bạn có chắc khóa tài khoản
+                                                        Bạn có chắc khóa tài khoản
                                                         </DialogContentText>
+                                                       
                                                     </DialogContent>
                                                     <DialogActions>
                                                         <Button onClick={LockUser} >Đồng ý</Button>
