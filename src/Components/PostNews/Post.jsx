@@ -10,7 +10,13 @@ import Input from '@mui/material/Input';
 import Select from '@mui/material/Select';
 import { Button } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/storage';
+
+
 const ariaLabel = { 'aria-label': 'description' };
+
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -212,6 +218,227 @@ export default function BasicTabs(props) {
 
   const [idRealEstate, setidRealEstate] = useState(0)
 
+  // Initialize Firebase
+  firebase.initializeApp({
+    apiKey: "AIzaSyD8q_BzcLKDJQv8_az8C3uZvZ-R5B3kqm4",
+    authDomain: "realstate-d9def.firebaseapp.com",
+    projectId: "realstate-d9def",
+    storageBucket: "realstate-d9def.appspot.com",
+    messagingSenderId: "789202840133",
+    appId: "1:789202840133:web:ee9dce2de04deb1db1512c",
+    measurementId: "G-PTFGYD7M2C"
+  });
+  
+  // Create a storage reference
+  const storage = firebase.storage();
+  const storageRef = storage.ref();
+//////
+    const [imageSell1, setImageSell1] = useState(null);
+
+    const handleImageChangeSell1 = (e) => {
+      if (e.target.files[0]) {
+        setImageSell1(e.target.files[0]);
+      }
+    };
+
+    const handleUploadSell1 = () => {
+      if (imageSell1) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageSell1.name}`).put(imageSell1);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL1) => {
+           
+           
+             alert('Upload ảnh 1 thành công')
+             const img1SellTemp = downloadURL1
+              setimg1Sell(img1SellTemp)
+             
+             
+            });
+          }
+        );
+      }
+    };
+
+    const [imageSell2, setImageSell2] = useState(null);
+
+    const handleImageChangeSell2 = (e) => {
+      if (e.target.files[0]) {
+        setImageSell2(e.target.files[0]);
+      }
+    };
+
+    const handleUploadSell2 = () => {
+      if (imageSell2) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageSell2.name}`).put(imageSell2);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL2) => {
+              const img2SellTemp = downloadURL2
+              setimg2Sell(img2SellTemp)
+              alert("Ảnh 2 upload thành công")
+             
+            });
+          }
+        );
+      }
+    };
+
+    //////
+    const [imageSell3, setImageSell3] = useState(null);
+
+    const handleImageChangeSell3 = (e) => {
+      if (e.target.files[0]) {
+        setImageSell3(e.target.files[0]);
+      }
+    };
+
+    const handleUploadSell3 = () => {
+      if (imageSell3) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageSell3.name}`).put(imageSell3);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL3) => {
+              const img3SellTemp = downloadURL3
+              setimg3Sell(img3SellTemp)
+              alert("Ảnh 3 upload thành công")
+             
+            });
+          }
+        );
+      }
+    };
+
+     //////
+     const [imageSell4, setImageSell4] = useState(null);
+
+     const handleImageChangeSell4 = (e) => {
+       if (e.target.files[0]) {
+         setImageSell4(e.target.files[0]);
+       }
+     };
+ 
+     const handleUploadSell4 = () => {
+       if (imageSell4) {
+         const uploadTask = storageRef.child(`imagerealestate/${imageSell4.name}`).put(imageSell4);
+         uploadTask.on(
+           'state_changed',
+           (snapshot) => {
+             // Handle progress
+           },
+           (error) => {
+             // Handle error
+           },
+           () => {
+             // Handle successful upload
+             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL4) => {
+              const img4SellTemp = downloadURL4
+              setimg4Sell(img4SellTemp)
+              alert("Ảnh 4 upload thành công")
+              
+             });
+           }
+         );
+       }
+     };
+   
+     
+      //////
+    const [imageSell5, setImageSell5] = useState(null);
+
+    const handleImageChangeSell5 = (e) => {
+      if (e.target.files[0]) {
+        setImageSell5(e.target.files[0]);
+      }
+    };
+
+    const handleUploadSell5 = () => {
+      if (imageSell5) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageSell5.name}`).put(imageSell5);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL5) => {
+              const img5SellTemp = downloadURL5
+              setimg5Sell(img5SellTemp)
+              alert("Ảnh 5 upload thành công")
+          
+            });
+          }
+        );
+      }
+    };
+   
+
+     //////
+     const [imageSell6, setImageSell6] = useState(null);
+
+     const handleImageChangeSell6 = (e) => {
+       if (e.target.files[0]) {
+         setImageSell6(e.target.files[0]);
+       }
+     };
+ 
+     const handleUploadSell6 = () => {
+       if (imageSell6) {
+         const uploadTask = storageRef.child(`imagerealestate/${imageSell6.name}`).put(imageSell6);
+         uploadTask.on(
+           'state_changed',
+           (snapshot) => {
+             // Handle progress
+           },
+           (error) => {
+             // Handle error
+           },
+           () => {
+             // Handle successful upload
+             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL6) => {
+              const img6SellTemp = downloadURL6
+              setimg6Sell(img6SellTemp)
+              alert("Ảnh 6 upload thành công")
+
+               
+             });
+           }
+         );
+       }
+     };
+   
+      //////
+ 
+   
+   
 
   const SaveNewsRealstateSell = () => {
     let data = JSON.stringify({
@@ -475,6 +702,14 @@ export default function BasicTabs(props) {
 
             <label htmlFor="">Nhập khu vực: </label>
 
+            <button onClick={()=>{console.log("img 1 ", img1Sell) 
+            console.log("img 2: ",img2Sell)
+            console.log("img3 :", img3Sell)
+            console.log("img4 :", img4Sell)
+            console.log("img5 :",img5Sell)
+            console.log("img 6: ",img6Sell)
+            }}>sdadasd</button>
+
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -571,25 +806,47 @@ export default function BasicTabs(props) {
 
           <div style={{ width: '30%' }}>
             <label htmlFor="">Ảnh 1 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
+
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeSell1} />
+                  <button onClick={handleUploadSell1} >Upload</button>
+            </div>
 
             <label htmlFor="">Ảnh 2 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
-
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeSell2} />
+                  <button onClick={handleUploadSell2} >Upload</button>
+            </div>
 
             <label htmlFor="">Ảnh 3 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
-
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeSell3} />
+                  <button onClick={handleUploadSell3} >Upload</button>
+            </div>
 
             <label htmlFor="">Ảnh 4 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeSell4} />
+                  <button onClick={handleUploadSell4} >Upload</button>
+            </div>
             <label htmlFor="">Ảnh 5 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg5Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg5Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
-
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeSell5} />
+                  <button onClick={handleUploadSell5} >Upload</button>
+            </div>
             <label htmlFor="">Ảnh 6 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeSell6} />
+                  <button onClick={handleUploadSell6} >Upload</button>
+            </div>
           </div>
 
           <div style={{ width: '40%', marginLeft: 30 }}>
