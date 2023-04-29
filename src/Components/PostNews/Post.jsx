@@ -913,13 +913,13 @@ export default function BasicTabs(props) {
 
             <label htmlFor="">Nhập khu vực: </label>
 
-            <button onClick={()=>{console.log("img 1 ", img1Sell) 
+            {/* <button onClick={()=>{console.log("img 1 ", img1Sell) 
             console.log("img 2: ",img2Sell)
             console.log("img3 :", img3Sell)
             console.log("img4 :", img4Sell)
             console.log("img5 :",img5Sell)
             console.log("img 6: ",img6Sell)
-            }}>sdadasd</button>
+            }}>sdadasd</button> */}
 
             <Select
               labelId="demo-simple-select-label"
@@ -1021,21 +1021,33 @@ export default function BasicTabs(props) {
 
             <div className="flex">
                   <input type="file" onChange={handleImageChangeSell1} />
-                  <button onClick={handleUploadSell1} >Upload</button>
+                  {/* <button onClick={handleUploadSell1} >Upload</button> */}
+
+                  <Button variant="contained" color="success"  onClick={handleUploadSell1}>
+                       Upload
+                  </Button>
             </div>
 
             <label htmlFor="">Ảnh 2 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
                   <input type="file" onChange={handleImageChangeSell2} />
-                  <button onClick={handleUploadSell2} >Upload</button>
+                  {/* <button onClick={handleUploadSell2} >Upload</button> */}
+
+                  <Button variant="contained" color="success"  onClick={handleUploadSell2}>
+                       Upload
+                  </Button>
             </div>
 
             <label htmlFor="">Ảnh 3 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
                   <input type="file" onChange={handleImageChangeSell3} />
-                  <button onClick={handleUploadSell3} >Upload</button>
+                  {/* <button onClick={handleUploadSell3} >Upload</button> */}
+
+                  <Button variant="contained" color="success"  onClick={handleUploadSell3}>
+                       Upload
+                  </Button>
             </div>
 
             <label htmlFor="">Ảnh 4 : </label>
@@ -1043,20 +1055,32 @@ export default function BasicTabs(props) {
 
             <div className="flex">
                   <input type="file" onChange={handleImageChangeSell4} />
-                  <button onClick={handleUploadSell4} >Upload</button>
+                  {/* <button onClick={handleUploadSell4} >Upload</button> */}
+
+                  <Button variant="contained" color="success"  onClick={handleUploadSell4}>
+                       Upload
+                  </Button>
             </div>
             <label htmlFor="">Ảnh 5 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg5Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
                   <input type="file" onChange={handleImageChangeSell5} />
-                  <button onClick={handleUploadSell5} >Upload</button>
+                  {/* <button onClick={handleUploadSell5} >Upload</button> */}
+
+                  <Button variant="contained" color="success"  onClick={handleUploadSell5}>
+                       Upload
+                  </Button>
             </div>
             <label htmlFor="">Ảnh 6 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
                   <input type="file" onChange={handleImageChangeSell6} />
-                  <button onClick={handleUploadSell6} >Upload</button>
+                  {/* <button onClick={handleUploadSell6} >Upload</button> */}
+
+                  <Button variant="contained" color="success"  onClick={handleUploadSell6}>
+                       Upload
+                  </Button>
             </div>
           </div>
 
@@ -1220,40 +1244,59 @@ export default function BasicTabs(props) {
 
             <div className="flex">
                   <input type="file" onChange={handleImageChangeRent1} />
-                  <button onClick={handleUploadRent1} >Upload</button>
+                  {/* <button onClick={handleUploadRent1} >Upload</button> */}
+                  <Button variant="contained" color="success"  onClick={handleUploadRent1}>
+                       Upload
+                  </Button>
             </div>
             <label htmlFor="">Ảnh 2 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
                   <input type="file" onChange={handleImageChangeRent2} />
-                  <button onClick={handleUploadRent2} >Upload</button>
+                  {/* <button onClick={handleUploadRent2} >Upload</button> */}
+                  <Button variant="contained" color="success"  onClick={handleUploadRent2}>
+                       Upload
+                  </Button>
             </div>
             <label htmlFor="">Ảnh 3 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
                   <input type="file" onChange={handleImageChangeRent3} />
-                  <button onClick={handleUploadRent3} >Upload</button>
+                  {/* <button onClick={handleUploadRent3} >Upload</button> */}
+
+                  <Button variant="contained" color="success"  onClick={handleUploadRent3}>
+                       Upload
+                  </Button>
             </div>
 
             <label htmlFor="">Ảnh 4 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
                   <input type="file" onChange={handleImageChangeRent4} />
-                  <button onClick={handleUploadRent4} >Upload</button>
+                  {/* <button onClick={handleUploadRent4} >Upload</button> */}
+                  <Button variant="contained" color="success"  onClick={handleUploadRent4}>
+                       Upload
+                  </Button>
             </div>
             <label htmlFor="">Ảnh 5 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setim5Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
                   <input type="file" onChange={handleImageChangeRent5} />
-                  <button onClick={handleUploadRent5} >Upload</button>
+                  {/* <button onClick={handleUploadRent5} >Upload</button> */}
+                  <Button variant="contained" color="success"  onClick={handleUploadRent5}>
+                       Upload
+                  </Button>
             </div>
 
             <label htmlFor="">Ảnh 6 : </label>
 
             <div className="flex">
                   <input type="file" onChange={handleImageChangeRent6} />
-                  <button onClick={handleUploadRent6} >Upload</button>
+                  {/* <button onClick={handleUploadRent6} >Upload</button> */}
+                  <Button variant="contained" color="success"  onClick={handleUploadRent6}>
+                       Upload
+                  </Button>
             </div>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
           </div>
