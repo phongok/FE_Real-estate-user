@@ -212,7 +212,7 @@ export default function BasicTabs(props) {
   const [img2Rent, setimg2Rent] = useState("")
   const [img3Rent, setimg3Rent] = useState("")
   const [img4Rent, setimg4Rent] = useState("")
-  const [img5Rent, setim5Rent] = useState("")
+  const [img5Rent, setimg5Rent] = useState("")
   const [img6Rent, setimg6Rent] = useState("")
   const [decriptionRent, setdecriptionRent] = useState("")
 
@@ -390,8 +390,8 @@ export default function BasicTabs(props) {
           () => {
             // Handle successful upload
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL5) => {
-              const img5SellTemp = downloadURL5
-              setimg5Sell(img5SellTemp)
+              const img5RentTemp = downloadURL5
+              setimg5Sell(img5RentTemp)
               alert("Ảnh 5 upload thành công")
           
             });
@@ -399,20 +399,162 @@ export default function BasicTabs(props) {
         );
       }
     };
+
+      //////
+      const [imageSell6, setImageSell6] = useState(null);
+
+      const handleImageChangeSell6 = (e) => {
+        if (e.target.files[0]) {
+          setImageSell6(e.target.files[0]);
+        }
+      };
+  
+      const handleUploadSell6 = () => {
+        if (imageSell6) {
+          const uploadTask = storageRef.child(`imagerealestate/${imageSell6.name}`).put(imageSell6);
+          uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+              // Handle progress
+            },
+            (error) => {
+              // Handle error
+            },
+            () => {
+              // Handle successful upload
+              uploadTask.snapshot.ref.getDownloadURL().then((downloadURL6) => {
+               const img6SellTemp = downloadURL6
+               setimg6Sell(img6SellTemp)
+               alert("Ảnh 6 upload thành công")
+ 
+                
+              });
+            }
+          );
+        }
+      };
+    
+       //////
    
 
-     //////
-     const [imageSell6, setImageSell6] = useState(null);
+    
 
-     const handleImageChangeSell6 = (e) => {
+
+
+
+      ////// upload image rent
+    const [imageRent1, setImageRent1] = useState(null);
+
+    const handleImageChangeRent1 = (e) => {
+      if (e.target.files[0]) {
+        setImageRent1(e.target.files[0]);
+      }
+    };
+
+    const handleUploadRent1 = () => {
+      if (imageRent1) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageRent1.name}`).put(imageRent1);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL1) => {
+           
+           
+             alert('Upload ảnh 1 thành công')
+             const img1RentTemp = downloadURL1
+              setimg1Rent(img1RentTemp)
+             
+             
+            });
+          }
+        );
+      }
+    };
+
+    const [imageRent2, setImageRent2] = useState(null);
+
+    const handleImageChangeRent2 = (e) => {
+      if (e.target.files[0]) {
+        setImageRent2(e.target.files[0]);
+      }
+    };
+
+    const handleUploadRent2 = () => {
+      if (imageRent2) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageRent2.name}`).put(imageRent2);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL2) => {
+              const img2RentTemp = downloadURL2
+              setimg2Rent(img2RentTemp)
+              alert("Ảnh 2 upload thành công")
+             
+            });
+          }
+        );
+      }
+    };
+
+    //////
+    const [imageRent3, setImageRent3] = useState(null);
+
+    const handleImageChangeRent3 = (e) => {
+      if (e.target.files[0]) {
+        setImageRent3(e.target.files[0]);
+      }
+    };
+
+    const handleUploadRent3 = () => {
+      if (imageRent3) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageRent3.name}`).put(imageRent3);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL3) => {
+              const img3RentTemp = downloadURL3
+              setimg3Rent(img3RentTemp)
+              alert("Ảnh 3 upload thành công")
+             
+            });
+          }
+        );
+      }
+    };
+
+     //////
+     const [imageRent4, setImageRent4] = useState(null);
+
+     const handleImageChangeRent4 = (e) => {
        if (e.target.files[0]) {
-         setImageSell6(e.target.files[0]);
+         setImageRent4(e.target.files[0]);
        }
      };
  
-     const handleUploadSell6 = () => {
-       if (imageSell6) {
-         const uploadTask = storageRef.child(`imagerealestate/${imageSell6.name}`).put(imageSell6);
+     const handleUploadRent4 = () => {
+       if (imageRent4) {
+         const uploadTask = storageRef.child(`imagerealestate/${imageRent4.name}`).put(imageRent4);
          uploadTask.on(
            'state_changed',
            (snapshot) => {
@@ -423,20 +565,89 @@ export default function BasicTabs(props) {
            },
            () => {
              // Handle successful upload
-             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL6) => {
-              const img6SellTemp = downloadURL6
-              setimg6Sell(img6SellTemp)
-              alert("Ảnh 6 upload thành công")
-
-               
+             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL4) => {
+              const img4RentTemp = downloadURL4
+              setimg4Rent(img4RentTemp)
+              alert("Ảnh 4 upload thành công")
+              
              });
            }
          );
        }
      };
    
+     
       //////
- 
+    const [imageRent5, setImageRent5] = useState(null);
+
+    const handleImageChangeRent5 = (e) => {
+      if (e.target.files[0]) {
+        setImageRent5(e.target.files[0]);
+      }
+    };
+
+    const handleUploadRent5 = () => {
+      if (imageRent5) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageRent5.name}`).put(imageRent5);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL5) => {
+              const img5RentTemp = downloadURL5
+              setimg5Rent(img5RentTemp)
+              alert("Ảnh 5 upload thành công")
+          
+            });
+          }
+        );
+      }
+    };
+   
+
+   
+  //////
+  const [imageRent6, setImageRent6] = useState(null);
+
+  const handleImageChangeRent6 = (e) => {
+    if (e.target.files[0]) {
+      setImageRent6(e.target.files[0]);
+    }
+  };
+
+  const handleUploadRent6 = () => {
+    if (imageRent6) {
+      const uploadTask = storageRef.child(`imagerealestate/${imageRent6.name}`).put(imageRent6);
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Handle progress
+        },
+        (error) => {
+          // Handle error
+        },
+        () => {
+          // Handle successful upload
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL6) => {
+           const img6RentTemp = downloadURL6
+           setimg6Rent(img6RentTemp)
+           alert("Ảnh 6 upload thành công")
+
+            
+          });
+        }
+      );
+    }
+  };
+
+   //////
+
    
    
 
@@ -1005,25 +1216,46 @@ export default function BasicTabs(props) {
 
           <div style={{ width: '30%', marginLeft:40 }} >
             <label htmlFor="">Ảnh 1 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeRent1} />
+                  <button onClick={handleUploadRent1} >Upload</button>
+            </div>
             <label htmlFor="">Ảnh 2 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
-
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeRent2} />
+                  <button onClick={handleUploadRent2} >Upload</button>
+            </div>
             <label htmlFor="">Ảnh 3 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
-
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeRent3} />
+                  <button onClick={handleUploadRent3} >Upload</button>
+            </div>
 
             <label htmlFor="">Ảnh 4 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
-
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeRent4} />
+                  <button onClick={handleUploadRent4} >Upload</button>
+            </div>
             <label htmlFor="">Ảnh 5 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setim5Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
-
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setim5Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeRent5} />
+                  <button onClick={handleUploadRent5} >Upload</button>
+            </div>
 
             <label htmlFor="">Ảnh 6 : </label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+
+            <div className="flex">
+                  <input type="file" onChange={handleImageChangeRent6} />
+                  <button onClick={handleUploadRent6} >Upload</button>
+            </div>
+            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
           </div>
 
 
