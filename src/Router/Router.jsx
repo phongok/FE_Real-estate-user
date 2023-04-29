@@ -12,6 +12,7 @@ import ListRealEstateCaterorySell from "../Pages/ListRealEstateCaterorySell";
 import ListRealEstateCateroryRent from "../Pages/ListRealEstateCateroryRent";
 import Account from "../Pages/Account"
 import PostNews from "../Pages/PostNews"
+import RealEstateSaveForUser from "../Pages/RealEstateSaveForUser"
 
 import Real_Estate_User from "../Pages/RealEstateUser"
 import'../Assets/Css/home.css'
@@ -35,6 +36,7 @@ const RouterProvaider = () =>{
 
            <Route path="/account" element={<Account/>} />
            <Route path="/postnews" element={<PostNews/>} />
+           <Route path="/realestate-save-foruser" element={<RealEstateSaveForUser/>} />
           
       </Routes>
     )

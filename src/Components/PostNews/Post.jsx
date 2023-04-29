@@ -826,6 +826,7 @@ export default function BasicTabs(props) {
   }
 
   const CheckSurplusSell = async () => {
+   if (checkTittle()) {
     if (surplus > 50000) {
       SaveNewsRealstateSell()
 
@@ -834,6 +835,7 @@ export default function BasicTabs(props) {
     else {
       alert("Số dư không đủ 50000đ!, Vui lòng nạp thêm tiền")
     }
+   }
   }
 
   const CheckSurplusRent = async () => {
@@ -868,7 +870,27 @@ export default function BasicTabs(props) {
   }
 
   
-  //////
+  //////Check Bug
+
+  const checkTittle = () => {
+    var tittle = document.getElementById("tittle_sell").value;
+    var regtennv = /^[A-Za-z0-9_\.]{3,100}$/
+    if (regtennv.test(tittle) == '') {
+        document.getElementById("Bug_Tittle").innerHTML = "Tiêu đề không được để trống";
+        return false;
+    }
+    else {
+        if (!regtennv.test(tittle)) {
+            document.getElementById("Bug_Tittle").innerHTML = "Tên nhân viên hàng phải từ 3 ký tự trở lên ";
+            return false;
+        }
+    }
+    document.getElementById('Bug_Tittle').innerHTML = '*';
+    return true;
+}
+
+
+  ////
 
 
   return (<div >
@@ -886,8 +908,8 @@ export default function BasicTabs(props) {
           <div style={{ width: '40%' }}>
 
             <label htmlFor="">Tiêu đề:</label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleSell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
-
+            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleSell(event.target.value)} style={{ width: 350 }} id="tittle_sell"/> <br /> <br />
+            <p style={{ color: 'red' }} id='Bug_Tittle'>*</p>
             <label htmlFor="">Loại bài đăng: </label>
             <Select
               labelId="demo-simple-select-label"
@@ -997,7 +1019,10 @@ export default function BasicTabs(props) {
             <br /> <br />
 
             <label htmlFor="">Chiều dài: </label>
-            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthSell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthSell(event.target.value)} style={{ width: 350 }} /> 
+            
+            
+           
 
 
             <label htmlFor="">Chiều rộng: </label>
