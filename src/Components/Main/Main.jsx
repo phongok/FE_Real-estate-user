@@ -7,14 +7,14 @@ import {TbClipboardCheck} from 'react-icons/tb'
 import axios from "axios"
 import Aos from 'aos'
 import 'aos/dist/aos.css'
-import { red } from "@mui/material/colors";
-// import { useNavigation } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 
 const Main = () =>{
 
     const [listHome,setListHome] = useState([])
-
-    
+    const navigate = useNavigate()
+    const token = localStorage.getItem("token")
     useEffect(()=>{
         const fetchData =async()=>{
             let config = {
@@ -48,13 +48,14 @@ const Main = () =>{
                 {
                     listHome?.map((Item, index)=>{
                         return(
-                            <a key={Item.id} data-aos="fade-up" className="singleDestination" 
+                           <div className="singleDestination">
+                             <a key={Item.id}  className="singleDestination" 
                                 href={`detail/${Item.id}`}
                             >
                                 <div className="imageDiv">
                                     <img src={Item.url_img1} alt="sd"  />
                                 </div>
-
+                                </a>
                                 <div className="cardInfo">
                                     <h4 className="destTitle">
                                         {Item.name}
@@ -79,11 +80,64 @@ const Main = () =>{
                                     <div className="flex btn_group " >
                                     <p className="mt-1" style={{color:'black'}}>{Item.dateSubmitted}</p>
                                     <button className="btn flex">
-                                        Lưu <TbClipboardCheck className="icon"/>
+                                        Lưu <TbClipboardCheck className="icon" onClick={()=>{
+                                             let config = {
+                                                method: 'get',
+                                                maxBodyLength: Infinity,
+                                                url: `http://localhost:8081/api/checkuser?token=${token}`,
+                                                headers: {}
+                                            };
+                                    
+                                            axios.request(config)
+                                                .then((response) => {
+                                    
+                                                 
+                                                    if (response.status === 500) {
+                                                        navigate("/login")
+                                                    }
+
+                                                    let data = JSON.stringify({
+                                                        "user": {
+                                                          "id": response.data.id
+                                                        },
+                                                        "realEstate": {
+                                                          "id": Item.id
+                                                        }
+                                                      });
+                                                      
+                                                      let config = {
+                                                        method: 'post',
+                                                        maxBodyLength: Infinity,
+                                                        url: 'http://localhost:8081/api/realestatesaves',
+                                                        headers: { 
+                                                          'Content-Type': 'application/json'
+                                                        },
+                                                        data : data
+                                                      };
+                                                      
+                                                      axios.request(config)
+                                                      .then((response) => {
+                                                        console.log(JSON.stringify(response.data));
+                                                        alert("Lưu Thành công")
+                                                      })
+                                                      .catch((error) => {
+                                                        console.log(error);
+                                                      });
+                                                      
+                                    
+                                    
+                                                })
+                                                .catch((error) => {
+                                                    console.log(error);
+                                                    navigate("/login")
+                                    
+                                                });
+                                        }}/>
                                     </button>
                                     </div>
                                 </div>
-                            </a>
+                           </div>
+                           
                         )
                     })
                 }

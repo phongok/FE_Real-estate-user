@@ -1,25 +1,19 @@
-import React ,{ useEffect, useState }from "react";
-import {HiOutlineLocationMarker} from 'react-icons/hi'
-import {TbClipboardCheck} from 'react-icons/tb'
+import React, { useEffect, useState } from "react";
+import { HiOutlineLocationMarker } from 'react-icons/hi'
+import { TbClipboardCheck } from 'react-icons/tb'
 import './listrealestatetype.css'
-
-import 'aos/dist/aos.css'
-
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-
 import FormLabel from '@mui/material/FormLabel';
-
-import axios from "axios" 
-import Aos from 'aos'
-import 'aos/dist/aos.css'
+import axios from "axios"
 import { useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
-
-function ListRealEstateType  () {
-
-    const {idNews} = useParams()
+import { Link, useNavigate } from "react-router-dom";
+function ListRealEstateType() {
+    const navigate = useNavigate()
+    const token = localStorage.getItem("token")
+    const { idNews } = useParams()
     const [dataListRealEstateNewsType, setListRealEstateNewsType] = useState()
 
     const [page, setPage] = useState(0)
@@ -37,121 +31,179 @@ function ListRealEstateType  () {
         console.log(area)
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchData()
-        Aos.init({duration:2000}, [])
-    },[])
+       
+    }, [])
 
-    const seemore = async() => {
-        const pg = page 
+    const seemore = async () => {
+        const pg = page
 
-        setpageSize(pageSize+4)
+        setpageSize(pageSize + 4)
 
         const pgSize = pageSize
-        
+
         fetchData(pg, pgSize)
-    
+
     }
-    const fetchData = async (pg = page, pgSize = pageSize,are =area ,priMin = priceMin, priMax = priceMax, acrMin = acreageMin, acrMax = acreageMax) => {
+    const fetchData = async (pg = page, pgSize = pageSize, are = area, priMin = priceMin, priMax = priceMax, acrMin = acreageMin, acrMax = acreageMax) => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
             url: `http://localhost:8081/api/realestates-newstype/${idNews}?page=${pg}&size=${pgSize}&area=${are}&priceMin=${priMin}&priceMax=${priMax}&acreageMin=${acrMin}&acreageMax=${acrMax}`,
-            headers: { }
-          };
-          
-          axios.request(config)
-          .then((response) => {
-           setListRealEstateNewsType(response.data.content)
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+            headers: {}
+        };
+
+        axios.request(config)
+            .then((response) => {
+                setListRealEstateNewsType(response.data.content)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     const Filler = async () => {
-        const pg =page
+        const pg = page
         const pgSize = pageSize
-       const are = area
-       const priMin = priceMin
-       const priMax = priceMax
-       const acrMin = acreageMin
-       const acrMax =  acreageMax
-       console.log(are)
-       console.log(priMin)
-       console.log(priMax)
-       console.log(acrMin)
-       console.log(acrMax)
-        fetchData(pg, pgSize , are, priMin, priMax, acrMin, acrMax)
-    
-    }
-        return ( 
+        const are = area
+        const priMin = priceMin
+        const priMax = priceMax
+        const acrMin = acreageMin
+        const acrMax = acreageMax
+        console.log(are)
+        console.log(priMin)
+        console.log(priMax)
+        console.log(acrMin)
+        console.log(acrMax)
+        fetchData(pg, pgSize, are, priMin, priMax, acrMin, acrMax)
 
-            <div>
-                <div className="container">
-                <h4 style={{color:'black'}}>Danh sách sản phẩm</h4>
-                </div>
-                <div className="flex container">
-                   
-                    <div className="main" style={{width:'70%'}}>
-                        <div className="list-real-estate grid">
-                            
-                              {
-                                dataListRealEstateNewsType?.map((Item,index)=>{
-                                    return(
+    }
+    return (
+
+        <div>
+            <div className="container">
+                <h4 style={{ color: 'black' }}>Danh sách sản phẩm</h4>
+            </div>
+            <div className="flex container">
+
+                <div className="main" style={{ width: '70%' }}>
+                    <div className="list-real-estate grid">
+
+                        {
+                            dataListRealEstateNewsType?.map((Item, index) => {
+                                return (
+                                    <div className="singleDestination">
                                         <a className="singleDestination" href={`detail/${Item.id}`}>
                                             <div className="imageDiv">
-                                                <img src={Item.url_img1} alt="sd"  />
+                                                <img src={Item.url_img1} alt="sd" />
                                             </div>
-
-                                            <div className="cardInfo">
-                                                <h4 className="destTitle">
-                                                    {Item.name}
-                                                </h4>
-                                                <span className="continent flex">
-                                                    <HiOutlineLocationMarker className="icon"/>
-                                                    <span className="name">{Item.address}</span>
-                                                </span>
-                                                <div className="fees flex">
+                                        </a>
+                                        <div className="cardInfo">
+                                            <h4 className="destTitle">
+                                                {Item.name}
+                                            </h4>
+                                            <span className="continent flex">
+                                                <HiOutlineLocationMarker className="icon" />
+                                                <span className="name">{Item.address}</span>
+                                            </span>
+                                            <div className="fees flex">
                                                 <div className="grade">
-                                                        <span>
-                                                            {Item.acreage}m
-                                                            <sup>2</sup>
-                                                        </span>
+                                                    <span>
+                                                        {Item.acreage}m
+                                                        <sup>2</sup>
+                                                    </span>
                                                 </div>
                                                 <div className="price">
-                                                        <h5>
-                                                            {Item.price}
-                                                        </h5>
-                                                </div>
-                                                </div>
-                                                
-                                                <div className="flex btn_group " >
-                                                <p className="mt-1">{Item.dateSubmitted}</p>
-                                                <button className="btn flex">
-                                                    Lưu <TbClipboardCheck className="icon"/>
-                                                </button>
+                                                    <h5>
+                                                        {Item.price}
+                                                    </h5>
                                                 </div>
                                             </div>
-                                </a>
 
-                                    )
-                                })
-                              }
-                               
+                                            <div className="flex btn_group " >
+                                                <p className="mt-1">{Item.dateSubmitted}</p>
+                                                <button className="btn flex" >
+                                                    Lưu <TbClipboardCheck className="icon" onClick={() => {
 
-                              
+                                                        let config = {
+                                                            method: 'get',
+                                                            maxBodyLength: Infinity,
+                                                            url: `http://localhost:8081/api/checkuser?token=${token}`,
+                                                            headers: {}
+                                                        };
+
+                                                        axios.request(config)
+                                                            .then((response) => {
 
 
-                               
-                        </div>
+                                                                if (response.status === 500) {
+                                                                    navigate("/login")
+                                                                }
 
-                        <div style={{ textAlign: "center" }}>
-                        <Button style={{ marginTop: 30, alignItems: "center" }} variant="outlined"  onClick={seemore}>Xem thêm</Button>
+                                                                let data = JSON.stringify({
+                                                                    "user": {
+                                                                        "id": response.data.id
+                                                                    },
+                                                                    "realEstate": {
+                                                                        "id": Item.id
+                                                                    }
+                                                                });
+
+                                                                let config = {
+                                                                    method: 'post',
+                                                                    maxBodyLength: Infinity,
+                                                                    url: 'http://localhost:8081/api/realestatesaves',
+                                                                    headers: {
+                                                                        'Content-Type': 'application/json'
+                                                                    },
+                                                                    data: data
+                                                                };
+
+                                                                axios.request(config)
+                                                                    .then((response) => {
+                                                                        console.log(JSON.stringify(response.data));
+                                                                        alert("Lưu Thành công")
+                                                                    })
+                                                                    .catch((error) => {
+                                                                        console.log(error);
+                                                                    });
+
+
+
+                                                            })
+                                                            .catch((error) => {
+                                                                console.log(error);
+                                                                navigate("/login")
+
+                                                            });
+                                                    }}
+
+
+                                                    />
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                )
+                            })
+                        }
+
+
+
+
+
+
                     </div>
-                    </div>
 
-                    
+                    <div style={{ textAlign: "center" }}>
+                        <Button style={{ marginTop: 30, alignItems: "center" }} variant="outlined" onClick={seemore}>Xem thêm</Button>
+                    </div>
+                </div>
+
+
                 <div className="filter" >
                     <h4 style={{ fontWeight: 'bold', paddingLeft: 20, paddingTop: 15 }}>Lọc theo tiêu chí</h4>
                     <form action="" method="post">
@@ -248,10 +300,10 @@ function ListRealEstateType  () {
                         </div>
                     </form>
                 </div>
-                </div>
-           
             </div>
-    
-        )
-    }
+
+        </div>
+
+    )
+}
 export default ListRealEstateType

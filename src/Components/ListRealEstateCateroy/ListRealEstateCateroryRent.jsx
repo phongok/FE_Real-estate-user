@@ -2,30 +2,16 @@ import React, { useEffect, useState } from "react";
 import { HiOutlineLocationMarker } from 'react-icons/hi'
 import { TbClipboardCheck } from 'react-icons/tb'
 import './listrealestatecaterory.css'
-
-import 'aos/dist/aos.css'
-
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-
 import FormLabel from '@mui/material/FormLabel';
-
 import axios from "axios"
-import Aos from 'aos'
-import 'aos/dist/aos.css'
-
 import Button from '@mui/material/Button';
-
-
 import Select from '@mui/material/Select';
-
 import MenuItem from '@mui/material/MenuItem';
-
 import TextField from '@mui/material/TextField';
-
+import { Link, useNavigate } from "react-router-dom";
 function ListRealEstateCateroryRent() {
-
+    const navigate = useNavigate()
+    const token = localStorage.getItem("token")
 
     const [dataListRealEstateCaterory, setListRealEstateCaterory] = useState()
 
@@ -34,7 +20,7 @@ function ListRealEstateCateroryRent() {
 
     useEffect(() => {
         fetchData()
-        Aos.init({ duration: 2000 }, [])
+     
     }, [])
 
 
@@ -123,11 +109,12 @@ function ListRealEstateCateroryRent() {
                         {
                             dataListRealEstateCaterory?.map((Item, index) => {
                                 return (
-                                    <a className="singleDestination" href={`detail/${Item.id}`}>
+                                  <div className="singleDestination">
+                                      <a className="singleDestination" href={`detail/${Item.id}`}>
                                         <div className="imageDiv">
                                             <img src={Item.url_img1} alt="sd" />
                                         </div>
-
+                                        </a>
                                         <div className="cardInfo">
                                             <h4 className="destTitle">
                                                 {Item.name}
@@ -153,11 +140,64 @@ function ListRealEstateCateroryRent() {
                                             <div className="flex btn_group " >
                                                 <p className="mt-1">{Item.dateSubmitted}</p>
                                                 <button className="btn flex">
-                                                    Lưu <TbClipboardCheck className="icon" />
+                                                    Lưu <TbClipboardCheck className="icon" onClick={()=>{
+                                                          let config = {
+                                                            method: 'get',
+                                                            maxBodyLength: Infinity,
+                                                            url: `http://localhost:8081/api/checkuser?token=${token}`,
+                                                            headers: {}
+                                                        };
+
+                                                        axios.request(config)
+                                                            .then((response) => {
+
+
+                                                                if (response.status === 500) {
+                                                                    navigate("/login")
+                                                                }
+
+                                                                let data = JSON.stringify({
+                                                                    "user": {
+                                                                        "id": response.data.id
+                                                                    },
+                                                                    "realEstate": {
+                                                                        "id": Item.id
+                                                                    }
+                                                                });
+
+                                                                let config = {
+                                                                    method: 'post',
+                                                                    maxBodyLength: Infinity,
+                                                                    url: 'http://localhost:8081/api/realestatesaves',
+                                                                    headers: {
+                                                                        'Content-Type': 'application/json'
+                                                                    },
+                                                                    data: data
+                                                                };
+
+                                                                axios.request(config)
+                                                                    .then((response) => {
+                                                                        console.log(JSON.stringify(response.data));
+                                                                        alert("Lưu Thành công")
+                                                                    })
+                                                                    .catch((error) => {
+                                                                        console.log(error);
+                                                                    });
+
+
+
+                                                            })
+                                                            .catch((error) => {
+                                                                console.log(error);
+                                                                navigate("/login")
+
+                                                            });
+                                                    }}/>
                                                 </button>
                                             </div>
                                         </div>
-                                    </a>
+                                  
+                                  </div>
 
                                 )
                             })

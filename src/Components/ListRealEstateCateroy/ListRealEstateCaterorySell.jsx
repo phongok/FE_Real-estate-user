@@ -5,16 +5,15 @@ import './listrealestatecaterory.css'
 
 // import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-
 import axios from "axios"
-
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
+import { Link, useNavigate } from "react-router-dom";
 function ListRealEstateCaterorySell() {
-    // const { idCaterory } = useParams()
+    const navigate = useNavigate()
+    const token = localStorage.getItem("token")
 
     const [dataListRealEstateCaterory, setListRealEstateCaterory] = useState()
 
@@ -103,11 +102,12 @@ function ListRealEstateCaterorySell() {
                         {
                             dataListRealEstateCaterory?.map((Item, index) => {
                                 return (
-                                    <a className="singleDestination"  href={`detail/${Item.id}`}>
+                                   <div className="singleDestination" >
+                                     <a className="singleDestination"  href={`detail/${Item.id}`}>
                                         <div className="imageDiv">
                                             <img src={Item.url_img1} alt="sd" />
                                         </div>
-
+                                        </a>
                                         <div className="cardInfo">
                                             <h4 className="destTitle">
                                                 {Item.name}
@@ -133,11 +133,64 @@ function ListRealEstateCaterorySell() {
                                             <div className="flex btn_group " >
                                                 <p className="mt-1" style={{color:'black'}}>{Item.dateSubmitted}</p>
                                                 <button className="btn flex" >
-                                                    Lưu <TbClipboardCheck className="icon" />
+                                                    Lưu <TbClipboardCheck className="icon" onClick={()=>{
+                                                          let config = {
+                                                            method: 'get',
+                                                            maxBodyLength: Infinity,
+                                                            url: `http://localhost:8081/api/checkuser?token=${token}`,
+                                                            headers: {}
+                                                        };
+
+                                                        axios.request(config)
+                                                            .then((response) => {
+
+
+                                                                if (response.status === 500) {
+                                                                    navigate("/login")
+                                                                }
+
+                                                                let data = JSON.stringify({
+                                                                    "user": {
+                                                                        "id": response.data.id
+                                                                    },
+                                                                    "realEstate": {
+                                                                        "id": Item.id
+                                                                    }
+                                                                });
+
+                                                                let config = {
+                                                                    method: 'post',
+                                                                    maxBodyLength: Infinity,
+                                                                    url: 'http://localhost:8081/api/realestatesaves',
+                                                                    headers: {
+                                                                        'Content-Type': 'application/json'
+                                                                    },
+                                                                    data: data
+                                                                };
+
+                                                                axios.request(config)
+                                                                    .then((response) => {
+                                                                        console.log(JSON.stringify(response.data));
+                                                                        alert("Lưu Thành công")
+                                                                    })
+                                                                    .catch((error) => {
+                                                                        console.log(error);
+                                                                    });
+
+
+
+                                                            })
+                                                            .catch((error) => {
+                                                                console.log(error);
+                                                                navigate("/login")
+
+                                                            });
+                                                    }}/>
                                                 </button>
                                             </div>
                                         </div>
-                                    </a>
+                                  
+                                   </div>
 
                                 )
                             })
