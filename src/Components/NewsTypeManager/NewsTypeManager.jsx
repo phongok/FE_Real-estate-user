@@ -333,16 +333,10 @@ const LockNewsType = async()=>{
                                             onChange={handleChangeSelectCaterory}
                                         >
 
-                                            {
-                                                listCaterory?.map((ItemCate) => {
-                                                    return (
-                                                        <MenuItem value={ItemCate.id} >{ItemCate.name}</MenuItem>
+                                           
+                                                        <MenuItem value={1} >Nhà đất bán</MenuItem>
+                                                        <MenuItem value={2} >Nhà đất cho thuê</MenuItem>
 
-                                                    )
-                                                }
-                                                )
-
-                                            }
                                         </Select>
                                     </FormControl>
                                 </Box>
@@ -433,16 +427,8 @@ const LockNewsType = async()=>{
                                                                         onChange={handleChangeSelectCateroryUpDate}
                                                                     >
 
-                                                                        {
-                                                                            listCaterory?.map((ItemCate) => {
-                                                                                return (
-                                                                                    <MenuItem value={ItemCate.id} >{ItemCate.name}</MenuItem>
-
-                                                                                )
-                                                                            }
-                                                                            )
-
-                                                                        }
+                                                                    <MenuItem value={1} >Nhà đất bán</MenuItem>
+                                                                    <MenuItem value={2} >Nhà đất cho thuê</MenuItem>
                                                                     </Select>
                                                                 </FormControl>
                                                             </Box>

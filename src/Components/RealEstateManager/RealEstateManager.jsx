@@ -8,7 +8,11 @@ import { AiFillLock } from 'react-icons/ai'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from "axios"
-
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import Avatar from '@mui/material/Avatar';
 
 const RealEstateManager = () => {
@@ -18,32 +22,52 @@ const RealEstateManager = () => {
     const [page, setPage] = useState(1)
     const [pageSize] = useState(5)
     const [totalCount, setTotalCount] = useState(0)
- 
-
     const [offset, setOffset] = useState(0)
+
+
+    const [listnewstype, setListNewstype] = useState([])
+
+    const getNewsType =  async()=>{
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:8081/api/newsTypes',
+            headers: { }
+          };
+          
+          axios.request(config)
+          .then((response) => {
+            console.log(JSON.stringify(response.data));
+            setListNewstype(response.data)
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    }
 
     useEffect(() => {
         fetchData()
+        getNewsType()
     }, [])
 
     const prevPage = async () => {
-       
+
         const pg = page === 1 ? 1 : page - 1
-        fetchData( pg)
+        fetchData(pg)
         setPage(pg)
-        
+
     }
 
     const nextPage = async () => {
-       
+
         const pg = page < Math.ceil(totalCount / pageSize) ? page + 1 : page
-        fetchData( pg)
+        fetchData(pg)
         setPage(pg)
     }
 
-  
 
-    const fetchData = async ( pg = page, pgSize = pageSize) => {
+
+    const fetchData = async (pg = page, pgSize = pageSize) => {
 
         let config = {
             method: 'get',
@@ -67,13 +91,70 @@ const RealEstateManager = () => {
     }
 
 
+    const [caterory, setCaterory] = React.useState('');
+    const handleChangeCarerory = (event) => {
+        setCaterory(event.target.value);
+    };
+
+    const [newsType, setNewsType] = React.useState('');
+
+    const handleChangeNewsType = (event) => {
+        setNewsType(event.target.value);
+        console.log(newsType)
+        console.log(caterory)
+    };
 
 
- 
     return (
         <div className="admin-manager-user">
             <div className="container flex form-search">
-               
+
+                <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Danh mục</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={caterory}
+                            label="Danh mục"
+                            onChange={handleChangeCarerory}
+                            style={{ width: 200 }}
+                        >
+                            <MenuItem value={1}>Nhà đất bán</MenuItem>
+                            <MenuItem value={2}>Nhà đất cho thuê</MenuItem>
+
+                        </Select>
+                    </FormControl>
+                </Box>
+                <Box sx={{ minWidth: 120,marginLeft: 2 }}>
+                    <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Loại bài đăng</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={newsType}
+                        label="Loại bài đăng"
+                        onChange={handleChangeNewsType}
+                        style={{  width:300 }}
+                    >
+
+                        {
+                            listnewstype?.map((ItemNewsType)=>{
+                              return(
+                                <MenuItem value={ItemNewsType.id}>{ItemNewsType.name}</MenuItem>
+                              )
+                            })
+                        }
+                       
+                      
+                    </Select>
+            
+                    </FormControl>
+                </Box>
+
+                <TextField id="outlined-basic" label="Tìm kiếm" variant="outlined" style={{marginLeft:10, width:300}} />
+
+                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>Áp dụng</Button>
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button>
             </div>
             <div className="form-data">
@@ -100,38 +181,22 @@ const RealEstateManager = () => {
                             realEstateList?.map((Item, index) => {
                                 return (
                                     <tr>
-                                        <th  className="table-item">{Item.id}</th>
-                                        <th  className="table-item">{Item.category.name}</th>
-                                        <th  className="table-item">{Item.newsType.name}</th>
-                                        <th  className="table-item" >{Item.name}</th>
+                                        <th className="table-item">{Item.id}</th>
+                                        <th className="table-item">{Item.category.name}</th>
+                                        <th className="table-item">{Item.newsType.name}</th>
+                                        <th className="table-item" >{Item.name}</th>
                                         <th className="table-item" >{Item.area}</th>
-                                        <th  className="table-item" >{Item.length} m</th>
-                                        <th  className="table-item" >{Item.width} m</th>
+                                        <th className="table-item" >{Item.length} m</th>
+                                        <th className="table-item" >{Item.width} m</th>
                                         <th className="table-item" >{Item.price}</th>
-                                        <th  className="table-item" >{Item.acreage}</th>
-                                        <th  className="table-item" >{Item.address}</th>
-                                        <th style={{textAlign:"center"}}  className="table-item" > <Avatar alt="Remy Sharp" src={Item.url_img1} />
-                                        
+                                        <th className="table-item" >{Item.acreage}</th>
+                                        <th className="table-item" >{Item.address}</th>
+                                        <th style={{ textAlign: "center" }} className="table-item" > <Avatar alt="Remy Sharp" src={Item.url_img1} />
+
                                         </th>
-                                        <th  className="table-item">{Item.status}</th>
-                                        <th  className="table-item">Action</th>
-                                        {/* <th style={{ width: 50 }} className="table-item">  </th>
-                                        <th style={{ width: 250 }} className="table-item">{Item.name}</th>
-                                        <th style={{ width: 200 }} className="table-item" >{Item.username}</th>
-                                        <th style={{ width: 50 }} className="table-item" >{Item.roles[0].name}</th>
-                                        <th style={{ width: 150 }} className="table-item" >{Item.surplus}</th>
-                                      
-                                        <th style={{ width: 150 }} className="table-item">{Item.status}</th>
-                                        
-                                        <th style={{ width: 200 }} className="table-item">
-                                            <IconButton aria-label="delete" color="primary" >
-                                                <RxUpdate style={{ color: '#33FFBB' }} />
-                                            </IconButton>
-                                            <IconButton aria-label="delete" color="primary"   >
-                                                <AiFillLock style={{ color: 'red' }}  />
-                                                
-                                            </IconButton>
-                                        </th> */}
+                                        <th className="table-item">{Item.status}</th>
+                                        <th className="table-item">Action</th>
+
                                     </tr>
                                 )
                             })

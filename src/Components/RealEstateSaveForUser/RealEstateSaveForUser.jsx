@@ -109,7 +109,7 @@ const RealEstateSaveForUser = () => {
                            
                                 <div className="singleDestination">
                                      <a key={Item.id}  className="singleDestination"
-                                         href={`detail/${Item.realEstate.id}`}
+                                         href={`/detail/${Item.realEstate.id}`}
                                         >
                                     <div className="imageDiv">
                                         <img src={Item.realEstate.url_img1} alt="sd" />
