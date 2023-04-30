@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react"
-
-import Button from '@mui/material/Button';
-
-import Fade from '@mui/material/Fade';
-
 import './navbar.css'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { TbGridDots } from 'react-icons/tb'
-
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
 import { BiLogOut } from 'react-icons/bi'
@@ -19,11 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import { red, yellow } from "@mui/material/colors";
-
-
 
 const Navbar = () => {
     const [active, setActive] = useState('navBar')
@@ -55,13 +45,7 @@ const Navbar = () => {
         setAnchorEl1(null);
     };
 
-
-
-
-
-
     const [listNewsTypeSell, setlistNewsTypeSell] = useState([])
-
 
     const LoadNewsTypeSell = () => {
         let config = {
@@ -80,7 +64,6 @@ const Navbar = () => {
             });
 
     }
-
 
     const [listNewsTypeRent, setlistNewsTypeRent] = useState([])
 
@@ -236,9 +219,7 @@ const Navbar = () => {
                                     Nhà đất bán
                                 </a>
                             </Link>
-
                             <ul >
-
                                 {
                                     listNewsTypeSell?.map((ItemNTSell, index) => {
                                         return (
@@ -246,10 +227,6 @@ const Navbar = () => {
                                         )
                                     })
                                 }
-
-
-
-
                             </ul>
                         </li>
 
