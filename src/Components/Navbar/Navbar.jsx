@@ -223,7 +223,7 @@ const Navbar = () => {
                                 {
                                     listNewsTypeSell?.map((ItemNTSell, index) => {
                                         return (
-                                            <li ><a className="haslink" style={{ paddingLeft: 0 }} href={`list-reale-state-type/${ItemNTSell.id}`}> {ItemNTSell.name} </a></li>
+                                            <li ><a className="haslink" style={{ paddingLeft: 0 }} href={`/list-reale-state-type/${ItemNTSell.id}`}> {ItemNTSell.name} </a></li>
                                         )
                                     })
                                 }
@@ -243,7 +243,7 @@ const Navbar = () => {
 
                                     listNewsTypeRent?.map((ItemNTRent, index) => {
                                         return (
-                                            <li ><a className="haslink" style={{ paddingLeft: 0 }} href={`list-reale-state-type/${ItemNTRent.id}`}> {ItemNTRent.name}</a></li>
+                                            <li ><a className="haslink" style={{ paddingLeft: 0 }} href={`/list-reale-state-type/${ItemNTRent.id}`}> {ItemNTRent.name}</a></li>
                                         )
                                     })
                                 }

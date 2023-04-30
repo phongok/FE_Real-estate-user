@@ -110,7 +110,7 @@ function ListRealEstateCateroryRent() {
                             dataListRealEstateCaterory?.map((Item, index) => {
                                 return (
                                   <div className="singleDestination">
-                                      <a className="singleDestination" href={`detail/${Item.id}`}>
+                                      <a className="singleDestination" href={`/detail/${Item.id}`}>
                                         <div className="imageDiv">
                                             <img src={Item.url_img1} alt="sd" />
                                         </div>
