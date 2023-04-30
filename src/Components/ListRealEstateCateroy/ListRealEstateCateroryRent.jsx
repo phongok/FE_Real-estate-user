@@ -139,60 +139,62 @@ function ListRealEstateCateroryRent() {
 
                                             <div className="flex btn_group " >
                                                 <p className="mt-1">{Item.dateSubmitted}</p>
-                                                <button className="btn flex">
-                                                    Lưu <TbClipboardCheck className="icon" onClick={()=>{
-                                                          let config = {
-                                                            method: 'get',
-                                                            maxBodyLength: Infinity,
-                                                            url: `http://localhost:8081/api/checkuser?token=${token}`,
-                                                            headers: {}
-                                                        };
+                                                <button className="btn flex" onClick={()=>{
+                                                     let config = {
+                                                        method: 'get',
+                                                        maxBodyLength: Infinity,
+                                                        url: `http://localhost:8081/api/checkuser?token=${token}`,
+                                                        headers: {}
+                                                    };
 
-                                                        axios.request(config)
-                                                            .then((response) => {
+                                                    axios.request(config)
+                                                        .then((response) => {
 
 
-                                                                if (response.status === 500) {
-                                                                    navigate("/login")
+                                                            if (response.status === 500) {
+                                                                navigate("/login")
+                                                            }
+
+                                                            let data = JSON.stringify({
+                                                                "user": {
+                                                                    "id": response.data.id
+                                                                },
+                                                                "realEstate": {
+                                                                    "id": Item.id
                                                                 }
+                                                            });
 
-                                                                let data = JSON.stringify({
-                                                                    "user": {
-                                                                        "id": response.data.id
-                                                                    },
-                                                                    "realEstate": {
-                                                                        "id": Item.id
-                                                                    }
+                                                            let config = {
+                                                                method: 'post',
+                                                                maxBodyLength: Infinity,
+                                                                url: 'http://localhost:8081/api/realestatesaves',
+                                                                headers: {
+                                                                    'Content-Type': 'application/json'
+                                                                },
+                                                                data: data
+                                                            };
+
+                                                            axios.request(config)
+                                                                .then((response) => {
+                                                                    console.log(JSON.stringify(response.data));
+                                                                    alert("Lưu Thành công")
+                                                                })
+                                                                .catch((error) => {
+                                                                    console.log(error);
                                                                 });
 
-                                                                let config = {
-                                                                    method: 'post',
-                                                                    maxBodyLength: Infinity,
-                                                                    url: 'http://localhost:8081/api/realestatesaves',
-                                                                    headers: {
-                                                                        'Content-Type': 'application/json'
-                                                                    },
-                                                                    data: data
-                                                                };
-
-                                                                axios.request(config)
-                                                                    .then((response) => {
-                                                                        console.log(JSON.stringify(response.data));
-                                                                        alert("Lưu Thành công")
-                                                                    })
-                                                                    .catch((error) => {
-                                                                        console.log(error);
-                                                                    });
 
 
+                                                        })
+                                                        .catch((error) => {
+                                                            console.log(error);
+                                                            navigate("/login")
 
-                                                            })
-                                                            .catch((error) => {
-                                                                console.log(error);
-                                                                navigate("/login")
-
-                                                            });
-                                                    }}/>
+                                                        });
+                                                }}>
+                                                    Lưu <TbClipboardCheck className="icon" 
+                                                         
+                                                    />
                                                 </button>
                                             </div>
                                         </div>
