@@ -15,6 +15,17 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Avatar from '@mui/material/Avatar';
 
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
+
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/storage';
 const RealEstateManager = () => {
 
     const [realEstateList, setrealEstateList] = useState([])
@@ -27,22 +38,22 @@ const RealEstateManager = () => {
 
     const [listnewstype, setListNewstype] = useState([])
 
-    const getNewsType =  async()=>{
+    const getNewsType = async () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
             url: 'http://localhost:8081/api/newsTypes',
-            headers: { }
-          };
-          
-          axios.request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-            setListNewstype(response.data)
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+            headers: {}
+        };
+
+        axios.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                setListNewstype(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     useEffect(() => {
@@ -91,6 +102,16 @@ const RealEstateManager = () => {
     }
 
 
+    const [open1, setOpen1] = React.useState(false);
+
+    const handleClickOpen1 = () => {
+        setOpen1(true);
+    };
+
+    const handleClose1 = () => {
+        setOpen1(false);
+    };
+
     const [caterory, setCaterory] = React.useState('');
     const handleChangeCarerory = (event) => {
         setCaterory(event.target.value);
@@ -103,6 +124,303 @@ const RealEstateManager = () => {
         console.log(newsType)
         console.log(caterory)
     };
+
+    const [img1Update, setimg1Update] = useState("")
+    const [img2Update, setimg2Update] = useState("")
+    const [img3Update, setimg3Update] = useState("")
+    const [img4Update, setimg4Update] = useState("")
+    const [img5Update, setimg5Update] = useState("")
+    const [img6Update, setimg6Update] = useState("")
+    const [imageUrl1, setImageUrl1] = useState('');
+    const [imageUrl2, setImageUrl2] = useState('');
+    const [imageUrl3, setImageUrl3] = useState('');
+    const [imageUrl4, setImageUrl4] = useState('');
+    const [imageUrl5, setImageUrl5] = useState('');
+    const [imageUrl6, setImageUrl6] = useState('');
+
+     // Initialize Firebase
+  firebase.initializeApp({
+    apiKey: "AIzaSyD8q_BzcLKDJQv8_az8C3uZvZ-R5B3kqm4",
+    authDomain: "realstate-d9def.firebaseapp.com",
+    projectId: "realstate-d9def",
+    storageBucket: "realstate-d9def.appspot.com",
+    messagingSenderId: "789202840133",
+    appId: "1:789202840133:web:ee9dce2de04deb1db1512c",
+    measurementId: "G-PTFGYD7M2C"
+  });
+  
+
+  // Create a storage reference
+  const storage = firebase.storage();
+  const storageRef = storage.ref();
+//////
+    const [imageSell1, setImageSell1] = useState(null);
+
+    const handleImageChangeSell1 = (e) => {
+      if (e.target.files[0]) {
+        setImageSell1(e.target.files[0]);
+      }
+
+      const file = e.target.files[0];
+      const reader = new FileReader();
+    
+      reader.onload = (event) => {
+       
+        setImageUrl1(event.target.result);
+
+      };
+    
+      reader.readAsDataURL(file);
+
+        
+    };
+
+    const handleUploadSell1 = () => {
+      if (imageSell1) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageSell1.name}`).put(imageSell1);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL1) => {
+           
+           
+             alert('Upload ảnh 1 thành công')
+             const img1SellTemp = downloadURL1
+              setimg1Update(img1SellTemp)
+             
+             
+            });
+          }
+        );
+      }
+    };
+
+    const [imageSell2, setImageSell2] = useState(null);
+
+    const handleImageChangeSell2 = (e) => {
+      if (e.target.files[0]) {
+        setImageSell2(e.target.files[0]);
+      }
+
+      const file = e.target.files[0];
+      const reader = new FileReader();
+    
+      reader.onload = (event) => {
+      
+        setImageUrl2( event.target.result);
+      };
+    
+      reader.readAsDataURL(file);
+    };
+
+    const handleUploadSell2 = () => {
+      if (imageSell2) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageSell2.name}`).put(imageSell2);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL2) => {
+              const img2SellTemp = downloadURL2
+              setimg2Update(img2SellTemp)
+              alert("Ảnh 2 upload thành công")
+             
+            });
+          }
+        );
+      }
+    };
+
+    //////
+    const [imageSell3, setImageSell3] = useState(null);
+
+    const handleImageChangeSell3 = (e) => {
+      if (e.target.files[0]) {
+        setImageSell3(e.target.files[0]);
+      }
+
+      const file = e.target.files[0];
+      const reader = new FileReader();
+    
+      reader.onload = (event) => {
+      
+        setImageUrl3( event.target.result);
+      };
+    
+      reader.readAsDataURL(file);
+    };
+
+    const handleUploadSell3 = () => {
+      if (imageSell3) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageSell3.name}`).put(imageSell3);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL3) => {
+              const img3SellTemp = downloadURL3
+              setimg3Update(img3SellTemp)
+              alert("Ảnh 3 upload thành công")
+             
+            });
+          }
+        );
+      }
+    };
+
+     //////
+     const [imageSell4, setImageSell4] = useState(null);
+
+     const handleImageChangeSell4 = (e) => {
+       if (e.target.files[0]) {
+         setImageSell4(e.target.files[0]);
+       }
+
+       const file = e.target.files[0];
+       const reader = new FileReader();
+     
+       reader.onload = (event) => {
+       
+         setImageUrl4( event.target.result);
+       };
+     
+       reader.readAsDataURL(file);
+     };
+ 
+     const handleUploadSell4 = () => {
+       if (imageSell4) {
+         const uploadTask = storageRef.child(`imagerealestate/${imageSell4.name}`).put(imageSell4);
+         uploadTask.on(
+           'state_changed',
+           (snapshot) => {
+             // Handle progress
+           },
+           (error) => {
+             // Handle error
+           },
+           () => {
+             // Handle successful upload
+             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL4) => {
+              const img4SellTemp = downloadURL4
+              setimg4Update(img4SellTemp)
+              alert("Ảnh 4 upload thành công")
+              
+             });
+           }
+         );
+       }
+     };
+   
+     
+      //////
+    const [imageSell5, setImageSell5] = useState(null);
+
+    const handleImageChangeSell5 = (e) => {
+      if (e.target.files[0]) {
+        setImageSell5(e.target.files[0]);
+      }
+
+      const file = e.target.files[0];
+      const reader = new FileReader();
+    
+      reader.onload = (event) => {
+      
+        setImageUrl5( event.target.result);
+      };
+    
+      reader.readAsDataURL(file);
+    };
+
+    const handleUploadSell5 = () => {
+      if (imageSell5) {
+        const uploadTask = storageRef.child(`imagerealestate/${imageSell5.name}`).put(imageSell5);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            // Handle progress
+          },
+          (error) => {
+            // Handle error
+          },
+          () => {
+            // Handle successful upload
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL5) => {
+              const img5RentTemp = downloadURL5
+              setimg5Update(img5RentTemp)
+              alert("Ảnh 5 upload thành công")
+          
+            });
+          }
+        );
+      }
+    };
+
+      //////
+      const [imageSell6, setImageSell6] = useState(null);
+
+      const handleImageChangeSell6 = (e) => {
+        if (e.target.files[0]) {
+          setImageSell6(e.target.files[0]);
+        }
+
+        const file = e.target.files[0];
+        const reader = new FileReader();
+      
+        reader.onload = (event) => {
+        
+          setImageUrl6( event.target.result);
+        };
+      
+        reader.readAsDataURL(file);
+      };
+  
+      const handleUploadSell6 = () => {
+        if (imageSell6) {
+          const uploadTask = storageRef.child(`imagerealestate/${imageSell6.name}`).put(imageSell6);
+          uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+              // Handle progress
+            },
+            (error) => {
+              // Handle error
+            },
+            () => {
+              // Handle successful upload
+              uploadTask.snapshot.ref.getDownloadURL().then((downloadURL6) => {
+               const img6SellTemp = downloadURL6
+               setimg6Update(img6SellTemp)
+               alert("Ảnh 6 upload thành công")
+ 
+                
+              });
+            }
+          );
+        }
+      };
+    
+       //////
+
+
 
 
     return (
@@ -126,33 +444,33 @@ const RealEstateManager = () => {
                         </Select>
                     </FormControl>
                 </Box>
-                <Box sx={{ minWidth: 120,marginLeft: 2 }}>
+                <Box sx={{ minWidth: 120, marginLeft: 2 }}>
                     <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Loại bài đăng</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={newsType}
-                        label="Loại bài đăng"
-                        onChange={handleChangeNewsType}
-                        style={{  width:300 }}
-                    >
+                        <InputLabel id="demo-simple-select-label">Loại bài đăng</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={newsType}
+                            label="Loại bài đăng"
+                            onChange={handleChangeNewsType}
+                            style={{ width: 300 }}
+                        >
 
-                        {
-                            listnewstype?.map((ItemNewsType)=>{
-                              return(
-                                <MenuItem value={ItemNewsType.id}>{ItemNewsType.name}</MenuItem>
-                              )
-                            })
-                        }
-                       
-                      
-                    </Select>
-            
+                            {
+                                listnewstype?.map((ItemNewsType) => {
+                                    return (
+                                        <MenuItem value={ItemNewsType.id}>{ItemNewsType.name}</MenuItem>
+                                    )
+                                })
+                            }
+
+
+                        </Select>
+
                     </FormControl>
                 </Box>
 
-                <TextField id="outlined-basic" label="Tìm kiếm" variant="outlined" style={{marginLeft:10, width:300}} />
+                <TextField id="outlined-basic" label="Tìm kiếm" variant="outlined" style={{ marginLeft: 10, width: 300 }} />
 
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>Áp dụng</Button>
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button>
@@ -191,11 +509,150 @@ const RealEstateManager = () => {
                                         <th className="table-item" >{Item.price}</th>
                                         <th className="table-item" >{Item.acreage}</th>
                                         <th className="table-item" >{Item.address}</th>
-                                        <th style={{ textAlign: "center" }} className="table-item" > <Avatar alt="Remy Sharp" src={Item.url_img1} />
+                                        <th className="table-item" style={{ textAlign: 'center' }} > <Avatar alt="Remy Sharp" style={{ textAlign: 'center' }} src={Item.url_img1} />
 
                                         </th>
                                         <th className="table-item">{Item.status}</th>
-                                        <th className="table-item">Action</th>
+                                        <th className="table-item">
+
+                                            <IconButton aria-label="delete" color="primary" onClick={() => {
+                                                handleClickOpen1()
+                                                setImageUrl1(Item.url_img1)
+                                                setImageUrl2(Item.url_img2)
+                                                setImageUrl3(Item.url_img3)
+                                                setImageUrl4(Item.url_img4)
+                                                setImageUrl5(Item.url_img5)
+                                                setImageUrl6(Item.url_img6)
+                                            }}>
+                                                <RxUpdate style={{ color: '#33FFBB' }} />
+                                            </IconButton>
+
+                                            <Dialog
+                                                open={open1}
+                                                onClose={handleClose1}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+                                                style={{ width: 1500 }}
+                                            >
+                                                <DialogTitle id="alert-dialog-title">
+                                                    {"Thông tin?"}
+                                                </DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText id="alert-dialog-description">
+
+                                                        <div>   <label htmlFor="">Tiêu đề: </label>
+                                                            <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} />
+                                                        </div>
+
+
+
+                                                        <div>  <label htmlFor="">Chiều dài: </label>
+                                                            <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} />
+                                                        </div>
+
+
+                                                        <div>  <label htmlFor="">Chiều rộng: </label>
+                                                            <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} />
+                                                        </div>
+
+
+                                                        <div>  <label htmlFor="">Đơn giá: </label>
+                                                            <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} />
+                                                        </div>
+
+                                                        <div>  <label htmlFor="">Diện tích tổng thể: </label>
+                                                            <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} />
+                                                        </div>
+                                                        <div>  <label htmlFor="">Địa chỉ: </label>
+                                                            <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} />
+                                                        </div>
+                                                        <br />
+
+
+                                                        <div>  <label htmlFor="">Ảnh 1: </label>
+                                                     
+                                                            <img src={imageUrl1} alt="k"   /> 
+                                                            <label for="image_uploads1" style={{background:'#483D8B', padding:6, borderRadius:5, color: '#F8F8FF', marginLeft:10}}>Chỉnh sửa</label>
+                                                            <input type="file"  id="image_uploads1" name="image_uploads1"  accept=".jpg, .jpeg, .png" style={{display: "none"}} onClick={handleImageChangeSell1} />
+                                                            <Button variant="contained" color="success" style={{marginLeft:10}} onClick={handleUploadSell1}  >
+                                                                Upload
+                                                            </Button>
+                                                        </div>
+
+
+                                                        <br />
+                                                        <div>  <label htmlFor="">Ảnh 2: </label>
+                                                        <img src={imageUrl2} alt="k"  /> 
+                                                            <label for="image_uploads2" style={{background:'#483D8B', padding:6, borderRadius:5, color: '#F8F8FF', marginLeft:10}}>Chỉnh sửa</label>
+                                                            <input type="file"  id="image_uploads2" name="image_uploads2"  accept=".jpg, .jpeg, .png" style={{display: "none"}} onClick={handleImageChangeSell2} />
+                                                            <Button variant="contained" color="success" style={{marginLeft:10}}  onClick={handleUploadSell2} >
+                                                                Upload
+                                                            </Button>
+                                                        </div>
+                                                        <br />
+                                                        <div>  <label htmlFor="">Ảnh 3: </label>
+                                                        <img src={imageUrl3} alt="k"  /> 
+                                                            <label for="image_uploads3" style={{background:'#483D8B', padding:6, borderRadius:5, color: '#F8F8FF', marginLeft:10}}>Chỉnh sửa</label>
+                                                            <input type="file"  id="image_uploads3" name="image_uploads3"  accept=".jpg, .jpeg, .png" style={{display: "none"}} onClick={handleImageChangeSell3} />
+                                                            <Button variant="contained" color="success" style={{marginLeft:10}}  onClick={handleUploadSell3}  >
+                                                                Upload
+                                                            </Button>
+                                                        </div>
+                                                        <br />
+                                                        <div>  <label htmlFor="">Ảnh 4: </label>
+                                                        <img src={imageUrl4} alt="k"  /> 
+                                                            <label for="image_uploads4" style={{background:'#483D8B', padding:6, borderRadius:5, color: '#F8F8FF', marginLeft:10}}>Chỉnh sửa</label>
+                                                            <input type="file"  id="image_uploads4" name="image_uploads4"  accept=".jpg, .jpeg, .png" style={{display: "none"}} onClick={handleImageChangeSell4}/>
+                                                            <Button variant="contained" color="success" style={{marginLeft:10}}  onClick={handleUploadSell4} >
+                                                                Upload
+                                                            </Button>
+                                                        </div>
+                                                        <br />
+                                                        <div>  <label htmlFor="">Ảnh 5: </label>
+                                                        <img src={imageUrl5} alt="k"  /> 
+                                                            <label for="image_uploads5" style={{background:'#483D8B', padding:6, borderRadius:5, color: '#F8F8FF', marginLeft:10}}>Chỉnh sửa</label>
+                                                            <input type="file"  id="image_uploads5" name="image_uploads5"  accept=".jpg, .jpeg, .png" style={{display: "none"}} onClick={handleImageChangeSell5}/>
+                                                            <Button variant="contained" color="success" style={{marginLeft:10}}  onClick={handleUploadSell5} >
+                                                                Upload
+                                                            </Button>
+                                                        </div>
+                                                        <br />
+                                                        <div>  <label htmlFor="">Ảnh 6: </label>
+                                                        <img src={imageUrl6} alt="k"  /> 
+                                                            <label for="image_uploads6" style={{background:'#483D8B', padding:6, borderRadius:5, color: '#F8F8FF', marginLeft:10}}>Chỉnh sửa</label>
+                                                            <input type="file"  id="image_uploads6" name="image_uploads6"  accept=".jpg, .jpeg, .png" style={{display: "none"}} onClick={handleImageChangeSell6}/>
+                                                            <Button variant="contained" color="success" style={{marginLeft:10}}  onClick={handleUploadSell6} >
+                                                                Upload
+                                                            </Button>
+                                                        </div>
+
+                                                        <div style={{ marginTop: 10 }}>
+                                                            <label htmlFor="">Nội dung: </label>
+                                                            <textarea style={{ marginTop: 10 }}
+
+                                                                name="postContent"
+                                                                rows={12}
+                                                                cols={65}
+                                                            // onChange={event => setdecriptionSell(event.target.value)}
+                                                            />
+                                                        </div>
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+
+                                                    <Button onClick={handleClose1} >
+                                                        Đóng
+                                                    </Button>
+
+
+                                                </DialogActions>
+                                            </Dialog>
+
+                                            <IconButton aria-label="delete" color="primary" >
+
+                                                <AiFillLock style={{ color: 'red' }} />
+                                            </IconButton>
+                                        </th>
 
                                     </tr>
                                 )

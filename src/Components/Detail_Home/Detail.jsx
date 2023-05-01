@@ -160,6 +160,7 @@ const Report = async()=>{
                         <li>Email: {dataDetail?.user.username}</li>
                     </ul>
                     <Button variant="outlined">Yêu cầu liên lạc lại</Button> <br />
+                    
                     <Button variant="outlined" color="error" style={{ marginTop: 10 }} onClick={()=>{
                         setidcheat(dataDetail.user.id)
                         getUser()
