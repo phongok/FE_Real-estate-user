@@ -331,7 +331,7 @@ const Navbar = () => {
                                             <div>
                                                  <Divider />
                                                  <a key={ItemRESave.realEstate.id}  
-                                                    href={`detail/${ItemRESave.realEstate.id}`}
+                                                    href={`/detail/${ItemRESave.realEstate.id}`}
                             >
                                                     <MenuItem onClick={handleClose1}>
                                                     <Avatar src={ItemRESave.realEstate.url_img1}/> 
