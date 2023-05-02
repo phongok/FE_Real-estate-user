@@ -573,8 +573,8 @@ fetchData(pg, pgSize, nt)
               <th style={{ width: 75 }} className="table-title" >Chiều rộng</th>
               <th style={{ width: 150 }} className="table-title" >Đơn giá</th>
               <th style={{ width: 75 }} className="table-title" >Diện tích</th>
-              <th style={{ width: 100 }} className="table-title" >Địa chỉ</th>
-              <th style={{ width: 150 }} className="table-title" >Ảnh</th>
+              <th style={{ width: 200 }} className="table-title" >Địa chỉ</th>
+              <th style={{ width: 50 }} className="table-title" >Ảnh</th>
               <th style={{ width: 100 }} className="table-title">Trạng thái</th>
               <th style={{ width: 150 }} className="table-title">Action</th>
             </tr>

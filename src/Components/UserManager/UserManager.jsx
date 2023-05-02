@@ -24,7 +24,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/storage';
 const UserManager = () => {
 
     const [usersList, setUsersList] = useState([])
@@ -39,6 +40,9 @@ const UserManager = () => {
     useEffect(() => {
         getUsersList()
     }, [])
+
+
+    ////<Create>
 
     const [opencreate, setOpenCreate] = React.useState(false);
 
@@ -62,16 +66,156 @@ const UserManager = () => {
     const [userName, setuserName] = useState("")
     const [password, setPassword] = useState("")
 
-    const CreateUser = async()=>{
+    const CreateUser = async () => {
         let data = JSON.stringify({
             "username": userName,
             "password": password
-          });
-          
-          let config = {
+        });
+
+        let config = {
             method: 'post',
             maxBodyLength: Infinity,
             url: `http://localhost:8081/api/user/create?role=${roleCreate}`,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                if (response.status === 200) {
+                    alert("Thêm thành công")
+                    handleCloseDialogCreate()
+                    getUsersList()
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }
+
+
+    ////</Create>
+
+    ////<Update>
+    const [openUpdate, setOpenUpdate] = React.useState(false);
+
+    const handleClickOpenDialogUpdate = () => {
+        setOpenUpdate(true);
+    };
+
+    const handleCloseDialogUpdate = () => {
+        setOpenUpdate(false);
+    };
+
+    const [roleUpdate, setRoleUpdate] = React.useState('');
+    const handleChangeSelectRoleUpdate = (event) => {
+
+        setRoleUpdate(event.target.value);
+
+        console.log(roleCreate)
+
+    };
+
+    const [statusUpdate, setStatusUpdate] = React.useState('');
+    const handleChangeSelectStatusUpdate = (event) => {
+
+        setStatusUpdate(event.target.value);
+
+        console.log(roleCreate)
+
+    };
+
+    const [idUserUpdate, setidUserUpdate] = React.useState('');
+    const [NameUpdate, setNameUpdate] = React.useState('');
+    const [EmailUpdate, setEmailUpdate] = React.useState('');
+    const [phoneUpdate, setPhoneUpdate] = React.useState('');
+    const [surplusUpdate, setSurplusUpdate] = React.useState('');
+    const [img1Update, setimg1Update] = useState("")
+
+
+    // Initialize Firebase
+    firebase.initializeApp({
+        apiKey: "AIzaSyD8q_BzcLKDJQv8_az8C3uZvZ-R5B3kqm4",
+        authDomain: "realstate-d9def.firebaseapp.com",
+        projectId: "realstate-d9def",
+        storageBucket: "realstate-d9def.appspot.com",
+        messagingSenderId: "789202840133",
+        appId: "1:789202840133:web:ee9dce2de04deb1db1512c",
+        measurementId: "G-PTFGYD7M2C"
+    });
+
+
+    // Create a storage reference
+    const storage = firebase.storage();
+    const storageRef = storage.ref();
+    //////
+    const [imageSell1, setImageSell1] = useState(null);
+
+    const handleImageChangeSell1 = (e) => {
+        if (e.target.files[0]) {
+            setImageSell1(e.target.files[0]);
+        }
+
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+
+            setimg1Update(event.target.result);
+
+        };
+
+        reader.readAsDataURL(file);
+
+
+    };
+
+    const handleUploadSell1 = () => {
+        if (imageSell1) {
+            const uploadTask = storageRef.child(`imagerealestate/${imageSell1.name}`).put(imageSell1);
+            uploadTask.on(
+                'state_changed',
+                (snapshot) => {
+                    // Handle progress
+                },
+                (error) => {
+                    // Handle error
+                },
+                () => {
+                    // Handle successful upload
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL1) => {
+
+
+                        alert('Upload ảnh 1 thành công')
+                        const img1SellTemp = downloadURL1
+                        setimg1Update(img1SellTemp)
+
+
+                    });
+                }
+            );
+        }
+    };
+
+    const UpdateUser = async() =>{
+        let data = JSON.stringify({
+            "idUserUpdate": idUserUpdate,
+            "nameUpdate": NameUpdate,
+            "emailUpdate": EmailUpdate,
+            "phoneUpdate": phoneUpdate,
+            "surplusUpdate": surplusUpdate,
+            "statusUpdate":statusUpdate,
+            "img1Update": img1Update
+          });
+          
+          let config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8081/api/user/update?roleUpdate=${roleUpdate}`,
             headers: { 
               'Content-Type': 'application/json'
             },
@@ -82,20 +226,22 @@ const UserManager = () => {
           .then((response) => {
             console.log(JSON.stringify(response.data));
             if (response.status===200) {
-                alert("Thêm thành công")
-                handleCloseDialogCreate()
+                alert('Cập nhật thành công')
                 getUsersList()
+                handleCloseDialogUpdate()
+            }
+            else{
+                alert('Cập nhật thất bại')
             }
           })
           .catch((error) => {
             console.log(error);
+            alert('Cập nhật thất bại')
           });
-          
     }
 
 
-    ////
-
+    ////</Update>
 
     const prevPage = async () => {
         const kw = keyword
@@ -214,9 +360,6 @@ const UserManager = () => {
     }
 
 
-    const ShowUpdateForm = () => {
-        alert('Update')
-    }
     return (
         <div className="admin-manager-user">
             <div className="container flex form-search">
@@ -239,11 +382,11 @@ const UserManager = () => {
                     <DialogTitle id="alert-dialog-title">
                         {"Thêm tài khoản"}
                     </DialogTitle>
-                    
+
                     <DialogContent>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                                <TextField id="outlined-basic" label="Username" variant="outlined"     onChange={event => setuserName(event.target.value)} />
+                                <TextField id="outlined-basic" label="Username" variant="outlined" onChange={event => setuserName(event.target.value)} />
                             </DialogContentText>
                         </DialogContent>
 
@@ -252,12 +395,12 @@ const UserManager = () => {
                                 type="password"
                                 // id="password"
                                 className="form-control"
-                                style={{height:55, width:220, marginLeft:0, marginRight:0}}
+                                style={{ height: 55, width: 220, marginLeft: 0, marginRight: 0 }}
                                 placeholder="Nhập mật khẩu"
                                 aria-describedby="password"
 
                                 onChange={event => setPassword(event.target.value)}
-                               
+
                             />
                         </DialogContent>
 
@@ -307,7 +450,7 @@ const UserManager = () => {
 
                     <DialogActions>
                         <Button onClick={handleCloseDialogCreate}>Đóng</Button>
-                        <Button  onClick={CreateUser}>
+                        <Button onClick={CreateUser}>
                             Lưu
                         </Button>
                     </DialogActions>
@@ -346,9 +489,153 @@ const UserManager = () => {
                                         <th style={{ width: 150 }} className="table-item">{Item.status}</th>
 
                                         <th style={{ width: 200 }} className="table-item">
-                                            <IconButton aria-label="delete" color="primary" onClick={ShowUpdateForm}>
+                                            <IconButton aria-label="delete" color="primary" onClick={() => {
+                                                handleClickOpenDialogUpdate()
+                                                setidUserUpdate(Item.id)
+                                                setNameUpdate(Item.name)
+                                                setEmailUpdate(Item.username)
+                                                setPhoneUpdate(Item.phone)
+                                                setSurplusUpdate(Item.surplus)
+                                                setStatusUpdate(Item.status)
+                                                setRoleUpdate(Item.roles[0].id)
+                                                
+                                                setimg1Update(Item.url)
+
+                                            }}>
                                                 <RxUpdate style={{ color: '#33FFBB' }} />
                                             </IconButton>
+
+                                            <Dialog
+                                                open={openUpdate}
+                                                onClose={handleCloseDialogUpdate}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+
+                                            >
+                                                <DialogTitle id="alert-dialog-title">
+                                                    {"Cập nhật tài khoản"}
+                                                </DialogTitle>
+
+                                                <DialogContent>
+                                                    <DialogContent>
+                                                        <DialogContentText id="alert-dialog-description">
+                                                            <TextField id="outlined-basic" label="Họ tên" variant="outlined" onChange={event => setNameUpdate(event.target.value)} value={NameUpdate} />
+                                                        </DialogContentText>
+                                                    </DialogContent>
+                                                    <DialogContent>
+                                                        <DialogContentText id="alert-dialog-description">
+                                                            <TextField id="outlined-basic" label="Email" variant="outlined" onChange={event => setEmailUpdate(event.target.value)} value={EmailUpdate}/>
+                                                        </DialogContentText>
+                                                    </DialogContent>
+
+                                                    <DialogContent>
+                                                        <DialogContentText id="alert-dialog-description">
+                                                            <TextField id="outlined-basic" label="Số điện thoại" variant="outlined" onChange={event => setPhoneUpdate(event.target.value)} value={phoneUpdate}/>
+                                                        </DialogContentText>
+                                                    </DialogContent>
+
+                                                    <DialogContentText id="alert-dialog-description">
+
+                                                        <br />
+
+                                                        <Box sx={{ minWidth: 200 }}>
+
+
+                                                            <FormControl fullWidth>
+
+
+
+                                                                <InputLabel id="demo-simple-select-label" style={{ marginLeft: 20 }}>Role</InputLabel>
+
+                                                                <Select
+                                                                    labelId="demo-simple-select-label"
+                                                                    id="demo-simple-select"
+                                                                    value={roleUpdate}
+                                                                    label="Doanh mục"
+                                                                    onChange={handleChangeSelectRoleUpdate}
+                                                                    style={{ width: 225, marginLeft: 22 }}
+                                                                >
+
+
+                                                                    <MenuItem value={1} >admin</MenuItem>
+                                                                    <MenuItem value={2} >user</MenuItem>
+
+
+                                                                </Select>
+
+
+
+                                                            </FormControl>
+
+                                                        </Box>
+
+
+
+                                                    </DialogContentText>
+                                                    <DialogContent>
+                                                        <DialogContentText id="alert-dialog-description">
+                                                            <TextField id="outlined-basic" label="Số dư" variant="outlined" onChange={event => setSurplusUpdate(event.target.value)} value={surplusUpdate}/>
+                                                        </DialogContentText>
+                                                    </DialogContent>
+
+                                                    <Box sx={{ minWidth: 225 }}>
+
+
+                                                        <FormControl fullWidth>
+
+
+
+                                                            <InputLabel id="demo-simple-select-label" style={{ marginLeft: 20 }}>Trạng thái</InputLabel>
+
+                                                            <Select
+                                                                labelId="demo-simple-select-label"
+                                                                id="demo-simple-select"
+                                                                value={statusUpdate}
+                                                                label="Trạng thái"
+                                                                onChange={handleChangeSelectStatusUpdate}
+                                                                style={{ width: 225, marginLeft: 22 }}
+                                                            >
+
+
+                                                                <MenuItem value="Đang hoạt động" >Đang hoạt động</MenuItem>
+                                                                <MenuItem value="Đã khóa" >Đã khóa</MenuItem>
+
+
+                                                            </Select>
+
+
+
+                                                        </FormControl>
+
+                                                    </Box>
+                                                    <br />
+                                                    <div>  
+
+                                                        <img src={img1Update} alt="k" style={{ width: 250, borderRadius:100 }} />
+                                                        
+                                                        <div style={{marginTop:10}}>
+                                                        <label for="image_uploads1" style={{ background: '#483D8B', padding: 6, borderRadius: 5, color: '#F8F8FF', marginLeft: 10 }}>Chỉnh sửa</label>
+                                                        <input type="file" id="image_uploads1" name="image_uploads1" accept=".jpg, .jpeg, .png" style={{ display: "none" }} onClick={handleImageChangeSell1} />
+
+                                                        <Button variant="contained" color="success" style={{ marginLeft: 10 }} onClick={handleUploadSell1}  >
+                                                            Upload
+                                                        </Button>
+                                                        </div>
+                                                    </div>
+
+                                                </DialogContent>
+
+
+
+
+
+                                                <DialogActions>
+                                                    <Button onClick={handleCloseDialogUpdate}>Đóng</Button>
+                                                    <Button onClick={UpdateUser}>
+                                                        Lưu
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
 
                                             <IconButton aria-label="delete" color="primary" onClick={() => {
                                                 setIdUserMoney(Item.id)
