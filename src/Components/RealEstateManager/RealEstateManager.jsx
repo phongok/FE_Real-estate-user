@@ -76,14 +76,19 @@ const RealEstateManager = () => {
     setPage(pg)
   }
 
+const Filter = async()=>{
+const nt = newsType
+const  pg = page
+const pgSize = pageSize
+fetchData(pg, pgSize, nt)
+}
 
-
-  const fetchData = async (pg = page, pgSize = pageSize) => {
+  const fetchData = async (pg = page, pgSize = pageSize, nt = newsType ) => {
 
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `http://localhost:8081/api/realestates-paging?page=${pg - 1}&size=${pgSize}`,
+      url: `http://localhost:8081/api/realestates-paging?page=${pg - 1}&size=${pgSize}&idNewsType=${nt}`,
       headers: {}
     };
 
@@ -112,35 +117,29 @@ const RealEstateManager = () => {
     setOpen1(false);
   };
 
-  const [caterory, setCaterory] = React.useState('');
-  const handleChangeCarerory = (event) => {
-    setCaterory(event.target.value);
-  };
-
-
-
-
   const [newsType, setNewsType] = React.useState('');
 
   const handleChangeNewsType = (event) => {
     setNewsType(event.target.value);
     console.log(newsType)
-    console.log(caterory)
+   
   };
 
 
-//////Update
-
-  const [tittleUpdate, setTittleUpdate] = React.useState('');
+  ////// <Update>
+  const [idRealEstateUpdate, setIdRealEstateUpdate] = React.useState('');
+  const [cateroryUpdate, setCateroryUpdate] = React.useState('');
   const [newsTypeUpdate, setnewsTypeUpdate] = React.useState('');
   const handleChangeNewsTypeUpdate = (event) => {
     setnewsTypeUpdate(event.target.value);
   };
+  const [userUpdate, setUserUpdate] = React.useState('');
+  const [tittleUpdate, setTittleUpdate] = React.useState('');
+ 
   const [AreaUpdate, setAreaUpdate] = React.useState('');
-
   const handleChangeAreaUpdate = (event) => {
     setAreaUpdate(event.target.value);
-   
+
   };
 
   const [lengthUpDate, setLengthUpDate] = React.useState('');
@@ -157,12 +156,11 @@ const RealEstateManager = () => {
 
   const [dateSubmitUpDate, setdateSubmitUpDate] = React.useState('');
 
-  const [cateroryUpdate, setCateroryUpdate] = React.useState('');
 
-  const [idRealEstateUpdate, setIdRealEstateUpdate] = React.useState('');
+
   const handleChangeStatusUpdate = (event) => {
     setStatusUpdate(event.target.value);
-   
+
   };
 
   const [contentUpdate, setContentUpdate] = React.useState('');
@@ -175,12 +173,71 @@ const RealEstateManager = () => {
   const [img4Update, setimg4Update] = useState("")
   const [img5Update, setimg5Update] = useState("")
   const [img6Update, setimg6Update] = useState("")
-  const [imageUrl1, setImageUrl1] = useState('');
-  const [imageUrl2, setImageUrl2] = useState('');
-  const [imageUrl3, setImageUrl3] = useState('');
-  const [imageUrl4, setImageUrl4] = useState('');
-  const [imageUrl5, setImageUrl5] = useState('');
-  const [imageUrl6, setImageUrl6] = useState('');
+
+ 
+
+  const UpdateRealEstate = async () => {
+    let data = JSON.stringify({
+      "id": idRealEstateUpdate,
+      "category": {
+        "id": cateroryUpdate
+      },
+      "newsType": {
+        "id": newsTypeUpdate
+      },
+      "user": {
+        "id": userUpdate
+      },
+      "name": tittleUpdate,
+      "length": lengthUpDate,
+      "width": widthUpdate,
+      "acreage": acreageUpDate,
+      "area": AreaUpdate,
+      "price": priceUpdate,
+      "dateSubmitted": dateSubmitUpDate,
+      "status": statusUpdate,
+      "address": addressUpdate,
+      "decription": contentUpdate,
+      "url_img1": img1Update,
+      "url_img2": img2Update,
+      "url_img3": img3Update,
+      "url_img4": img4Update,
+      "url_img5": img5Update,
+      "url_img6": img6Update
+    });
+
+    let config = {
+      method: 'put',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:8081/api/realestates',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        if (response.status === 200) {
+          alert('Update thành công')
+          handleClose1()
+          fetchData()
+        }
+
+        else {
+          alert('Update thất bại')
+        }
+      })
+      .catch((error) => {
+        alert('Update thất bại')
+        console.log(error);
+      });
+  }
+
+
+
+  ////////////////////////</Update>
 
   // Initialize Firebase
   firebase.initializeApp({
@@ -210,7 +267,7 @@ const RealEstateManager = () => {
 
     reader.onload = (event) => {
 
-      setImageUrl1(event.target.result);
+      setimg1Update(event.target.result);
 
     };
 
@@ -258,7 +315,7 @@ const RealEstateManager = () => {
 
     reader.onload = (event) => {
 
-      setImageUrl2(event.target.result);
+      setimg2Update(event.target.result);
     };
 
     reader.readAsDataURL(file);
@@ -301,7 +358,7 @@ const RealEstateManager = () => {
 
     reader.onload = (event) => {
 
-      setImageUrl3(event.target.result);
+      setimg3Update(event.target.result);
     };
 
     reader.readAsDataURL(file);
@@ -344,7 +401,7 @@ const RealEstateManager = () => {
 
     reader.onload = (event) => {
 
-      setImageUrl4(event.target.result);
+      setimg4Update(event.target.result);
     };
 
     reader.readAsDataURL(file);
@@ -388,7 +445,7 @@ const RealEstateManager = () => {
 
     reader.onload = (event) => {
 
-      setImageUrl5(event.target.result);
+      setimg5Update(event.target.result);
     };
 
     reader.readAsDataURL(file);
@@ -430,8 +487,8 @@ const RealEstateManager = () => {
     const reader = new FileReader();
 
     reader.onload = (event) => {
-
-      setImageUrl6(event.target.result);
+      const urltemp =event.target.result;
+      setimg6Update(urltemp);
     };
 
     reader.readAsDataURL(file);
@@ -471,23 +528,7 @@ const RealEstateManager = () => {
     <div className="admin-manager-user">
       <div className="container flex form-search">
 
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Danh mục</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={caterory}
-              label="Danh mục"
-              onChange={handleChangeCarerory}
-              style={{ width: 200 }}
-            >
-              <MenuItem value={1}>Nhà đất bán</MenuItem>
-              <MenuItem value={2}>Nhà đất cho thuê</MenuItem>
 
-            </Select>
-          </FormControl>
-        </Box>
         <Box sx={{ minWidth: 120, marginLeft: 2 }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Loại bài đăng</InputLabel>
@@ -516,7 +557,7 @@ const RealEstateManager = () => {
 
         <TextField id="outlined-basic" label="Tìm kiếm" variant="outlined" style={{ marginLeft: 10, width: 300 }} />
 
-        <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>Áp dụng</Button>
+        <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={Filter}>Áp dụng</Button>
         <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button>
       </div>
       <div className="form-data">
@@ -562,13 +603,14 @@ const RealEstateManager = () => {
                       <IconButton aria-label="delete" color="primary" onClick={() => {
                         handleClickOpen1()
                         setIdRealEstateUpdate(Item.id)
+                        setUserUpdate(Item.user.id)
                         setTittleUpdate(Item.name)
 
                         setnewsTypeUpdate(Item.newsType.id)
 
                         setAreaUpdate(Item.area)
                         setdateSubmitUpDate(Item.dateSubmitted)
-                        setCaterory(Item.category.id)
+                        setCateroryUpdate(Item.category.id)
                         setLengthUpDate(Item.length)
                         setWidthUpdate(Item.width)
                         setPriceUpdate(Item.price)
@@ -576,12 +618,13 @@ const RealEstateManager = () => {
                         setAddressUpdate(Item.address)
 
                         setStatusUpdate(Item.status)
-                        setImageUrl1(Item.url_img1)
-                        setImageUrl2(Item.url_img2)
-                        setImageUrl3(Item.url_img3)
-                        setImageUrl4(Item.url_img4)
-                        setImageUrl5(Item.url_img5)
-                        setImageUrl6(Item.url_img6)
+
+                        setimg1Update(Item.url_img1)
+                        setimg2Update(Item.url_img2)
+                        setimg3Update(Item.url_img3)
+                        setimg4Update(Item.url_img4)
+                        setimg5Update(Item.url_img5)
+                        setimg6Update(Item.url_img6)
 
                         setContentUpdate(Item.decription)
                       }}>
@@ -602,7 +645,7 @@ const RealEstateManager = () => {
                           <DialogContentText id="alert-dialog-description">
 
                             <div>   <label htmlFor="">Tiêu đề: </label>
-                              <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={tittleUpdate}    onChange={event => setTittleUpdate(event.target.value)} />
+                              <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={tittleUpdate} onChange={event => setTittleUpdate(event.target.value)} />
                             </div>
                             <div>
 
@@ -633,80 +676,80 @@ const RealEstateManager = () => {
                             </div>
                             <div>
 
-                            <label htmlFor="">Khu vực: </label>
-                            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={AreaUpdate}
-              label="Chọn khu vực"
-              onChange={handleChangeAreaUpdate}
+                              <label htmlFor="">Khu vực: </label>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={AreaUpdate}
+                                label="Chọn khu vực"
+                                onChange={handleChangeAreaUpdate}
 
-              style={{ width: '550px', height: 55 }}
-            >
-              <MenuItem value={"An Giang"}>An Giang</MenuItem>
-              <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
-              <MenuItem value={"Bạc Liêu"}>Bạc Liêu</MenuItem>
-              <MenuItem value={"Bắc Giang"}>Bắc Giang</MenuItem>
-              <MenuItem value={"Bắc Kạn"}>Bắc Kạn </MenuItem>
-              <MenuItem value={"Bắc Ninh"}>Bắc Ninh</MenuItem>
-              <MenuItem value={"Bến Tre"}>Bến Tre</MenuItem>
-              <MenuItem value={"Bình Dương"}>Bình Dương</MenuItem>
-              <MenuItem value={"Bình Định"}>Bình Định</MenuItem>
-              <MenuItem value={"Bình Phước"}>Bình Phước</MenuItem>
-              <MenuItem value={"Bình Thuận"}>Bình Thuận</MenuItem>
-              <MenuItem value={"Cà Mau"}>Cà Mau</MenuItem>
-              <MenuItem value={"Cao Bằng"}>Cao Bằng</MenuItem>
-              <MenuItem value={"Cần Thơ"}>Cần Thơ</MenuItem>
-              <MenuItem value={"Đà Nẵng"}>Đà Nẵng</MenuItem>
-              <MenuItem value={"Đắk Lắk"}>Đắk Lắk</MenuItem>
-              <MenuItem value={"Đắk Nông"}>Đắk Nông</MenuItem>
-              <MenuItem value={"Điện Biên"}>Điện Biên</MenuItem>
-              <MenuItem value={"Đồng Nai"}>Đồng Nai</MenuItem>
-              <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
-              <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
-              <MenuItem value={"Hà Nam"}>Hà Nam</MenuItem>
-              <MenuItem value={"Hà Nội"}>Hà Nội</MenuItem>
-              <MenuItem value={"Hà Tĩnh"}>Hà Tĩnh</MenuItem>
-              <MenuItem value={"Hải Dương"}>Hải Dương</MenuItem>
-              <MenuItem value={"Hải Phòng"}>Hải Phòng</MenuItem>
-              <MenuItem value={"Hậu Giang"}>Hậu Giang</MenuItem>
-              <MenuItem value={"Hòa Bình"}>Hòa Bình</MenuItem>
-              <MenuItem value={"TP Hồ Chí Minh"}>TP Hồ Chí Minh</MenuItem>
-              <MenuItem value={"Hưng Yên"}>Hưng Yên</MenuItem>
-              <MenuItem value={"Khánh Hòa"}>Khánh Hòa</MenuItem>
-              <MenuItem value={"Kiên Giang"}>Kiên Giang</MenuItem>
-              <MenuItem value={"Kon Tum"}>Kon Tum</MenuItem>
-              <MenuItem value={"Lai Châu"}>Lai Châu</MenuItem>
-              <MenuItem value={"Lạng Sơn"}>Lạng Sơn</MenuItem>
-              <MenuItem value={"Lào Cai"}>Lào Cai</MenuItem>
-              <MenuItem value={"Lâm Đồng"}>Lâm Đồng</MenuItem>
-              <MenuItem value={"Long An"}>Long An</MenuItem>
-              <MenuItem value={"Nam Định"}>Nam Định</MenuItem>
-              <MenuItem value={"Nghệ An"}>Nghệ An</MenuItem>
-              <MenuItem value={"Ninh Bình"}>Ninh Bình</MenuItem>
-              <MenuItem value={"Ninh Thuận"}>Ninh Thuận</MenuItem>
-              <MenuItem value={"Phú Thọ"}>Phú Thọ</MenuItem>
-              <MenuItem value={"Phú Yên"}>Phú Yên</MenuItem>
-              <MenuItem value={"Quảng Bình"}>Quảng Bình</MenuItem>
-              <MenuItem value={"Quảng Nam"}>Quảng Nam</MenuItem>
-              <MenuItem value={"Quảng Ngãi"}>Quảng Ngãi</MenuItem>
-              <MenuItem value={"Quảng Ninh"}>Quảng Ninh</MenuItem>
-              <MenuItem value={"Quảng Trị"}>Quảng Trị</MenuItem>
-              <MenuItem value={"Sóc Trăng"}>Sóc Trăng</MenuItem>
-              <MenuItem value={"Sơn La"}>Sơn La</MenuItem>
-              <MenuItem value={"Tây Ninh"}>Tây Ninh</MenuItem>
-              <MenuItem value={"Thái Bình"}>Thái Bình</MenuItem>
-              <MenuItem value={"Thái Nguyên"}>Thái Nguyên</MenuItem>
-              <MenuItem value={"Thanh Hóa"}>Thanh Hóa</MenuItem>
-              <MenuItem value={"Thừa Thiên Huế"}>Thừa Thiên Huế</MenuItem>
-              <MenuItem value={"Tiền Giang"}>Tiền Giang</MenuItem>
-              <MenuItem value={"Trà Vinh"}>Trà Vinh</MenuItem>
-              <MenuItem value={"Tuyên Quang"}>Tuyên Quang</MenuItem>
-              <MenuItem value={"Vĩnh Long"}>Vĩnh Long</MenuItem>
-              <MenuItem value={"Vĩnh Phúc"}>Vĩnh Phúc</MenuItem>
-              <MenuItem value={"Yên Bái"}>Yên Bái</MenuItem>
+                                style={{ width: '550px', height: 55 }}
+                              >
+                                <MenuItem value={"An Giang"}>An Giang</MenuItem>
+                                <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
+                                <MenuItem value={"Bạc Liêu"}>Bạc Liêu</MenuItem>
+                                <MenuItem value={"Bắc Giang"}>Bắc Giang</MenuItem>
+                                <MenuItem value={"Bắc Kạn"}>Bắc Kạn </MenuItem>
+                                <MenuItem value={"Bắc Ninh"}>Bắc Ninh</MenuItem>
+                                <MenuItem value={"Bến Tre"}>Bến Tre</MenuItem>
+                                <MenuItem value={"Bình Dương"}>Bình Dương</MenuItem>
+                                <MenuItem value={"Bình Định"}>Bình Định</MenuItem>
+                                <MenuItem value={"Bình Phước"}>Bình Phước</MenuItem>
+                                <MenuItem value={"Bình Thuận"}>Bình Thuận</MenuItem>
+                                <MenuItem value={"Cà Mau"}>Cà Mau</MenuItem>
+                                <MenuItem value={"Cao Bằng"}>Cao Bằng</MenuItem>
+                                <MenuItem value={"Cần Thơ"}>Cần Thơ</MenuItem>
+                                <MenuItem value={"Đà Nẵng"}>Đà Nẵng</MenuItem>
+                                <MenuItem value={"Đắk Lắk"}>Đắk Lắk</MenuItem>
+                                <MenuItem value={"Đắk Nông"}>Đắk Nông</MenuItem>
+                                <MenuItem value={"Điện Biên"}>Điện Biên</MenuItem>
+                                <MenuItem value={"Đồng Nai"}>Đồng Nai</MenuItem>
+                                <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
+                                <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
+                                <MenuItem value={"Hà Nam"}>Hà Nam</MenuItem>
+                                <MenuItem value={"Hà Nội"}>Hà Nội</MenuItem>
+                                <MenuItem value={"Hà Tĩnh"}>Hà Tĩnh</MenuItem>
+                                <MenuItem value={"Hải Dương"}>Hải Dương</MenuItem>
+                                <MenuItem value={"Hải Phòng"}>Hải Phòng</MenuItem>
+                                <MenuItem value={"Hậu Giang"}>Hậu Giang</MenuItem>
+                                <MenuItem value={"Hòa Bình"}>Hòa Bình</MenuItem>
+                                <MenuItem value={"TP Hồ Chí Minh"}>TP Hồ Chí Minh</MenuItem>
+                                <MenuItem value={"Hưng Yên"}>Hưng Yên</MenuItem>
+                                <MenuItem value={"Khánh Hòa"}>Khánh Hòa</MenuItem>
+                                <MenuItem value={"Kiên Giang"}>Kiên Giang</MenuItem>
+                                <MenuItem value={"Kon Tum"}>Kon Tum</MenuItem>
+                                <MenuItem value={"Lai Châu"}>Lai Châu</MenuItem>
+                                <MenuItem value={"Lạng Sơn"}>Lạng Sơn</MenuItem>
+                                <MenuItem value={"Lào Cai"}>Lào Cai</MenuItem>
+                                <MenuItem value={"Lâm Đồng"}>Lâm Đồng</MenuItem>
+                                <MenuItem value={"Long An"}>Long An</MenuItem>
+                                <MenuItem value={"Nam Định"}>Nam Định</MenuItem>
+                                <MenuItem value={"Nghệ An"}>Nghệ An</MenuItem>
+                                <MenuItem value={"Ninh Bình"}>Ninh Bình</MenuItem>
+                                <MenuItem value={"Ninh Thuận"}>Ninh Thuận</MenuItem>
+                                <MenuItem value={"Phú Thọ"}>Phú Thọ</MenuItem>
+                                <MenuItem value={"Phú Yên"}>Phú Yên</MenuItem>
+                                <MenuItem value={"Quảng Bình"}>Quảng Bình</MenuItem>
+                                <MenuItem value={"Quảng Nam"}>Quảng Nam</MenuItem>
+                                <MenuItem value={"Quảng Ngãi"}>Quảng Ngãi</MenuItem>
+                                <MenuItem value={"Quảng Ninh"}>Quảng Ninh</MenuItem>
+                                <MenuItem value={"Quảng Trị"}>Quảng Trị</MenuItem>
+                                <MenuItem value={"Sóc Trăng"}>Sóc Trăng</MenuItem>
+                                <MenuItem value={"Sơn La"}>Sơn La</MenuItem>
+                                <MenuItem value={"Tây Ninh"}>Tây Ninh</MenuItem>
+                                <MenuItem value={"Thái Bình"}>Thái Bình</MenuItem>
+                                <MenuItem value={"Thái Nguyên"}>Thái Nguyên</MenuItem>
+                                <MenuItem value={"Thanh Hóa"}>Thanh Hóa</MenuItem>
+                                <MenuItem value={"Thừa Thiên Huế"}>Thừa Thiên Huế</MenuItem>
+                                <MenuItem value={"Tiền Giang"}>Tiền Giang</MenuItem>
+                                <MenuItem value={"Trà Vinh"}>Trà Vinh</MenuItem>
+                                <MenuItem value={"Tuyên Quang"}>Tuyên Quang</MenuItem>
+                                <MenuItem value={"Vĩnh Long"}>Vĩnh Long</MenuItem>
+                                <MenuItem value={"Vĩnh Phúc"}>Vĩnh Phúc</MenuItem>
+                                <MenuItem value={"Yên Bái"}>Yên Bái</MenuItem>
 
-            </Select>
+                              </Select>
                             </div>
 
                             <div>  <label htmlFor="">Chiều dài: </label>
@@ -724,13 +767,13 @@ const RealEstateManager = () => {
                             </div>
 
                             <div>  <label htmlFor="">Diện tích tổng thể: </label>
-                              <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={acreageUpDate} onChange={event => setAcreageUpdate(event.target.value)}/>
+                              <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={acreageUpDate} onChange={event => setAcreageUpdate(event.target.value)} />
                             </div>
                             <div>  <label htmlFor="">Địa chỉ: </label>
                               <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={addressUpdate} onChange={event => setAddressUpdate(event.target.value)} />
                             </div>
                             <div>
-                            <label htmlFor="">Trạng thái: </label>
+                              <label htmlFor="">Trạng thái: </label>
                               <Box sx={{ minWidth: 120 }}>
                                 <FormControl fullWidth>
 
@@ -742,7 +785,7 @@ const RealEstateManager = () => {
                                     onChange={handleChangeStatusUpdate}
                                     style={{ width: 550 }}
                                   >
-                                    
+
                                     <MenuItem value="Đang hoạt động">Đang hoạt động</MenuItem>
                                     <MenuItem value="Đã khóa">Đã khóa</MenuItem>
                                   </Select>
@@ -754,7 +797,7 @@ const RealEstateManager = () => {
 
                             <div>  <label htmlFor="">Ảnh 1: </label>
 
-                              <img src={imageUrl1} alt="k" />
+                              <img src={img1Update} alt="k" />
                               <label for="image_uploads1" style={{ background: '#483D8B', padding: 6, borderRadius: 5, color: '#F8F8FF', marginLeft: 10 }}>Chỉnh sửa</label>
                               <input type="file" id="image_uploads1" name="image_uploads1" accept=".jpg, .jpeg, .png" style={{ display: "none" }} onClick={handleImageChangeSell1} />
                               <Button variant="contained" color="success" style={{ marginLeft: 10 }} onClick={handleUploadSell1}  >
@@ -765,7 +808,7 @@ const RealEstateManager = () => {
 
                             <br />
                             <div>  <label htmlFor="">Ảnh 2: </label>
-                              <img src={imageUrl2} alt="k" />
+                              <img src={img2Update} alt="k" />
                               <label for="image_uploads2" style={{ background: '#483D8B', padding: 6, borderRadius: 5, color: '#F8F8FF', marginLeft: 10 }}>Chỉnh sửa</label>
                               <input type="file" id="image_uploads2" name="image_uploads2" accept=".jpg, .jpeg, .png" style={{ display: "none" }} onClick={handleImageChangeSell2} />
                               <Button variant="contained" color="success" style={{ marginLeft: 10 }} onClick={handleUploadSell2} >
@@ -774,7 +817,7 @@ const RealEstateManager = () => {
                             </div>
                             <br />
                             <div>  <label htmlFor="">Ảnh 3: </label>
-                              <img src={imageUrl3} alt="k" />
+                              <img src={img3Update} alt="k" />
                               <label for="image_uploads3" style={{ background: '#483D8B', padding: 6, borderRadius: 5, color: '#F8F8FF', marginLeft: 10 }}>Chỉnh sửa</label>
                               <input type="file" id="image_uploads3" name="image_uploads3" accept=".jpg, .jpeg, .png" style={{ display: "none" }} onClick={handleImageChangeSell3} />
                               <Button variant="contained" color="success" style={{ marginLeft: 10 }} onClick={handleUploadSell3}  >
@@ -783,7 +826,7 @@ const RealEstateManager = () => {
                             </div>
                             <br />
                             <div>  <label htmlFor="">Ảnh 4: </label>
-                              <img src={imageUrl4} alt="k" />
+                              <img src={img4Update} alt="k" />
                               <label for="image_uploads4" style={{ background: '#483D8B', padding: 6, borderRadius: 5, color: '#F8F8FF', marginLeft: 10 }}>Chỉnh sửa</label>
                               <input type="file" id="image_uploads4" name="image_uploads4" accept=".jpg, .jpeg, .png" style={{ display: "none" }} onClick={handleImageChangeSell4} />
                               <Button variant="contained" color="success" style={{ marginLeft: 10 }} onClick={handleUploadSell4} >
@@ -792,7 +835,7 @@ const RealEstateManager = () => {
                             </div>
                             <br />
                             <div>  <label htmlFor="">Ảnh 5: </label>
-                              <img src={imageUrl5} alt="k" />
+                              <img src={img5Update} alt="k" />
                               <label for="image_uploads5" style={{ background: '#483D8B', padding: 6, borderRadius: 5, color: '#F8F8FF', marginLeft: 10 }}>Chỉnh sửa</label>
                               <input type="file" id="image_uploads5" name="image_uploads5" accept=".jpg, .jpeg, .png" style={{ display: "none" }} onClick={handleImageChangeSell5} />
                               <Button variant="contained" color="success" style={{ marginLeft: 10 }} onClick={handleUploadSell5} >
@@ -801,7 +844,7 @@ const RealEstateManager = () => {
                             </div>
                             <br />
                             <div>  <label htmlFor="">Ảnh 6: </label>
-                              <img src={imageUrl6} alt="k" />
+                              <img src={img6Update} alt="k" />
                               <label for="image_uploads6" style={{ background: '#483D8B', padding: 6, borderRadius: 5, color: '#F8F8FF', marginLeft: 10 }}>Chỉnh sửa</label>
                               <input type="file" id="image_uploads6" name="image_uploads6" accept=".jpg, .jpeg, .png" style={{ display: "none" }} onClick={handleImageChangeSell6} />
                               <Button variant="contained" color="success" style={{ marginLeft: 10 }} onClick={handleUploadSell6} >
@@ -827,6 +870,9 @@ const RealEstateManager = () => {
                           <Button onClick={handleClose1} >
                             Đóng
                           </Button>
+                          <Button onClick={UpdateRealEstate} >
+                            Cập nhật
+                          </Button>
 
 
                         </DialogActions>
@@ -848,7 +894,7 @@ const RealEstateManager = () => {
       </div>
       <div className="form-page">
         <span className="text-xs xs:text-sm text-gray-900">
-          Từ {totalCount === 0 ? 0 : offset + 1} đến {offset + pageSize > totalCount ? totalCount : offset + pageSize} của tổng số {totalCount} người dùng
+          Từ {totalCount === 0 ? 0 : offset + 1} đến {offset + pageSize > totalCount ? totalCount : offset + pageSize} của tổng số {totalCount} bất động sản
         </span>
         <div className="flex form-button">
           <Button variant="contained" onClick={prevPage}>Prev</Button>
