@@ -143,6 +143,9 @@ const Navbar = () => {
                     navigate("/account")
 
                 }
+                if (response.data==="") {
+                    navigate("/login")
+                }
                 if (response.status === 500) {
                     navigate("/login")
                 }
@@ -172,6 +175,9 @@ const Navbar = () => {
                 if (response.status === 200) {
                     navigate("/postnews")
 
+                }
+                if (response.data==="") {
+                    navigate("/login")
                 }
                 if (response.status === 500) {
                     navigate("/login")
