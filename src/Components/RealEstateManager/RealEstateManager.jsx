@@ -59,36 +59,44 @@ const RealEstateManager = () => {
   useEffect(() => {
     fetchData()
     getNewsType()
+
   }, [])
 
   const prevPage = async () => {
-
+    const nt = newsType
+    const us = username
+    const pgSize = pageSize
     const pg = page === 1 ? 1 : page - 1
-    fetchData(pg)
+    fetchData(pg, pgSize, nt, us)
     setPage(pg)
 
   }
 
   const nextPage = async () => {
-
+    const nt = newsType
+    const us = username
+    const pgSize = pageSize
     const pg = page < Math.ceil(totalCount / pageSize) ? page + 1 : page
-    fetchData(pg)
+    fetchData(pg, pgSize, nt, us)
     setPage(pg)
   }
 
 const Filter = async()=>{
-const nt = newsType
-const  pg = page
+  const pg = page
 const pgSize = pageSize
-fetchData(pg, pgSize, nt)
+const nt = newsType
+const us = username
+
+fetchData(pg, pgSize, nt, us)
+
 }
 
-  const fetchData = async (pg = page, pgSize = pageSize, nt = newsType ) => {
+  const fetchData = async (pg = page, pgSize = pageSize, nt = newsType, us = username ) => {
 
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `http://localhost:8081/api/realestates-paging?page=${pg - 1}&size=${pgSize}&idNewsType=${nt}`,
+      url: `http://localhost:8081/api/realestates-paging?page=${pg - 1}&size=${pgSize}&idNewsType=${nt}&username=${us}`,
       headers: {}
     };
 
@@ -124,6 +132,10 @@ fetchData(pg, pgSize, nt)
     console.log(newsType)
    
   };
+
+  const [username, setUserName] = React.useState('');
+
+ 
 
 
   ////// <Update>
@@ -238,6 +250,8 @@ fetchData(pg, pgSize, nt)
 
 
   ////////////////////////</Update>
+
+
 
   // Initialize Firebase
   firebase.initializeApp({
@@ -555,7 +569,7 @@ fetchData(pg, pgSize, nt)
           </FormControl>
         </Box>
 
-        <TextField id="outlined-basic" label="Tìm kiếm" variant="outlined" style={{ marginLeft: 10, width: 300 }} />
+        <TextField id="outlined-basic" label="Tìm kiếm" variant="outlined" style={{ marginLeft: 10, width: 300 }} onChange={event => setUserName(event.target.value)} />
 
         <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={Filter}>Áp dụng</Button>
         <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button>
