@@ -193,6 +193,39 @@ const Navbar = () => {
 
     }
 
+    const RealEstateUser = () => {
+        let config = {
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://localhost:8081/api/checkuser?token=${token}`,
+            headers: {}
+        };
+
+        axios.request(config)
+            .then((response) => {
+
+                if (response.status === 200) {
+                    navigate("/realestate-manager-user")
+
+                }
+                if (response.data==="") {
+                    navigate("/login")
+                }
+                if (response.status === 500) {
+                    navigate("/login")
+                }
+
+
+            })
+            .catch((error) => {
+                console.log(error);
+                navigate("/login")
+
+            });
+
+    }
+
+
 
     useEffect(() => {
         LoadNewsTypeSell()
@@ -428,7 +461,7 @@ const Navbar = () => {
                                             <Avatar /> Thông tin
                                         </MenuItem>
                                         <Divider />
-                                        <MenuItem onClick={handleClose}>
+                                        <MenuItem onClick={RealEstateUser} >
                                             <Avatar /> Quản lí bài đăng
                                         </MenuItem>
 
