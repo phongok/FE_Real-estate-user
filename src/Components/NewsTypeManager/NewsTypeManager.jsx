@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import './newstypemanager.css'
 
 import IconButton from '@mui/material/IconButton';
-
+import isEmpty from "validator/lib/isEmpty"
 import { RxUpdate } from 'react-icons/rx'
 import { AiFillLock } from 'react-icons/ai'
 import Button from '@mui/material/Button';
@@ -26,7 +26,7 @@ import Select from '@mui/material/Select';
 import axios from "axios"
 
 const NewsTypeManager = () => {
-
+    const [validationMsg, setValidationMsg] = useState('')
     const [NewsTypeList, setNewsTypeList] = useState([])
 
     const [page, setPage] = useState(1)
@@ -138,8 +138,28 @@ const NewsTypeManager = () => {
     };
 
     const [nameNewsType, setnameNewsType] = React.useState("");
+    const valibDataAll = () =>{
+        const msg ={}
+        if(isEmpty(nameNewsType)){
+          msg.nameNewsType = "Vui lòng nhập tên loại bài đăng"
+        }
 
-    const saveNewsType = () => {
+        if(isEmpty(nameNewsTypeUpdate)){
+            msg.nameNewsTypeUpdate = "Vui lòng nhập tên loại bài đăng cập nhật"
+          }
+       
+      
+      
+        setValidationMsg(msg)
+        if (Object.keys(msg).length>0) return false
+        return true
+        
+      }
+
+    const saveNewsType = async() => {
+        
+
+
         let data = JSON.stringify({
             "category": {
                 "id": age
@@ -172,7 +192,12 @@ const NewsTypeManager = () => {
             });
 
     }
-
+    const SaveNT = () =>{
+        const isValib = valibDataAll()
+            if (!isValib) return
+    
+        saveNewsType()
+    }
 
 
 
@@ -219,7 +244,12 @@ const NewsTypeManager = () => {
 
 
 
-    const UpdateAction = async () => {
+    const UpdateAction = async() => {
+
+
+       
+
+
         let data = JSON.stringify({
             "id": idNewsTypeUpdate,
             "category": {
@@ -254,7 +284,12 @@ const NewsTypeManager = () => {
             });
 
     }
+const Update = () =>{
+    const isValib = valibDataAll()
+        if (!isValib) return
 
+    UpdateAction()
+}
 
     const [openDelete, setOpenDelete] = React.useState(false);
 
@@ -350,12 +385,15 @@ const LockNewsType = async()=>{
                             <DialogContentText id="alert-dialog-description">
                                 <TextField id="outlined-basic" label="Tên loại bài đăng" variant="outlined" style={{ marginTop: 20 }} onChange={event => setnameNewsType(event.target.value)} />
                             </DialogContentText>
+                            <p style={{color:'red'}}>{validationMsg.nameNewsType}</p>
                         </DialogContent>
+
+                     
 
 
                         <DialogActions>
                             <Button onClick={handleCloseDialogCreate}>Đóng</Button>
-                            <Button onClick={saveNewsType} autoFocus>
+                            <Button onClick={SaveNT} >
                                 Lưu
                             </Button>
                         </DialogActions>
@@ -442,6 +480,7 @@ const LockNewsType = async()=>{
                                                         <DialogContentText id="alert-dialog-description">
                                                             <TextField id="outlined-basic" label="Tên loại bài đăng" variant="outlined" style={{ marginTop: 20 }} value={nameNewsTypeUpdate} onChange={event => setnameNewsTypeUpdate(event.target.value)} />
                                                         </DialogContentText>
+                                                        <p style={{color:'red'}}>{validationMsg.nameNewsTypeUpdate}</p>
                                                     </DialogContent>
 
                                                     <DialogContent>
@@ -479,7 +518,7 @@ const LockNewsType = async()=>{
 
                                                     <DialogActions>
                                                         <Button onClick={handleCloseDialogUpdate}>Đóng</Button>
-                                                        <Button autoFocus onClick={UpdateAction}>
+                                                        <Button  onClick={Update}>
                                                             Cập nhật
                                                         </Button>
                                                     </DialogActions>
