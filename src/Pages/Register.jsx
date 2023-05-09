@@ -4,12 +4,14 @@ import { useState } from 'react';
 // import '../Assets/Css/css/demo.css'
 // import '../Assets/Css/vendor/libs/perfect-scrollbar/perfect-scrollbar.css'
 // import '../Assets/Css/vendor/css/pages/page-auth.css'
-
+import isEmpty from "validator/lib/isEmpty"
 
 import { Link } from "react-router-dom";
 
-import { auth, db } from '../configfirebase'
+import { auth } from '../configfirebase'
 import axios from "axios"
+
+import isEmail from 'validator/lib/isEmail';
 
 
 
@@ -19,8 +21,13 @@ function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
+  const [validationMsg, setValidationMsg] = useState('')
 
   const Authen = () => {
+
+    
+
+
     console.log('authen')
     console.log(email)
     console.log(password)
@@ -39,7 +46,7 @@ function Register() {
       })
       .catch((error) => {
         // Xử lý lỗi khi đăng ký tài khoản
-        alert('error')
+        alert('Không thể gửi link xác thực đến email này, hãy kiểm tra lại email')
       });
 
 
@@ -99,9 +106,55 @@ function Register() {
 
   }
 
+  const CheckUser = async()=>{
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: `http://localhost:8081/api/user/checkUser?userName=${email}`,
+      headers: { }
+    };
+    
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+      if (response.data==="Đã tồn tại") {
+        alert('Email này đã được dùng, vui lòng sử dụng email khác')
+      }
+      else{
+        Authen()
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+const valibDataAll = () =>{
+  const msg ={}
+  if(isEmpty(email)){
+    msg.email = "Vui lòng nhập email"
+  }
+  else if (!isEmail(email)){
+    msg.email = "Vui lòng nhập đúng định dạng email"
+  }
+
+  if(isEmpty(password)){
+    msg.password = "Vui lòng nhập password"
+  }
+
+  setValidationMsg(msg)
+  if (Object.keys(msg).length>0) return false
+  return true
+  
+}
 
 
+const RegisterAction =  async()=>{
+  const isValib = valibDataAll()
+    if (!isValib) return
 
+  CheckUser()
+}
 
   return <div>
     <div className="container-xxl">
@@ -129,8 +182,9 @@ function Register() {
 
                   onChange={event => setEmail(event.target.value)}
                 />
+               
               </div>
-
+              <p style={{color:'red'}}>{validationMsg.email}</p>
               <div className="mb-3 form-password-toggle">
                 <label className="form-label" for="password"  >Mật khẩu</label>
                 <div className="input-group input-group-merge">
@@ -145,7 +199,10 @@ function Register() {
                   />
                   <span className="input-group-text cursor-pointer"><i className="bx bx-hide"></i></span>
                 </div>
+               
               </div>
+
+              <p style={{color:'red'}}>{validationMsg.password}</p>
 
               {/* <div className="mb-3">
                   <div className="form-check">
@@ -155,7 +212,7 @@ function Register() {
                   </div>
                 </div> */}
 
-              <button className="btn btn-primary d-grid w-100" onClick={Authen} >Đăng kí</button>
+              <button className="btn btn-primary d-grid w-100" onClick={RegisterAction} >Đăng kí</button>
 
 
               <p className="text-center">
