@@ -11,9 +11,10 @@ import axios from "axios"
 
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage';
-
+import isEmpty from "validator/lib/isEmpty"
+import isEmail from 'validator/lib/isEmail';
 function TabPanel(props) {
-
+  
 
 
   const { children, value, index, ...other } = props;
@@ -54,8 +55,28 @@ export default function VerticalTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [validationMsg, setValidationMsg] = useState('')
+  const valibDataAll = () =>{
+    const msg ={}
+    if(isEmpty(nameUpdate)){
+      msg.nameUpdate = "Vui lòng nhập họ tên"
+    }
 
-
+    if(isEmpty(emailUpdate)){
+        msg.emailUpdate = "Vui lòng nhập email"
+      }
+      else if (!isEmail(emailUpdate)){
+        msg.emailUpdate = "Vui lòng nhập đúng định dạng email"
+      }
+    
+   
+  
+  
+    setValidationMsg(msg)
+    if (Object.keys(msg).length>0) return false
+    return true
+    
+  }
   const token = localStorage.getItem("token")
   const [idUserUpdate, setIdUserUpdate] = useState('')
   const [nameUpdate, setNameUpdate] = useState('')
@@ -198,7 +219,12 @@ const UpdateUser = async()=>{
 }
 
 
+const UpdateUserAction =  async()=>{
+  const isValib = valibDataAll()
+    if (!isValib) return
 
+    UpdateUser()
+}
 
 
   return (
@@ -235,9 +261,10 @@ const UpdateUser = async()=>{
 
                 <label htmlFor="">Họ tên: </label>
                 <Input id="name-user" style={{ width: 400 }}  value={nameUpdate}  onChange={event => setNameUpdate(event.target.value)}/> <br /> <br />
-
+                <p style={{color:'red'}}>{validationMsg.nameUpdate}</p>
                 <label htmlFor="">Email: </label>
                 <Input id="username-user" style={{ width: 400 }} value={emailUpdate}  onChange={event => setEmailUpdate(event.target.value)} /> <br /> <br />
+                <p style={{color:'red'}}>{validationMsg.emailUpdate}</p>
               </div>
 
               <div style={{ width: '40%' }}>
@@ -250,7 +277,7 @@ const UpdateUser = async()=>{
               </div>
             </div>
 
-            <Button variant="contained" disableElevation onClick={UpdateUser}> Cập nhật</Button>
+            <Button variant="contained" disableElevation onClick={UpdateUserAction}> Cập nhật</Button>
 
           </form>
         </div>
