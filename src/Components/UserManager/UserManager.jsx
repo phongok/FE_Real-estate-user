@@ -26,8 +26,12 @@ import Select from '@mui/material/Select';
 
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage';
-const UserManager = () => {
 
+import isEmpty from "validator/lib/isEmpty"
+import isEmail from 'validator/lib/isEmail';
+import isNumeric from 'validator/lib/isNumeric';
+const UserManager = () => {
+    const [validationMsg, setValidationMsg] = useState('')
     const [usersList, setUsersList] = useState([])
 
     const [page, setPage] = useState(1)
@@ -63,10 +67,101 @@ const UserManager = () => {
 
     };
 
+    const valibDataAll = () =>{
+        const msg ={}
+        if(isEmpty(userName)){
+            msg.userName = "Vui lòng nhập email"
+          }
+        else if (!isEmail(userName)){
+            msg.userName = "Vui lòng nhập đúng định dạng email"
+          }
+
+        if(isEmpty(password)){
+            msg.password = "Vui lòng nhập password"
+          }
+
+        // if(isNumeric(money)===false){
+        //     msg.money = "Tiền phải nhấp số"
+        //   }
+
+
+        // if(isEmpty(EmailUpdate)){
+        //     msg.EmailUpdate = "Vui lòng nhập email"
+        //   }
+        // else if (!isEmail(EmailUpdate)){
+        //     msg.EmailUpdate = "Vui lòng nhập đúng định dạng email"
+        //   }
+
+        // if(isEmpty(NameUpdate)){
+        //     msg.NameUpdate = "Vui lòng nhập họ tên"
+        //   }
+          
+          setValidationMsg(msg)
+          if (Object.keys(msg).length>0) return false
+          return true 
+      }
+
+      const valibDataMoney = () =>{
+        const msg ={}
+      
+
+        if(!isNumeric(money)){
+            msg.money = "Tiền phải nhấp số"
+          }
+
+
+          
+          setValidationMsg(msg)
+          if (Object.keys(msg).length>0) return false
+          return true 
+      }
+      const valibDataApdate = () =>{
+        const msg ={}
+ 
+
+
+        if(isEmpty(EmailUpdate)){
+            msg.EmailUpdate = "Vui lòng nhập email"
+          }
+        else if (!isEmail(EmailUpdate)){
+            msg.EmailUpdate = "Vui lòng nhập đúng định dạng email"
+          }
+
+        if(isEmpty(NameUpdate)){
+            msg.NameUpdate = "Vui lòng nhập họ tên"
+          }
+          
+          setValidationMsg(msg)
+          if (Object.keys(msg).length>0) return false
+          return true 
+      }
+
     const [userName, setuserName] = useState("")
     const [password, setPassword] = useState("")
+    const CheckUserCreate = async()=>{
+        let config = {
+          method: 'post',
+          maxBodyLength: Infinity,
+          url: `http://localhost:8081/api/user/checkUser?userName=${userName}`,
+          headers: { }
+        };
+        
+        axios.request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          if (response.data==="Đã tồn tại") {
+            alert('Email này đã được dùng, vui lòng sử dụng email khác')
+          }
+          else{
+            CreateUserAction()
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
 
-    const CreateUser = async () => {
+    const CreateUser = async()=> {
         let data = JSON.stringify({
             "username": userName,
             "password": password
@@ -89,12 +184,21 @@ const UserManager = () => {
                     alert("Thêm thành công")
                     handleCloseDialogCreate()
                     getUsersList()
+                    setuserName('')
+                    setPassword('')
                 }
             })
             .catch((error) => {
                 console.log(error);
             });
 
+    }
+
+    const CreateUserAction = ()=>{
+        const isValib = valibDataAll()
+        if (!isValib) return
+
+        CreateUser()
     }
 
 
@@ -201,7 +305,8 @@ const UserManager = () => {
         }
     };
 
-    const UpdateUser = async() =>{
+   
+    const UpdateUser = async()=>{
         let data = JSON.stringify({
             "idUserUpdate": idUserUpdate,
             "nameUpdate": NameUpdate,
@@ -240,6 +345,13 @@ const UserManager = () => {
           });
     }
 
+    const UpdateAction = () =>{
+        const isValib = valibDataApdate()
+            if (!isValib) {
+                return 
+            }
+        UpdateUser()
+    }
 
     ////</Update>
 
@@ -323,7 +435,7 @@ const UserManager = () => {
     }
 
 
-    ///////////////////////
+    ///Cộng tiền
     const [openMoney, setOpenMoney] = React.useState(false);
 
     const handleClickOpenMoney = () => {
@@ -337,7 +449,8 @@ const UserManager = () => {
     const [idUserMoney, setIdUserMoney] = React.useState('');
     const [money, setMoney] = React.useState('');
 
-    const PublicMoney = async () => {
+
+    const PublicMoney = async() => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
@@ -359,6 +472,12 @@ const UserManager = () => {
 
     }
 
+    const PublicMoneyAction = () =>{
+        const isValib = valibDataMoney()
+        if (!isValib) return
+        PublicMoney()
+    }
+//////
 
     return (
         <div className="admin-manager-user">
@@ -388,6 +507,7 @@ const UserManager = () => {
                             <DialogContentText id="alert-dialog-description">
                                 <TextField id="outlined-basic" label="Username" variant="outlined" onChange={event => setuserName(event.target.value)} />
                             </DialogContentText>
+                            <p style={{color:'red'}}>{validationMsg.userName}</p>
                         </DialogContent>
 
                         <DialogContent>
@@ -402,6 +522,7 @@ const UserManager = () => {
                                 onChange={event => setPassword(event.target.value)}
 
                             />
+                               <p style={{color:'red'}}>{validationMsg.password}</p>
                         </DialogContent>
 
 
@@ -437,6 +558,7 @@ const UserManager = () => {
 
 
                                 </FormControl>
+                                {/* <p style={{color:'red'}}>{validationMsg.roleCreate}</p> */}
 
                             </Box>
 
@@ -450,7 +572,7 @@ const UserManager = () => {
 
                     <DialogActions>
                         <Button onClick={handleCloseDialogCreate}>Đóng</Button>
-                        <Button onClick={CreateUser}>
+                        <Button onClick={CheckUserCreate}>
                             Lưu
                         </Button>
                     </DialogActions>
@@ -521,11 +643,13 @@ const UserManager = () => {
                                                         <DialogContentText id="alert-dialog-description">
                                                             <TextField id="outlined-basic" label="Họ tên" variant="outlined" onChange={event => setNameUpdate(event.target.value)} value={NameUpdate} />
                                                         </DialogContentText>
+                                                        <p style={{color:'red'}}>{validationMsg.NameUpdate}</p>
                                                     </DialogContent>
                                                     <DialogContent>
                                                         <DialogContentText id="alert-dialog-description">
                                                             <TextField id="outlined-basic" label="Email" variant="outlined" onChange={event => setEmailUpdate(event.target.value)} value={EmailUpdate}/>
                                                         </DialogContentText>
+                                                        <p style={{color:'red'}}>{validationMsg.EmailUpdate}</p>
                                                     </DialogContent>
 
                                                     <DialogContent>
@@ -631,7 +755,7 @@ const UserManager = () => {
 
                                                 <DialogActions>
                                                     <Button onClick={handleCloseDialogUpdate}>Đóng</Button>
-                                                    <Button onClick={UpdateUser}>
+                                                    <Button onClick={UpdateAction}>
                                                         Lưu
                                                     </Button>
                                                 </DialogActions>
@@ -658,9 +782,10 @@ const UserManager = () => {
                                                     <DialogContentText id="alert-dialog-description">
                                                         <TextField id="outlined-basic" label="Nhập số tiền muốn cộng" variant="outlined" style={{ marginTop: 20 }} onChange={event => setMoney(event.target.value)} />
                                                     </DialogContentText>
+                                                    <p style={{color:'red'}}>{validationMsg.money}</p>
                                                 </DialogContent>
                                                 <DialogActions>
-                                                    <Button onClick={PublicMoney} >Đồng ý</Button>
+                                                    <Button onClick={PublicMoneyAction} >Đồng ý</Button>
                                                     <Button onClick={handleCloseMoney} >
                                                         Đóng
                                                     </Button>
