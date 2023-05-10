@@ -6,11 +6,12 @@ import { Button } from '@mui/material';
 import { Link, useNavigate } from "react-router-dom";
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage';
-
+import isEmpty from "validator/lib/isEmpty"
+import isEmail from 'validator/lib/isEmail';
 const FormInforAdmin = () =>{
 
 
-  
+    const [validationMsg, setValidationMsg] = useState('')
     const token = localStorage.getItem("token")
     const navigate = useNavigate()
 
@@ -121,6 +122,29 @@ const FormInforAdmin = () =>{
   const [EmailUpdate, setEmailUpdate] = React.useState('');
   const [phoneUpdate, setPhoneUpdate] = React.useState('');
   const [surplus, setsurplus] = useState('')
+
+  const valibDataAll = () =>{
+    const msg ={}
+    if(isEmpty(NameUpdate)){
+      msg.NameUpdate = "Vui lòng nhập họ tên"
+    }
+
+    if(isEmpty(EmailUpdate)){
+        msg.EmailUpdate = "Vui lòng nhập email"
+      }
+      else if (!isEmail(EmailUpdate)){
+        msg.EmailUpdate = "Vui lòng nhập đúng định dạng email"
+      }
+    
+   
+  
+  
+    setValidationMsg(msg)
+    if (Object.keys(msg).length>0) return false
+    return true
+    
+  }
+
   const UpdateUser = async()=>{
     let data = JSON.stringify({
       "idUserUpdate": iduser,
@@ -157,7 +181,12 @@ const FormInforAdmin = () =>{
     
   }
  
-
+  const UpdateUserAction =  async()=>{
+    const isValib = valibDataAll()
+      if (!isValib) return
+  
+      UpdateUser()
+  }
 
  
   
@@ -180,11 +209,12 @@ const FormInforAdmin = () =>{
  
                                     <label htmlFor="">Họ tên: </label>
                                     <Input   style={{width:400}} value={NameUpdate} onChange={event => setNameUpdate(event.target.value)} />  <br /> <br />
-
+                                    <p style={{color:'red'}}>{validationMsg.NameUpdate}</p>
                                     <label htmlFor="">Email: </label>
                                     <Input  style={{width:400}} value={EmailUpdate} onChange={event => setEmailUpdate(event.target.value)}/> <br /> <br />
+                                    <p style={{color:'red'}}>{validationMsg.EmailUpdate}</p>
                                     </div>
-                            
+                                  
                                     <div style={{width:'40%'} }>
  
                                     <label htmlFor="">SDT: </label>
@@ -197,7 +227,7 @@ const FormInforAdmin = () =>{
                             </div>
                             <div style={{textAlign:'center'}}>
                             <Button variant="contained" disableElevation style={{margin:20}}> Đổi mật khẩu</Button>
-                            <Button variant="contained" disableElevation style={{margin:20}} onClick={UpdateUser}> Cập nhật</Button>
+                            <Button variant="contained" disableElevation style={{margin:20}} onClick={UpdateUserAction}> Cập nhật</Button>
                             </div>
 
                        </form>

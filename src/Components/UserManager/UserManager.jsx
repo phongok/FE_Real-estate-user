@@ -130,6 +130,11 @@ const UserManager = () => {
         if(isEmpty(NameUpdate)){
             msg.NameUpdate = "Vui lòng nhập họ tên"
           }
+
+        if(!isNumeric(surplusUpdate)){
+            msg.surplusUpdate = "Tiền phải nhấp số"
+          }
+
           
           setValidationMsg(msg)
           if (Object.keys(msg).length>0) return false
@@ -700,6 +705,7 @@ const UserManager = () => {
                                                         <DialogContentText id="alert-dialog-description">
                                                             <TextField id="outlined-basic" label="Số dư" variant="outlined" onChange={event => setSurplusUpdate(event.target.value)} value={surplusUpdate}/>
                                                         </DialogContentText>
+                                                           <p style={{color:'red'}}>{validationMsg.surplusUpdate}</p>
                                                     </DialogContent>
 
                                                     <Box sx={{ minWidth: 225 }}>
