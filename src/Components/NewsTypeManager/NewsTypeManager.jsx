@@ -144,6 +144,21 @@ const NewsTypeManager = () => {
           msg.nameNewsType = "Vui lòng nhập tên loại bài đăng"
         }
 
+        // if(isEmpty(nameNewsTypeUpdate)){
+        //     msg.nameNewsTypeUpdate = "Vui lòng nhập tên loại bài đăng cập nhật"
+        //   }
+       
+      
+      
+        setValidationMsg(msg)
+        if (Object.keys(msg).length>0) return false
+        return true
+        
+      }
+      const valibDataUpdate = () =>{
+        const msg ={}
+      
+
         if(isEmpty(nameNewsTypeUpdate)){
             msg.nameNewsTypeUpdate = "Vui lòng nhập tên loại bài đăng cập nhật"
           }
@@ -285,7 +300,7 @@ const NewsTypeManager = () => {
 
     }
 const Update = () =>{
-    const isValib = valibDataAll()
+    const isValib = valibDataUpdate()
         if (!isValib) return
 
     UpdateAction()
