@@ -12,6 +12,11 @@ import { Button } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage';
+
+import isEmpty from "validator/lib/isEmpty"
+import isFloat from 'validator/lib/isFloat';
+import isNumeric from 'validator/lib/isNumeric';
+
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import GoogleMapReact from 'google-map-react';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
@@ -64,7 +69,7 @@ export default function BasicTabs(props) {
 
 
 
-
+  const [validationMsg, setValidationMsg] = useState('')
 const [coordsSell, setCoordsSell] = useState({})
 const [coordsRent, setCoordsRent] = useState({})
 
@@ -672,6 +677,7 @@ const [coordsRent, setCoordsRent] = useState({})
 
    //////
 
+
    
    
 
@@ -763,6 +769,157 @@ const [coordsRent, setCoordsRent] = useState({})
         console.log(error);
       });
   }
+  const valibDataSell = () =>{
+    const msg ={}
+    if(isEmpty(tittleSell)){
+        msg.tittleSell = "Vui lòng nhập tiêu đề bài đăng"
+      }
+
+      if (idNTSell===0) {
+        msg.idNTSell = "Vui lòng chọn loại bài đăng"
+      }
+      if (AreaSell==='') {
+        msg.AreaSell = "Vui lòng chọn khu vực"
+      }
+
+
+      if (isEmpty(lengthSell)) {
+        msg.lengthSell = "Vui lòng nhập chiều dài"
+      }
+      else if (!isFloat(lengthSell)){
+        msg.lengthSell = "Vui lòng nhập đúng VD: 10.5"
+      }
+
+
+      if (isEmpty(widthSell)) {
+        msg.widthSell = "Vui lòng nhập chiều rộng"
+      }
+      else if (!isFloat(widthSell)){
+        msg.widthSell = "Vui lòng nhập đúng VD: 10.5"
+      }
+
+      if (isEmpty(priceSell)) {
+        msg.priceSell = "Vui lòng nhập đơn giá"
+      }
+      else if (!isNumeric(priceSell)){
+        msg.priceSell = "Vui lòng nhập đúng VD: 10000"
+      }
+
+      if (isEmpty(acreageSell)) {
+        msg.acreageSell = "Vui lòng nhập diện tích"
+      }
+      else if (!isFloat(acreageSell)){
+        msg.acreageSell = "Vui lòng nhập đúng VD: 10.5"
+      }
+
+      if(isEmpty(addressSell)){
+        msg.addressSell = "Vui lòng nhập địa chỉ VD: Số nhà Đường, phường, quận, huyện, thành phố"
+      }
+
+      if(isEmpty(decriptionSell)){
+        msg.decriptionSell = "Vui lòng nhập thông tin mô tả"
+      }
+
+      if(isEmpty(img1Sell)){
+        msg.img1Sell = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img2Sell)){
+        msg.img2Sell = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img3Sell)){
+        msg.img3Sell = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img4Sell)){
+        msg.img4Sell = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img5Sell)){
+        msg.img5Sell = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img6Sell)){
+        msg.img6Sell = "Vui lòng chọn và úp ảnh"
+      }
+
+      setValidationMsg(msg)
+      if (Object.keys(msg).length>0) return false
+      return true 
+  }
+
+  const valibDataRent = () =>{
+    const msg ={}
+    if(isEmpty(tittleRent)){
+        msg.tittleRent = "Vui lòng nhập tiêu đề bài đăng"
+      }
+
+      if (idNTRent===0) {
+        msg.idNTRent = "Vui lòng chọn loại bài đăng"
+      }
+      if (AreaRent==='') {
+        msg.AreaRent = "Vui lòng chọn khu vực"
+      }
+
+
+      if (isEmpty(lengthRent)) {
+        msg.lengthRent = "Vui lòng nhập chiều dài"
+      }
+      else if (!isFloat(lengthRent)){
+        msg.lengthRent = "Vui lòng nhập đúng VD: 10.5"
+      }
+
+
+      if (isEmpty(widthRent)) {
+        msg.widthRent = "Vui lòng nhập chiều rộng"
+      }
+      else if (!isFloat(widthRent)){
+        msg.widthRent = "Vui lòng nhập đúng VD: 10.5"
+      }
+
+      if (isEmpty(priceRent)) {
+        msg.priceRent = "Vui lòng nhập đơn giá"
+      }
+      else if (!isNumeric(priceRent)){
+        msg.priceRent = "Vui lòng nhập đúng VD: 10000"
+      }
+
+      if (isEmpty(acreageRent)) {
+        msg.acreageRent = "Vui lòng nhập diện tích"
+      }
+      else if (!isFloat(acreageRent)){
+        msg.acreageRent = "Vui lòng nhập đúng VD: 10.5"
+      }
+
+      if(isEmpty(addressRent)){
+        msg.addressRent = "Vui lòng nhập địa chỉ VD: Số nhà Đường, phường, quận, huyện, thành phố"
+      }
+
+      if(isEmpty(decriptionRent)){
+        msg.decriptionRent = "Vui lòng nhập thông tin mô tả"
+      }
+
+      if(isEmpty(img1Rent)){
+        msg.img1Rent = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img2Rent)){
+        msg.img2Rent = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img3Rent)){
+        msg.img3Rent = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img4Rent)){
+        msg.img4Rent = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img5Rent)){
+        msg.img5Rent = "Vui lòng chọn và úp ảnh"
+      }
+      if(isEmpty(img6Rent)){
+        msg.img6Rent = "Vui lòng chọn và úp ảnh"
+      }
+
+      setValidationMsg(msg)
+      if (Object.keys(msg).length>0) return false
+      return true 
+  }
+
+
 
   const fnSell = async()=>{
     const result = await geocodeByAddress(addressSell)
@@ -864,7 +1021,11 @@ const [coordsRent, setCoordsRent] = useState({})
   }
 
   const CheckSurplusSell = async () => {
- 
+    const isValib = valibDataSell()
+    if (!isValib) return
+
+
+
     if (surplus > 50000) {
       SaveNewsRealstateSell()
 
@@ -877,6 +1038,11 @@ const [coordsRent, setCoordsRent] = useState({})
   }
 
   const CheckSurplusRent = async () => {
+
+    const isValib = valibDataRent()
+    if (!isValib) return
+
+
     if (surplus > 50000) {
       SaveNewsRealstateRent()
 
@@ -932,7 +1098,7 @@ const [coordsRent, setCoordsRent] = useState({})
 
             <label htmlFor="">Tiêu đề:</label>
             <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleSell(event.target.value)} style={{ width: 500 }} id="tittle_sell"/> <br /> <br />
-          
+            <p style={{color:'red'}}>{validationMsg.tittleSell}</p>
             <label htmlFor="">Loại bài đăng: </label>
             <Select
               labelId="demo-simple-select-label"
@@ -953,8 +1119,8 @@ const [coordsRent, setCoordsRent] = useState({})
 
               }
             </Select>
-            <br />
-            <br />
+            <p style={{color:'red'}}>{validationMsg.idNTSell}</p>
+          
 
             <label htmlFor="">Nhập khu vực: </label>
 
@@ -1032,27 +1198,29 @@ const [coordsRent, setCoordsRent] = useState({})
               <MenuItem value={"Yên Bái"}>Yên Bái</MenuItem>
 
             </Select>
-            <br /> <br />
+            <p style={{color:'red'}}>{validationMsg.AreaSell}</p>
+          
 
             <label htmlFor="">Chiều dài: </label>
             <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthSell(event.target.value)} style={{ width: 500 }} /> 
             
-            
-           <br /><br />
+            <p style={{color:'red'}}>{validationMsg.lengthSell}</p>
+        
 
 
             <label htmlFor="">Chiều rộng: </label>
             <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
-
+            <p style={{color:'red'}}>{validationMsg.widthSell}</p>
             <label htmlFor="">Đơn giá: </label>
             <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
-
+            <p style={{color:'red'}}>{validationMsg.priceSell}</p>
 
             <label htmlFor="">Diện tích tổng thể: </label>
             <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
-
+            <p style={{color:'red'}}>{validationMsg.acreageSell}</p>
             <label htmlFor="">Địa chỉ: </label>
             <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <p style={{color:'red'}}>{validationMsg.addressSell}</p>
             <Button variant="contained" color="success" onClick={fnSell}>
                        Xem vị trí
                   </Button>
@@ -1087,6 +1255,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img1Sell}</p>
 
             <label htmlFor="">Ảnh 2 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
@@ -1098,6 +1267,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img2Sell}</p>
 
             <label htmlFor="">Ảnh 3 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
@@ -1109,6 +1279,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img3Sell}</p>
 
             <label htmlFor="">Ảnh 4 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
@@ -1121,6 +1292,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img4Sell}</p>
             <label htmlFor="">Ảnh 5 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg5Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
@@ -1132,6 +1304,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img5Sell}</p>
             <label htmlFor="">Ảnh 6 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
@@ -1142,6 +1315,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img6Sell}</p>
             <label htmlFor="">Mô tả:</label>
             <br />
             <br />
@@ -1152,6 +1326,8 @@ const [coordsRent, setCoordsRent] = useState({})
               cols={60}
               onChange={event => setdecriptionSell(event.target.value)}
             />
+              <p style={{color:'red'}}>{validationMsg.decriptionSell}</p>
+           
           </div>
 
         </div>
@@ -1169,7 +1345,7 @@ const [coordsRent, setCoordsRent] = useState({})
 
             <label htmlFor="">Tiêu đề:</label>
             <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
-
+            <p style={{color:'red'}}>{validationMsg.tittleRent}</p>
             <label htmlFor="">Loại bài đăng: </label>
             <Select
               labelId="demo-simple-select-label"
@@ -1190,8 +1366,8 @@ const [coordsRent, setCoordsRent] = useState({})
 
               }
             </Select>
-            <br />
-            <br />
+            <p style={{color:'red'}}>{validationMsg.idNTRent}</p>
+           
 
             <label htmlFor="">Nhập khu vực: </label>
 
@@ -1268,25 +1444,25 @@ const [coordsRent, setCoordsRent] = useState({})
               <MenuItem value={"Yên Bái"}>Yên Bái</MenuItem>
 
             </Select>
-
-            <br />
-            <br />
-
+            <p style={{color:'red'}}>{validationMsg.AreaRent}</p>
+           
             <label htmlFor="">Chiều dài: </label>
             <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
-
+            <p style={{color:'red'}}>{validationMsg.lengthRent}</p>
 
             <label htmlFor="">Chiều rộng: </label>
             <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <p style={{color:'red'}}>{validationMsg.widthRent}</p>
             <label htmlFor="">Đơn giá: </label>
             <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
-
+            <p style={{color:'red'}}>{validationMsg.priceRent}</p>
 
             <label htmlFor="">Diện tích tổng thể: </label>
             <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
-
+            <p style={{color:'red'}}>{validationMsg.acreageRent}</p>
             <label htmlFor="">Địa chỉ: </label>
             <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <p style={{color:'red'}}>{validationMsg.addressRent}</p>
             <Button variant="contained" color="success" onClick={fnRent}>
                        Xem vị trí
                   </Button>
@@ -1329,6 +1505,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img1Rent}</p>
             <label htmlFor="">Ảnh 2 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
@@ -1339,6 +1516,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img2Rent}</p>
             <label htmlFor="">Ảnh 3 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
@@ -1349,7 +1527,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
-
+            <p style={{color:'red'}}>{validationMsg.img3Rent}</p>
             <label htmlFor="">Ảnh 4 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
@@ -1359,6 +1537,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img4Rent}</p>
             <label htmlFor="">Ảnh 5 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setim5Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
@@ -1368,7 +1547,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
-
+            <p style={{color:'red'}}>{validationMsg.img5Rent}</p>
             <label htmlFor="">Ảnh 6 : </label>
 
             <div className="flex">
@@ -1378,6 +1557,7 @@ const [coordsRent, setCoordsRent] = useState({})
                        Upload
                   </Button>
             </div>
+            <p style={{color:'red'}}>{validationMsg.img6Rent}</p>
             <label htmlFor="">Mô tả:</label>
             <br />
             <br />
@@ -1387,7 +1567,7 @@ const [coordsRent, setCoordsRent] = useState({})
               rows={28}
               cols={60}
             />
-
+        <p style={{color:'red'}}>{validationMsg.decriptionRent}</p>
           </div>
         </div>
 

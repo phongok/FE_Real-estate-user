@@ -50,7 +50,7 @@ const Main = () =>{
                         return(
                            <div className="singleDestination">
                              <a key={Item.id}  className="singleDestination" 
-                                href={`detail/${Item.id}`}
+                                href={`/detail/${Item.id}`}
                             >
                                 <div className="imageDiv">
                                     <img src={Item.url_img1} alt="sd"  />
