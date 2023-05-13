@@ -20,9 +20,6 @@ import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 function Detail() {
     const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-    const [isMap, setIsMap] = useState(false)
-
-    const [address, setAddress] = useState('')
     const [coords, setCoords] = useState({})
     const { id } = useParams()
     const [dataDetail, setDataDetail] = useState()
@@ -40,7 +37,7 @@ function Detail() {
             .then((response) => {
                 if (response?.status === 200) {
                     setDataDetail(response?.data)
-                    setAddress(response.data.address)
+                  
                     // const result =  geocodeByAddress(response.data.address)
                     // const lnglat = getLatLng(result[0])
                     // setCoords(lnglat)
@@ -74,7 +71,7 @@ function Detail() {
 
     const setLocation = async () => {
 
-        const result = await geocodeByAddress(address)
+        const result = await geocodeByAddress(dataDetail.address)
         const lnglat = await getLatLng(result[0])
 
         setCoords(lnglat)
