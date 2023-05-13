@@ -23,6 +23,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
+import isEmpty from "validator/lib/isEmpty"
+import isFloat from 'validator/lib/isFloat';
+import isNumeric from 'validator/lib/isNumeric';
+
 
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage';
@@ -55,6 +59,8 @@ const RealEstateManager = () => {
         console.log(error);
       });
   }
+
+  
 
   useEffect(() => {
     fetchData()
@@ -167,7 +173,55 @@ fetchData(pg, pgSize, nt, us)
   const [statusUpdate, setStatusUpdate] = React.useState('');
 
   const [dateSubmitUpDate, setdateSubmitUpDate] = React.useState('');
+  const [validationMsg, setValidationMsg] = useState('')
+  const valibDataUpdate = () =>{
+    const msg ={}
+    if(isEmpty(tittleUpdate)){
+        msg.tittleUpdate = "Vui lòng nhập tiêu đề bài đăng"
+      }
 
+      // if (isEmpty(lengthUpDate)) {
+      //   msg.lengthUpDate = "Vui lòng nhập chiều dài"
+      // }
+      // else if (!isFloat(lengthUpDate)){
+      //   msg.lengthUpDate = "Vui lòng nhập đúng VD: 10.5"
+      // }
+
+
+      // if (isEmpty(widthUpdate)) {
+      //   msg.widthUpdate = "Vui lòng nhập chiều rộng"
+      // }
+      // else if (!isFloat(widthUpdate)){
+      //   msg.widthUpdate = "Vui lòng nhập đúng VD: 10.5"
+      // }
+
+      // if (isEmpty(priceUpdate)) {
+      //   msg.priceUpdate = "Vui lòng nhập đơn giá"
+      // }
+      // else if (!isNumeric(priceUpdate)){
+      //   msg.priceUpdate = "Vui lòng nhập đúng VD: 10000"
+      // }
+
+    //   if (isEmpty(acreageUpDate)) {
+    //     msg.acreageUpDate = "Vui lòng nhập diện tích"
+    //   }
+    //  else if (!isFloat(acreageUpDate)){
+    //     msg.acreageUpDate = "Vui lòng nhập đúng VD: 10.5"
+    //   }
+
+      if(isEmpty(addressUpdate)){
+        msg.addressUpdate = "Vui lòng nhập địa chỉ VD: Số nhà Đường, phường, quận, huyện, thành phố"
+      }
+
+      if(isEmpty(contentUpdate)){
+        msg.contentUpdate = "Vui lòng nhập thông tin mô tả"
+      }
+
+      
+      setValidationMsg(msg)
+      if (Object.keys(msg).length>0) return false
+      return true 
+  }
 
 
   const handleChangeStatusUpdate = (event) => {
@@ -247,7 +301,13 @@ fetchData(pg, pgSize, nt, us)
       });
   }
 
+  const CheckUpdate =  () =>{
+    const isValib = valibDataUpdate()
+        if (!isValib) return
 
+
+    UpdateRealEstate()
+  }
 
   ////////////////////////</Update>
 
@@ -661,6 +721,7 @@ fetchData(pg, pgSize, nt, us)
                             <div>   <label htmlFor="">Tiêu đề: </label>
                               <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={tittleUpdate} onChange={event => setTittleUpdate(event.target.value)} />
                             </div>
+                            <p style={{color:'red'}}>{validationMsg.tittleUpdate}</p>
                             <div>
 
                               <label htmlFor="">Loại bài đăng: </label>
@@ -786,6 +847,7 @@ fetchData(pg, pgSize, nt, us)
                             <div>  <label htmlFor="">Địa chỉ: </label>
                               <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={addressUpdate} onChange={event => setAddressUpdate(event.target.value)} />
                             </div>
+                            <p style={{color:'red'}}>{validationMsg.addressUpdate}</p>
                             <div>
                               <label htmlFor="">Trạng thái: </label>
                               <Box sx={{ minWidth: 120 }}>
@@ -876,6 +938,7 @@ fetchData(pg, pgSize, nt, us)
                                 cols={65}
                               // onChange={event => setdecriptionSell(event.target.value)}
                               />
+                               <p style={{color:'red'}}>{validationMsg.contentUpdate}</p>
                             </div>
                           </DialogContentText>
                         </DialogContent>
@@ -884,7 +947,7 @@ fetchData(pg, pgSize, nt, us)
                           <Button onClick={handleClose1} >
                             Đóng
                           </Button>
-                          <Button onClick={UpdateRealEstate} >
+                          <Button onClick={CheckUpdate} >
                             Cập nhật
                           </Button>
 
