@@ -1080,7 +1080,7 @@ const [coordsRent, setCoordsRent] = useState({})
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell1} />
+                  <input type="file" onChange={handleImageChangeSell1} style={{marginLeft:60}}/>
                   {/* <button onClick={handleUploadSell1} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell1}>
@@ -1091,7 +1091,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 2 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell2} />
+                  <input type="file" onChange={handleImageChangeSell2}style={{marginLeft:60}} />
                   {/* <button onClick={handleUploadSell2} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell2}>
@@ -1102,7 +1102,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 3 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell3} />
+                  <input type="file" onChange={handleImageChangeSell3} style={{marginLeft:60}}/>
                   {/* <button onClick={handleUploadSell3} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell3}>
@@ -1114,7 +1114,7 @@ const [coordsRent, setCoordsRent] = useState({})
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell4} />
+                  <input type="file" onChange={handleImageChangeSell4}style={{marginLeft:60}} />
                   {/* <button onClick={handleUploadSell4} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell4}>
@@ -1125,7 +1125,7 @@ const [coordsRent, setCoordsRent] = useState({})
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg5Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell5} />
+                  <input type="file" onChange={handleImageChangeSell5} style={{marginLeft:60}}/>
                   {/* <button onClick={handleUploadSell5} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell5}>
@@ -1135,7 +1135,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 6 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell6} />
+                  <input type="file" onChange={handleImageChangeSell6} style={{marginLeft:60}} />
                   {/* <button onClick={handleUploadSell6} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell6}>
@@ -1155,8 +1155,8 @@ const [coordsRent, setCoordsRent] = useState({})
           </div>
 
         </div>
-        <div style={{ textAlign: 'center' }}>
-          <br /><br />
+        <div style={{ textAlign: 'center', marginTop:25 }}>
+         
           <Button variant="contained" color="success" onClick={CheckSurplusSell}>
             Đăng tin
           </Button>
@@ -1323,7 +1323,7 @@ const [coordsRent, setCoordsRent] = useState({})
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent1} />
+                  <input type="file" onChange={handleImageChangeRent1} style={{marginLeft:60}} />
                   {/* <button onClick={handleUploadRent1} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent1}>
                        Upload
@@ -1333,7 +1333,7 @@ const [coordsRent, setCoordsRent] = useState({})
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent2} />
+                  <input type="file" onChange={handleImageChangeRent2} style={{marginLeft:60}} />
                   {/* <button onClick={handleUploadRent2} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent2}>
                        Upload
@@ -1342,7 +1342,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 3 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent3} />
+                  <input type="file" onChange={handleImageChangeRent3} style={{marginLeft:60}} />
                   {/* <button onClick={handleUploadRent3} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadRent3}>
@@ -1353,7 +1353,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 4 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent4} />
+                  <input type="file" onChange={handleImageChangeRent4} style={{marginLeft:60}} />
                   {/* <button onClick={handleUploadRent4} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent4}>
                        Upload
@@ -1362,7 +1362,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 5 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setim5Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent5} />
+                  <input type="file" onChange={handleImageChangeRent5} style={{marginLeft:60}} />
                   {/* <button onClick={handleUploadRent5} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent5}>
                        Upload
@@ -1372,7 +1372,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 6 : </label>
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent6} />
+                  <input type="file" onChange={handleImageChangeRent6} style={{marginLeft:60}} />
                   {/* <button onClick={handleUploadRent6} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent6}>
                        Upload
@@ -1391,7 +1391,7 @@ const [coordsRent, setCoordsRent] = useState({})
           </div>
         </div>
 
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center' , marginTop:25}}>
           <Button variant="contained" color="success" onClick={CheckSurplusRent}>
             Đăng tin
           </Button>
@@ -1400,6 +1400,8 @@ const [coordsRent, setCoordsRent] = useState({})
 
 
     </Box>
+    <br />
+    <br />
 
   </div>
 
