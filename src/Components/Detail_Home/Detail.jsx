@@ -48,8 +48,6 @@ function Detail() {
 
                   
 
-
-
                 }
             })
             .catch((error) => {
