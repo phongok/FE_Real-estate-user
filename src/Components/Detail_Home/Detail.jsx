@@ -20,20 +20,14 @@ import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 function Detail() {
     const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-    const defaultProps = {
-        center: {
-            lat: 10.99835602,
-            lng: 77.01502627
-        },
-        zoom: 11
-    };
+    const [isMap, setIsMap] = useState(false)
 
     const [address, setAddress] = useState('')
     const [coords, setCoords] = useState({})
     const { id } = useParams()
     const [dataDetail, setDataDetail] = useState()
 
-    const getDataRe =  async()=>{
+    const getDataRe = async () => {
         console.log(id)
         let config = {
             method: 'get',
@@ -50,9 +44,14 @@ function Detail() {
                     // const result =  geocodeByAddress(response.data.address)
                     // const lnglat = getLatLng(result[0])
                     // setCoords(lnglat)
-                    navigator.geolocation.getCurrentPosition(({ coords: { longitude, latitude } }) => {
-                        setCoords({ lat: latitude, lng: longitude })
-                    })
+                    // navigator.geolocation.getCurrentPosition(({ coords: { longitude, latitude } }) => {
+                    //     setCoords({ lat: latitude, lng: longitude })
+
+                    // })
+
+                  
+
+
 
                 }
             })
@@ -64,17 +63,26 @@ function Detail() {
     useEffect(() => {
         getDataRe()
     }
-
-
-
-
         , [])
 
-        const setLocation =  async()=>{
-            
-        }
+    
 
-      
+
+
+
+
+
+    const setLocation = async () => {
+
+        const result = await geocodeByAddress(address)
+        const lnglat = await getLatLng(result[0])
+
+        setCoords(lnglat)
+
+
+    }
+
+
 
     const [idAccuser, setIdAccuser] = React.useState('');
     const [idcheat, setidcheat] = React.useState('');
@@ -291,24 +299,30 @@ function Detail() {
 
             </div>
 
-            <div>
-                <h3 style={{ color: 'black', marginTop: 50 }}>Bản đồ</h3>
+            <div style={{marginTop:10}}>
+
+            <Button variant="text" onClick={setLocation}>Xem bản đồ</Button>
+
+
             </div>
 
-            <div style={{ height: '100vh', width: '100%' }}>
-                <GoogleMapReact
-                    bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
-                    defaultCenter={coords}
-                    center={coords}
-                    defaultZoom={defaultProps.zoom}
-                >
-                    <AnyReactComponent
-                        lat={coords.lat}
-                        lng={coords.lng}
-                        text={<FaMapMarkerAlt color='red' size={24} />}
-                    />
-                </GoogleMapReact>
-            </div>
+            
+                <div style={{ height: '100vh', width: '100%', marginTop:10 , }}  >
+                    <GoogleMapReact
+                        bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
+                        defaultCenter={coords}
+                        center={coords}
+                        
+                        defaultZoom={15}
+                    >
+                        <AnyReactComponent
+                            lat={coords.lat}
+                            lng={coords.lng}
+                            text={<FaMapMarkerAlt color='red' size={24} />}
+                        />
+                    </GoogleMapReact>
+                </div>
+            
 
         </div>
 
