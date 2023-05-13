@@ -12,14 +12,22 @@ import { Button } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage';
-
+import { FaMapMarkerAlt } from 'react-icons/fa'
+import GoogleMapReact from 'google-map-react';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 const ariaLabel = { 'aria-label': 'description' };
 
 
 
 function TabPanel(props) {
+  
   const { children, value, index, ...other } = props;
+
+ 
+
+
+
 
   return (
     <div
@@ -52,6 +60,14 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs(props) {
+  const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+
+
+
+const [coordsSell, setCoordsSell] = useState({})
+const [coordsRent, setCoordsRent] = useState({})
+
 
   const [value, setValue] = React.useState(0);
 
@@ -178,10 +194,18 @@ export default function BasicTabs(props) {
     console.log(AreaRent)
   };
 
+  const GetVTSell =  async()=>{
+    navigator.geolocation.getCurrentPosition(({ coords: { longitude, latitude } }) => {
+      setCoordsSell({ lat: latitude, lng: longitude })
+      setCoordsRent({ lat: latitude, lng: longitude })
+  })
+  }
+
   useEffect(() => {
     getDataNTSell()
     getDataNTRent()
     getUser()
+    GetVTSell()
   }, [])
 
 
@@ -740,6 +764,20 @@ export default function BasicTabs(props) {
       });
   }
 
+  const fnSell = async()=>{
+    const result = await geocodeByAddress(addressSell)
+    const lnglat= await getLatLng(result[0])
+    setCoordsSell(lnglat)
+    
+  }
+  const fnRent = async()=>{
+    const result = await geocodeByAddress(addressRent)
+    const lnglat= await getLatLng(result[0])
+    setCoordsRent(lnglat)
+    
+  }
+
+
   const SaveNewsRealstateRent = () => {
     let data = JSON.stringify({
       "category": {
@@ -826,7 +864,7 @@ export default function BasicTabs(props) {
   }
 
   const CheckSurplusSell = async () => {
-   if (checkTittle()) {
+ 
     if (surplus > 50000) {
       SaveNewsRealstateSell()
 
@@ -835,7 +873,7 @@ export default function BasicTabs(props) {
     else {
       alert("Số dư không đủ 50000đ!, Vui lòng nạp thêm tiền")
     }
-   }
+   
   }
 
   const CheckSurplusRent = async () => {
@@ -872,22 +910,7 @@ export default function BasicTabs(props) {
   
   //////Check Bug
 
-  const checkTittle = () => {
-    var tittle = document.getElementById("tittle_sell").value;
-    var regtennv = /^[A-Za-z0-9_\.]{3,100}$/
-    if (regtennv.test(tittle) == '') {
-        document.getElementById("Bug_Tittle").innerHTML = "Tiêu đề không được để trống";
-        return false;
-    }
-    else {
-        if (!regtennv.test(tittle)) {
-            document.getElementById("Bug_Tittle").innerHTML = "Tên nhân viên hàng phải từ 3 ký tự trở lên ";
-            return false;
-        }
-    }
-    document.getElementById('Bug_Tittle').innerHTML = '*';
-    return true;
-}
+
 
 
   ////
@@ -905,11 +928,11 @@ export default function BasicTabs(props) {
       </Box>
       <TabPanel value={value} index={0}>
         <div className='flex'>
-          <div style={{ width: '40%' }}>
+          <div style={{ width: '50%' }}>
 
             <label htmlFor="">Tiêu đề:</label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleSell(event.target.value)} style={{ width: 350 }} id="tittle_sell"/> <br /> <br />
-            <p style={{ color: 'red' }} id='Bug_Tittle'>*</p>
+            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleSell(event.target.value)} style={{ width: 500 }} id="tittle_sell"/> <br /> <br />
+          
             <label htmlFor="">Loại bài đăng: </label>
             <Select
               labelId="demo-simple-select-label"
@@ -917,7 +940,7 @@ export default function BasicTabs(props) {
               value={idNTSell}
               label="Doanh mục"
               onChange={handleChangeSelectNewsTypeSell}
-              style={{ width: '350px', height: 40 }}
+              style={{ width: '500px', height: 40 }}
             >
 
               {
@@ -935,14 +958,7 @@ export default function BasicTabs(props) {
 
             <label htmlFor="">Nhập khu vực: </label>
 
-            {/* <button onClick={()=>{console.log("img 1 ", img1Sell) 
-            console.log("img 2: ",img2Sell)
-            console.log("img3 :", img3Sell)
-            console.log("img4 :", img4Sell)
-            console.log("img5 :",img5Sell)
-            console.log("img 6: ",img6Sell)
-            }}>sdadasd</button> */}
-
+        
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -950,7 +966,7 @@ export default function BasicTabs(props) {
               label="Chọn khu vực"
               onChange={handleChangeAreaSell}
 
-              style={{ width: '350px', height: 40 }}
+              style={{ width: '500px', height: 40 }}
             >
               <MenuItem value={"An Giang"}>An Giang</MenuItem>
               <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
@@ -1019,29 +1035,48 @@ export default function BasicTabs(props) {
             <br /> <br />
 
             <label htmlFor="">Chiều dài: </label>
-            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthSell(event.target.value)} style={{ width: 350 }} /> 
+            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthSell(event.target.value)} style={{ width: 500 }} /> 
             
             
-           
+           <br /><br />
 
 
             <label htmlFor="">Chiều rộng: </label>
-            <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthSell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
 
             <label htmlFor="">Đơn giá: </label>
-            <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceSell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
 
 
             <label htmlFor="">Diện tích tổng thể: </label>
-            <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageSell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
 
             <label htmlFor="">Địa chỉ: </label>
-            <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressSell(event.target.value)} style={{ width: 350 }} /> <br /> <br />
-
+            <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <Button variant="contained" color="success" onClick={fnSell}>
+                       Xem vị trí
+                  </Button>
+                  <br /> <br />
+            <div style={{ height: '50vh', width: '90%' }}>
+                <GoogleMapReact
+                    bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
+                    defaultCenter={coordsSell}
+                    center={coordsSell}
+                    defaultZoom={15}
+                >
+                    <AnyReactComponent
+                        lat={coordsSell.lat}
+                        lng={coordsSell.lng}
+                        text={<FaMapMarkerAlt color='red' size={24} />}
+                    />
+                </GoogleMapReact>
+            </div>
           </div>
 
-          <div style={{ width: '30%' }}>
-            <label htmlFor="">Ảnh 1 : </label>
+          
+
+          <div style={{ width: '50%', marginLeft: 30 }}>
+          <label htmlFor="">Ảnh 1 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
@@ -1107,23 +1142,21 @@ export default function BasicTabs(props) {
                        Upload
                   </Button>
             </div>
-          </div>
-
-          <div style={{ width: '40%', marginLeft: 30 }}>
             <label htmlFor="">Mô tả:</label>
             <br />
             <br />
             <textarea
 
               name="postContent"
-              rows={20}
-              cols={40}
+              rows={28}
+              cols={60}
               onChange={event => setdecriptionSell(event.target.value)}
             />
           </div>
 
         </div>
         <div style={{ textAlign: 'center' }}>
+          <br /><br />
           <Button variant="contained" color="success" onClick={CheckSurplusSell}>
             Đăng tin
           </Button>
@@ -1132,10 +1165,10 @@ export default function BasicTabs(props) {
 
       <TabPanel value={value} index={1}>
         <div className='flex postnews-form'>
-          <div style={{ width: '30%' }}>
+          <div style={{ width: '50%' }}>
 
             <label htmlFor="">Tiêu đề:</label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleRent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
 
             <label htmlFor="">Loại bài đăng: </label>
             <Select
@@ -1144,7 +1177,7 @@ export default function BasicTabs(props) {
               value={idNTRent}
               label="Doanh mục"
               onChange={handleChangeSelectNewsTypeRent}
-              style={{ width: '350px', height: 40 }}
+              style={{ width: '500px', height: 40 }}
             >
 
               {
@@ -1169,7 +1202,7 @@ export default function BasicTabs(props) {
               label="Chọn khu vực"
               onChange={handleChangeAreaRent}
 
-              style={{ width: '350px', height: 40 }}
+              style={{ width: '500px', height: 40 }}
             >
               <MenuItem value={"An Giang"}>An Giang</MenuItem>
               <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
@@ -1240,21 +1273,39 @@ export default function BasicTabs(props) {
             <br />
 
             <label htmlFor="">Chiều dài: </label>
-            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthRent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
 
 
             <label htmlFor="">Chiều rộng: </label>
-            <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthRent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
             <label htmlFor="">Đơn giá: </label>
-            <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceRent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
 
 
             <label htmlFor="">Diện tích tổng thể: </label>
-            <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageRent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
 
             <label htmlFor="">Địa chỉ: </label>
-            <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressRent(event.target.value)} style={{ width: 350 }} /> <br /> <br />
+            <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <Button variant="contained" color="success" onClick={fnRent}>
+                       Xem vị trí
+                  </Button>
+                  <br /> <br />
+            <div style={{ height: '50vh', width: '90%' }}>
+                <GoogleMapReact
+                    bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
+                    defaultCenter={coordsRent}
+                    center={coordsRent}
+                    defaultZoom={15}
+                >
+                    <AnyReactComponent
+                        lat={coordsRent.lat}
+                        lng={coordsRent.lng}
+                        text={<FaMapMarkerAlt color='red' size={24} />}
+                    />
+                </GoogleMapReact>
 
+                </div>
 
 
 
@@ -1263,8 +1314,12 @@ export default function BasicTabs(props) {
 
           </div>
 
-          <div style={{ width: '30%', marginLeft:40 }} >
-            <label htmlFor="">Ảnh 1 : </label>
+        
+
+
+
+          <div style={{ width: '50%', marginLeft: 30 }}>
+          <label htmlFor="">Ảnh 1 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
@@ -1323,20 +1378,14 @@ export default function BasicTabs(props) {
                        Upload
                   </Button>
             </div>
-            {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
-          </div>
-
-
-
-          <div style={{ width: '40%', marginLeft: 30 }}>
             <label htmlFor="">Mô tả:</label>
             <br />
             <br />
             <textarea
               onChange={event => setdecriptionRent(event.target.value)}
               name="postContent"
-              rows={20}
-              cols={40}
+              rows={28}
+              cols={60}
             />
 
           </div>

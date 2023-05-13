@@ -14,14 +14,26 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { FaMapMarkerAlt } from 'react-icons/fa'
+import GoogleMapReact from 'google-map-react';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 function Detail() {
+    const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
+    const defaultProps = {
+        center: {
+            lat: 10.99835602,
+            lng: 77.01502627
+        },
+        zoom: 11
+    };
+
+    const [address, setAddress] = useState('')
+    const [coords, setCoords] = useState({})
     const { id } = useParams()
     const [dataDetail, setDataDetail] = useState()
 
-
-
-    useEffect(() => {
+    const getDataRe =  async()=>{
         console.log(id)
         let config = {
             method: 'get',
@@ -34,12 +46,35 @@ function Detail() {
             .then((response) => {
                 if (response?.status === 200) {
                     setDataDetail(response?.data)
+                    setAddress(response.data.address)
+                    // const result =  geocodeByAddress(response.data.address)
+                    // const lnglat = getLatLng(result[0])
+                    // setCoords(lnglat)
+                    navigator.geolocation.getCurrentPosition(({ coords: { longitude, latitude } }) => {
+                        setCoords({ lat: latitude, lng: longitude })
+                    })
+
                 }
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, [])
+    }
+
+    useEffect(() => {
+        getDataRe()
+    }
+
+
+
+
+        , [])
+
+        const setLocation =  async()=>{
+            
+        }
+
+      
 
     const [idAccuser, setIdAccuser] = React.useState('');
     const [idcheat, setidcheat] = React.useState('');
@@ -47,7 +82,7 @@ function Detail() {
 
     const token = localStorage.getItem("token")
 
- const getUser = () => {
+    const getUser = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
@@ -65,42 +100,42 @@ function Detail() {
             });
     }
 
-const Report = async()=>{
-    let data = JSON.stringify({
-        "accuser": {
-          "id": idAccuser
-        },
-        "cheat": {
-          "id": idcheat
-        },
-        "dateReport": Date.now(),
-        "status": "Chưa xem",
-        "content": content
-      });
-      
-      let config = {
-        method: 'post',
-        maxBodyLength: Infinity,
-        url: 'http://localhost:8081/api/reports',
-        headers: { 
-          'Content-Type': 'application/json'
-        },
-        data : data
-      };
-      
-      axios.request(config)
-      .then((response) => {
-        // console.log(JSON.stringify(response.data));
-        if (response.status===200) {
-            alert('Báo cáo thành công')
-            handleClose()
-        }
-       
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-}
+    const Report = async () => {
+        let data = JSON.stringify({
+            "accuser": {
+                "id": idAccuser
+            },
+            "cheat": {
+                "id": idcheat
+            },
+            "dateReport": Date.now(),
+            "status": "Chưa xem",
+            "content": content
+        });
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:8081/api/reports',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                // console.log(JSON.stringify(response.data));
+                if (response.status === 200) {
+                    alert('Báo cáo thành công')
+                    handleClose()
+                }
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     const [open, setOpen] = React.useState(false);
 
@@ -160,8 +195,8 @@ const Report = async()=>{
                         <li>Email: {dataDetail?.user.username}</li>
                     </ul>
                     {/* <Button variant="outlined">Yêu cầu liên lạc lại</Button> <br /> */}
-                    
-                    <Button variant="outlined" color="error" style={{ marginTop: 10 }} onClick={()=>{
+
+                    <Button variant="outlined" color="error" style={{ marginTop: 10 }} onClick={() => {
                         setidcheat(dataDetail.user.id)
                         getUser()
                         handleClickOpen()
@@ -181,8 +216,8 @@ const Report = async()=>{
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
 
-                               
-                             
+
+
 
                                 <div style={{ marginTop: 10 }}>
                                     <label htmlFor="">Nội dung: </label>
@@ -197,8 +232,8 @@ const Report = async()=>{
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                        <Button onClick={Report} >
-                               Báo cáo
+                            <Button onClick={Report} >
+                                Báo cáo
                             </Button>
                             <Button onClick={handleClose} >
                                 Đóng
@@ -254,6 +289,25 @@ const Report = async()=>{
             <div>
                 {dataDetail?.decription}
 
+            </div>
+
+            <div>
+                <h3 style={{ color: 'black', marginTop: 50 }}>Bản đồ</h3>
+            </div>
+
+            <div style={{ height: '100vh', width: '100%' }}>
+                <GoogleMapReact
+                    bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
+                    defaultCenter={coords}
+                    center={coords}
+                    defaultZoom={defaultProps.zoom}
+                >
+                    <AnyReactComponent
+                        lat={coords.lat}
+                        lng={coords.lng}
+                        text={<FaMapMarkerAlt color='red' size={24} />}
+                    />
+                </GoogleMapReact>
             </div>
 
         </div>
