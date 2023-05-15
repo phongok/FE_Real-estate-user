@@ -20,7 +20,7 @@ const Main = () =>{
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8081/api/realestates',
+                url: 'http://localhost:8081/api/outstanding',
                 headers: { }
               };      
               axios.request(config)
@@ -40,7 +40,7 @@ const Main = () =>{
         <section className="main container section" >
             <div className="secTitle">
                 <h3 data-aos="fade-right" className="title">
-                    Bất động sản dành cho bạn
+                    Bất động sản nổi bật
                 </h3>
             </div>
 
