@@ -30,8 +30,13 @@ import isNumeric from 'validator/lib/isNumeric';
 
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage';
-const RealEstateManager = () => {
 
+import { FaMapMarkerAlt } from 'react-icons/fa'
+import GoogleMapReact from 'google-map-react';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+const RealEstateManager = () => {
+  const AnyReactComponent = ({ text }) => <div>{text}</div>;
+  const [coords, setCoords] = useState({})
   const [realEstateList, setrealEstateList] = useState([])
 
   const [page, setPage] = useState(1)
@@ -222,6 +227,16 @@ fetchData(pg, pgSize, nt, us)
       if (Object.keys(msg).length>0) return false
       return true 
   }
+
+  const setLocation = async () => {
+
+    const result = await geocodeByAddress(addressUpdate)
+    const lnglat = await getLatLng(result[0])
+
+    setCoords(lnglat)
+
+
+}
 
 
   const handleChangeStatusUpdate = (event) => {
@@ -593,6 +608,9 @@ fetchData(pg, pgSize, nt, us)
     }
   };
 
+
+
+
   //////
 
 
@@ -847,6 +865,26 @@ fetchData(pg, pgSize, nt, us)
                             <div>  <label htmlFor="">Địa chỉ: </label>
                               <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={addressUpdate} onChange={event => setAddressUpdate(event.target.value)} />
                             </div>
+                            <Button variant="contained" color="success" style={{ marginLeft: 10 , marginTop:10}} onClick={setLocation}  >
+                                Xem vị trí
+                              </Button>
+                            <p style={{color:'red'}}>{validationMsg.addressUpdate}</p>
+
+                            <div style={{ height: '100vh', width: '100%', marginTop:10 , }}  >
+                    <GoogleMapReact
+                        bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
+                        defaultCenter={coords}
+                        center={coords}
+                        
+                        defaultZoom={15}
+                    >
+                        <AnyReactComponent
+                            lat={coords.lat}
+                            lng={coords.lng}
+                            text={<FaMapMarkerAlt color='red' size={24} />}
+                        />
+                    </GoogleMapReact>
+                </div>
                             <p style={{color:'red'}}>{validationMsg.addressUpdate}</p>
                             <div>
                               <label htmlFor="">Trạng thái: </label>

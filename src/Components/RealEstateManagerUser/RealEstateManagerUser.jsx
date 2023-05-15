@@ -30,8 +30,13 @@ import 'firebase/compat/storage';
 import isEmpty from "validator/lib/isEmpty"
 import isFloat from 'validator/lib/isFloat';
 import isNumeric from 'validator/lib/isNumeric';
-const RealEstateManagerUser = () => {
 
+import { FaMapMarkerAlt } from 'react-icons/fa'
+import GoogleMapReact from 'google-map-react';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+const RealEstateManagerUser = () => {
+  const AnyReactComponent = ({ text }) => <div>{text}</div>;
+  const [coords, setCoords] = useState({})
   const [realEstateList, setrealEstateList] = useState([])
 
   const [page, setPage] = useState(1)
@@ -281,6 +286,17 @@ console.log('thuc hien')
   const [img4Update, setimg4Update] = useState("")
   const [img5Update, setimg5Update] = useState("")
   const [img6Update, setimg6Update] = useState("")
+
+
+  const setLocation = async () => {
+
+    const result = await geocodeByAddress(addressUpdate)
+    const lnglat = await getLatLng(result[0])
+
+    setCoords(lnglat)
+
+
+}
 
 
 
@@ -744,6 +760,8 @@ console.log('thuc hien')
                         setimg6Update(Item.url_img6)
 
                         setContentUpdate(Item.decription)
+
+                       
                       }}>
                         <RxUpdate style={{ color: '#33FFBB' }} />
                       </IconButton>
@@ -898,7 +916,26 @@ console.log('thuc hien')
                             <div>  <label htmlFor="">Địa chỉ: </label>
                               <TextField id="outlined-basic" variant="outlined" style={{ marginTop: 10, width: 550 }} value={addressUpdate} onChange={event => setAddressUpdate(event.target.value)} />
                             </div>
+                            <Button variant="contained" color="success" style={{ marginLeft: 10 , marginTop:10}} onClick={setLocation}  >
+                                Xem vị trí
+                              </Button>
                             <p style={{color:'red'}}>{validationMsg.addressUpdate}</p>
+
+                            <div style={{ height: '100vh', width: '100%', marginTop:10 , }}  >
+                    <GoogleMapReact
+                        bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
+                        defaultCenter={coords}
+                        center={coords}
+                        
+                        defaultZoom={15}
+                    >
+                        <AnyReactComponent
+                            lat={coords.lat}
+                            lng={coords.lng}
+                            text={<FaMapMarkerAlt color='red' size={24} />}
+                        />
+                    </GoogleMapReact>
+                </div>
                             <div>
                               <label htmlFor="">Trạng thái: </label>
                               <Box sx={{ minWidth: 120 }}>
