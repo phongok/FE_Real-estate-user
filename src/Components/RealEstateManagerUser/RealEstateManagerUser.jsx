@@ -183,8 +183,40 @@ console.log('thuc hien')
 
   };
 
+  const [openLock, setOpenLock] = React.useState(false);
+
+  const handleClickOpenLock = () => {
+      setOpenLock(true);
+  };
+
+  const handleCloseLock = () => {
+      setOpenLock(false);
+  };
 
 
+const [idRealEstateDelete, setIdRealEstateDelete] = React.useState('');
+const DeleteRe =  async()=>{
+  let config = {
+    method: 'put',
+    maxBodyLength: Infinity,
+    url: `http://localhost:8081/api/realestate/delete?idre=${idRealEstateDelete}`,
+    headers: { }
+  };
+  
+  axios.request(config)
+  .then((response) => {
+    // console.log(JSON.stringify(response.data));
+    if (response.status===200) {
+      alert("Xóa thành công")
+      fetchData()
+      handleCloseLock()
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+  
+}
 
 
 
@@ -1043,10 +1075,35 @@ console.log('thuc hien')
                         </DialogActions>
                       </Dialog>
 
-                      <IconButton aria-label="delete" color="primary" >
+                      <IconButton aria-label="delete" color="primary" onClick={()=>{
+                        setIdRealEstateDelete(Item.id)
+                        handleClickOpenLock()
+                      }}>
 
                         <AiFillLock style={{ color: 'red' }} />
                       </IconButton>
+                      <Dialog
+                                                open={openLock}
+                                                onClose={handleCloseLock}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+                                            >
+                                                <DialogTitle id="alert-dialog-title">
+                                                    {"Thông báo?"}
+                                                </DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText id="alert-dialog-description">
+                                                        Bạn có chắc xóa bài đăng này không
+                                                    </DialogContentText>
+
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={DeleteRe} >Đồng ý</Button>
+                                                    <Button onClick={handleCloseLock} >
+                                                        Đóng
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
                     </th>
 
                   </tr>
