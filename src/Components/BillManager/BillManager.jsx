@@ -146,7 +146,7 @@ const BillManager = () => {
 
                 <TextField id="outlined-basic" label="Nhập thông tin tìm kiếm" variant="outlined" style={{ width: 350,marginLeft:10 }}  onChange={(e) => setUserNameSearch(e.target.value)}/>
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={search}>Tìm kiếm</Button>
-                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={int}>In</Button>
+                {/* <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={int}>In</Button> */}
             </div>
             <div className="form-data">
                 <table style={{}} >

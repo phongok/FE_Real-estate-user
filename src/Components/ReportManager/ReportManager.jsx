@@ -81,6 +81,7 @@ const ReportManager = () => {
             .then((response) => {
                 if (response.status === 200) {
                     alert("Đánh dấu thành công")
+                    getUsersList()
                 }
             })
             .catch((error) => {
@@ -89,14 +90,14 @@ const ReportManager = () => {
             });
     }
 
+    const [userName, setUserName] = useState("")
 
-
-    const getUsersList = async (pg = page, pgSize = pageSize) => {
+    const getUsersList = async (pg = page, pgSize = pageSize, us = userName) => {
 
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/reports-paging?page=${pg - 1}&size=${pgSize}`,
+            url: `http://localhost:8081/api/reports-paging?page=${pg - 1}&size=${pgSize}&userName=${us}`,
             headers: {}
         };
 
@@ -134,13 +135,16 @@ const ReportManager = () => {
         setOpen1(false);
     };
 
-
+const Search = async()=>{
+    const us = userName
+    getUsersList(us)
+}
     return (
         <div className="admin-manager-user">
             <div className="container flex form-search">
                 <TextField id="outlined-basic" label="Nhập thông tin tìm kiếm" variant="outlined" style={{ width: 700, }}
-                  />
-                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} >Tìm kiếm</Button>
+                    onChange={(e) => setUserName(e.target.value)}/>
+                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={Search} >Tìm kiếm</Button>
                 {/* <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button> */}
             </div>
             <div className="form-data">
