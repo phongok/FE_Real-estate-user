@@ -17,45 +17,70 @@ const [payload, setPayload] =useState({
 
 })
 
-        const onSubmit =()=>{
+const CheckLock =  async()=>{
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8081/api/user/checkLock?userName=${payload.username}`,
+        headers: { }
+      };
+      
+      axios.request(config)
+      .then((response) => {
+       if (response.data.status==="Đang hoạt động") {
+            onSubmit()
+       }
+       else{
+            alert('Tài khoản bị khóa không thể đăng nhập!')
+       }
+      })
+      .catch((error) => {
+        alert('Tài khoản bị khóa không thể đăng nhập!')
+        console.log(error);
+      });
+}
+
+
+
+const onSubmit =()=>{
            
-            let data = JSON.stringify({
-                "username": payload.username,
-                "password": payload.password
-            });
+    let data = JSON.stringify({
+        "username": payload.username,
+        "password": payload.password
+    });
+    
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8081/authen/login',
+        headers: { 
+        'Content-Type': 'application/json'
+        },
+        data : data
+    };
+    
+    axios.request(config)
+    .then((response) => {
+
+        console.log((response));
+
+        if(response.status===200){
+        alert('Đăng nhập thành công!')
+      
+        localStorage.setItem("token", response.data)
+        
+        navigate("/home")
+
+        } 
+
             
-            let config = {
-                method: 'post',
-                maxBodyLength: Infinity,
-                url: 'http://localhost:8081/authen/login',
-                headers: { 
-                'Content-Type': 'application/json'
-                },
-                data : data
-            };
-            
-            axios.request(config)
-            .then((response) => {
-
-                console.log((response));
-
-                if(response.status===200){
-                alert('Đăng nhập thành công!')
-              
-                localStorage.setItem("token", response.data)
-                
-                navigate("/home")
-
-                } 
-   
-                    
-            })
-            .catch((error) => {
-                
-                alert('Email, mật khẩu sai!') 
-                
-            });
-        }
+    })
+    .catch((error) => {
+        
+        alert('Email, mật khẩu sai!') 
+        
+    });
+}
    
         return ( 
             
@@ -132,7 +157,7 @@ const [payload, setPayload] =useState({
                                         </div>
                                     </div>
                                     <div className="mb-3">
-                                        <button  className="btn btn-primary d-grid w-100" type="button" onClick={onSubmit}>Đăng nhập</button>
+                                        <button  className="btn btn-primary d-grid w-100" type="button" onClick={CheckLock}>Đăng nhập</button>
                                     </div>
                                 </form>
                                 <p className="text-center">
