@@ -163,7 +163,6 @@ const onSubmit =()=>{
                                 <p className="text-center">
                                     <Link to="/register">
                                     
-                                    
                                     <span>Tạo tài khoản</span>
                                     </Link>
                                 </p>
