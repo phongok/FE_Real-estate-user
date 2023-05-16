@@ -35,6 +35,7 @@ function ChartMonth() {
         ],
         datasets: [
           {
+            label: 'Doanh thu 2023',
             data: response.data,
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)'
@@ -46,6 +47,17 @@ function ChartMonth() {
       console.log(error);
     }
   };
+
+  // const options = {
+  //   plugins:{
+  //     legend:false
+  //   }, 
+  //   scales:{
+  //     x:{
+
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
     getData();
