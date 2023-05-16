@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import Revenuefigures from "./Revenuefigures"
+import ChartMonth from './ChartMonth';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -60,7 +61,7 @@ export default function BasicTabs() {
         <Revenuefigures/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <ChartMonth/>
       </TabPanel>
      
     </Box>
