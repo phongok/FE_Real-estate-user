@@ -30,37 +30,39 @@ import {
 
 function ChartMonth  () {
 
-     const data = {
+    //  const data = 
+    //     {
    
-        labels : ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
-        datasets: [
-          {
-           
-            data: [
-                0.0,
-                0.0,
-                0.0,
-                400000.0,
-                200000.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0
-            ],
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-           
-          },
-          
-        ],
-      }
-        
-    const [dataRevenue, setDataRevenue] = useState({})
+    //         labels : ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+    //         datasets: [
+    //           {
+               
+    //             data: [
+    //                 50000.0,
+    //                 0.0,
+    //                 0.0,
+    //                 400000.0,
+    //                 200000.0,
+    //                 0.0,
+    //                 0.0,
+    //                 0.0,
+    //                 150000.0,
+    //                 0.0,
+    //                 0.0,
+    //                 0.0
+    //             ],
+    //             borderColor: 'rgb(255, 99, 132)',
+    //             backgroundColor: 'rgba(255, 99, 132, 0.5)',
+               
+    //           },
+              
+    //         ],
+    //       }
+     
+    const [data, setData] = useState({})
+       
 
-    const getData = async()=>{
+    const getData = async () =>{
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
@@ -68,17 +70,36 @@ function ChartMonth  () {
             headers: { }
           };
           
-          axios.request(config)
-          .then((response) => {
-           
-
-             
-          })
-
-          .catch((error) => {
+          try {
+            const response = await axios.request(config);
+            setData({
+              labels: [
+                'Tháng 1',
+                'Tháng 2',
+                'Tháng 3',
+                'Tháng 4',
+                'Tháng 5',
+                'Tháng 6',
+                'Tháng 7',
+                'Tháng 8',
+                'Tháng 9',
+                'Tháng 10',
+                'Tháng 11',
+                'Tháng 12'
+              ],
+              datasets: [
+                {
+                  data: response.data,
+                  borderColor: 'rgb(255, 99, 132)',
+                  backgroundColor: 'rgba(255, 99, 132, 0.5)'
+                }
+              ]
+            });
+            console.log(data);
+          } catch (error) {
             console.log(error);
-          });
-  }
+          }
+        };
    useEffect(() => {
      getData()
   }, [])
@@ -89,9 +110,14 @@ function ChartMonth  () {
    
     return (
         <div>
-         
-               <Line  data={data} />
-         
+      
+
+             
+            
+                            
+        <Line data={data}></Line>      
+                           
+            
         </div>
     )
     }
