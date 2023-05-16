@@ -77,6 +77,7 @@ const ReportManager = () => {
             headers: {}
         };
 
+        
         axios.request(config)
             .then((response) => {
                 if (response.status === 200) {
