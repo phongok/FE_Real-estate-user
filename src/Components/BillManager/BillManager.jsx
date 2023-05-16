@@ -59,24 +59,38 @@ const BillManager = () => {
         setPage(pg)
     }
 
+    const [userNameSearch, setUserNameSearch] = useState('')
+
     const search = () => {
-        const f = from  ? new Date(from) : null;
-        const t = to ? new Date(to) : null;
-        const f1 = f.toISOString().slice(0, 10);
-        const t1 = t.toISOString().slice(0, 10);
-        console.log(f1)
-        console.log(t1)
-        const pg = page
-        getUsersList(f1, t1, pg)
+       
+        const userName = userNameSearch
+        console.log(userName)
+        if (!userName==='') {
+            const pg = page
+            const ps = pageSize
+            getUsersList( pg, ps, userName)
+        }else{
+            console.log('Ngay')
+            const f = from  ? new Date(from) : null;
+            const t = to ? new Date(to) : null;
+            const f1 = f.toISOString().slice(0, 10);
+            const t1 = t.toISOString().slice(0, 10);
+            const pg = page
+            const ps = pageSize
+            console.log(f1)
+            console.log(t1)
+            getUsersList(f1, t1, pg, ps)
+        }
+       
     }
 
-    const getUsersList = async (f = from, t = to, pg = page, pgSize = pageSize) => {
+    const getUsersList = async (f = from, t = to, pg = page, pgSize = pageSize, us = userNameSearch) => {
 
 
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/bills-paging?page=${pg - 1}&size=${pgSize}&from=${f}&to=${t}`,
+            url: `http://localhost:8081/api/bills-paging?page=${pg - 1}&size=${pgSize}&from=${f}&to=${t}&userName=${us}`,
             headers: {}
         };
 
@@ -130,7 +144,7 @@ const BillManager = () => {
                     </div>
                 </div>
 
-
+                <TextField id="outlined-basic" label="Nhập thông tin tìm kiếm" variant="outlined" style={{ width: 350,marginLeft:10 }}  onChange={(e) => setUserNameSearch(e.target.value)}/>
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={search}>Tìm kiếm</Button>
                 <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={int}>In</Button>
             </div>

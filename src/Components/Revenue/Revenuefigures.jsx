@@ -158,8 +158,8 @@ const BillManager = () => {
                <p>Doanh thu: </p>
                      <p style={{color:'red', marginLeft:10}}> {revenue} VND</p>
                 </div>
-            <div className="form-data">
-                <table style={{}} >
+            <div className="form-data"  style={{height:400}} >
+                <table>
                     <thead>
                         <tr>
                             <th style={{ width: 100 }} className="table-title">Id</th>

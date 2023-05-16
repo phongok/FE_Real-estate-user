@@ -137,12 +137,12 @@ const ReportManager = () => {
 
     return (
         <div className="admin-manager-user">
-            {/* <div className="container flex form-search">
+            <div className="container flex form-search">
                 <TextField id="outlined-basic" label="Nhập thông tin tìm kiếm" variant="outlined" style={{ width: 700, }}
-                    onChange={(e) => setKeyword(e.target.value)} />
-                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} onClick={search}>Tìm kiếm</Button>
-                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button>
-            </div> */}
+                  />
+                <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }} >Tìm kiếm</Button>
+                {/* <Button variant="contained" style={{ marginLeft: 30, width: 120, height: 50 }}>In</Button> */}
+            </div>
             <div className="form-data">
                 <table style={{}} >
                     <thead>
