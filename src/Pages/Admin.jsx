@@ -14,6 +14,7 @@ import UserLockManager from "../Components/UserLockManager/UserLockManager";
 import ReportManager from "../Components/ReportManager/ReportManager";
 import NewsTypeManager from '../Components/NewsTypeManager/NewsTypeManager';
 import BillManager from "../Components/BillManager/BillManager";
+import Revenue from "../Components/Revenue/Revenue"
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -156,7 +157,7 @@ export default function VerticalTabs() {
        <UserLockManager/>
       </TabPanel>
       <TabPanel value={value} index={12}>
-        7
+        <Revenue/>
       </TabPanel>
       <TabPanel value={value} index={13}>
         <BillManager/>
