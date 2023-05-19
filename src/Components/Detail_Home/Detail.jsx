@@ -152,7 +152,7 @@ function Detail() {
 
     return (<div className="container">
         <div className='real-estate-infor'>
-            <div className="flex">
+            <div className="grid content-img-user ">
 
                 <div className="carousel-image-real-estate">
 
@@ -258,9 +258,8 @@ function Detail() {
             </div>
 
 
-
             <div>
-                <table className='flex'>
+                <table className='grid content-infor-realestate'>
                     <ul>
                         <li ><h4 style={{ color: 'black' }}>Mức giá</h4></li>
                         <li>{dataDetail?.price}</li>

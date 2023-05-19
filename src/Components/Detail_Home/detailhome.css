@@ -1,13 +1,48 @@
-.carousel-image-real-estate {
-  width: 60%;
-}
 
-.detail-real-estate {
-  width: 40%;
-  text-align: center;
-  margin-bottom: 100px;
-}
+
+
 
 table ul li {
   text-align: center;
 }/*# sourceMappingURL=detailhome.css.map */
+
+
+
+
+@media screen and (min-width: 300px) {
+  .content-infor-realestate{
+    margin-top: 20px;
+    grid-template-columns: repeat(1, 1fr);
+  }
+.content-img-user{
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.carousel-image-real-estate {
+  width: 320px;
+  text-align: center;
+}
+
+.detail-real-estate {
+ 
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+ 
+}
+
+
+@media screen and (min-width: 1000px) {
+
+
+  .content-img-user{
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .content-infor-realestate{
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+ 
+}

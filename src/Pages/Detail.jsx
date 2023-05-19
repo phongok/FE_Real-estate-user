@@ -2,7 +2,7 @@ import React from "react"
 // import '../Assets/Css/home.css'
 import Navbar from "../Components/Navbar/Navbar";
 import Detail from "../Components/Detail_Home/Detail"
-import Main from "../Components/Main/Main";
+// import Main from "../Components/Main/Main";
 import Footer from "../Components/Footer/Footer";
 
 export default class Home extends React.Component{
@@ -17,7 +17,8 @@ export default class Home extends React.Component{
             
             
             <Detail/>
-            <Main/>
+            {/* <Main/> */}
+            <br /><br />
             <Footer/>
        
         </>
