@@ -295,7 +295,7 @@ const UpdateUserAction =  async()=>{
               <h5 style={{ }}>Thông tin chuyển khoản</h5>
               <h5>Ngân hàng : Vietcombank</h5>
               <div className="flex">
-              <h5>STK:  </h5> <h5 style={{marginLeft:10}}>34534534534</h5>  <Button style={{marginLeft:10, marginBottom:20}} variant="outlined">Copy</Button>
+              <h5>STK:  </h5> <h5 style={{marginLeft:10}}>1017014474</h5>  <Button style={{marginLeft:10, marginBottom:20}} variant="outlined">Copy</Button>
               </div>
               <h5>Người hưởng thụ: Real state VN</h5>
               <div className="flex">

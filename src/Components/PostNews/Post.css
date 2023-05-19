@@ -1,0 +1,58 @@
+
+
+@media screen and (min-width: 300px) {
+  
+    .postnews-form {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .input_Post{
+        width: 290px;
+    }
+
+    .map_post{
+        width: 280px;
+    }
+
+    .post_Image{
+        margin-left: 5px;
+        margin-right: 5px;
+        width: 280px;
+    }
+
+    .description{
+        width: 280px;
+        height: 200px;
+    }
+   
+  }
+
+
+  @media screen and (min-width: 1000px) {
+  
+    .postnews-form {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .input_Post{
+        width: 500px;
+    }
+
+    .map_post{
+        width: 500px;
+    }
+
+
+    .post_Image{
+        margin-left: 20px;
+        margin-right: 20px;
+        width: 500px;
+    }
+    .description{
+        width: 550px;
+        height: 650px;
+    }
+
+
+   
+  }

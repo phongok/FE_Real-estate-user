@@ -16,7 +16,7 @@ import 'firebase/compat/storage';
 import isEmpty from "validator/lib/isEmpty"
 import isFloat from 'validator/lib/isFloat';
 import isNumeric from 'validator/lib/isNumeric';
-
+import './Post.css'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import GoogleMapReact from 'google-map-react';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
@@ -1093,20 +1093,24 @@ const [coordsRent, setCoordsRent] = useState({})
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <div className='flex'>
-          <div style={{ width: '50%' }}>
+        <div className='grid postnews-form'>
 
-            <label htmlFor="">Tiêu đề:</label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleSell(event.target.value)} style={{ width: 500 }} id="tittle_sell"/> <br /> <br />
+
+          <div style={{ }}>
+
+            <label htmlFor="">Tiêu đề:</label> <br />
+            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleSell(event.target.value)} className="input_Post" id="tittle_sell"/> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.tittleSell}</p>
-            <label htmlFor="">Loại bài đăng: </label>
+            <label htmlFor="">Loại bài đăng: </label> <br />
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={idNTSell}
               label="Doanh mục"
               onChange={handleChangeSelectNewsTypeSell}
-              style={{ width: '500px', height: 40 }}
+              style={{  height: 40 }}
+
+              className="input_Post"
             >
 
               {
@@ -1122,7 +1126,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <p style={{color:'red'}}>{validationMsg.idNTSell}</p>
           
 
-            <label htmlFor="">Nhập khu vực: </label>
+            <label htmlFor="">Nhập khu vực: </label> <br />
 
         
             <Select
@@ -1131,8 +1135,8 @@ const [coordsRent, setCoordsRent] = useState({})
               value={AreaSell}
               label="Chọn khu vực"
               onChange={handleChangeAreaSell}
-
-              style={{ width: '500px', height: 40 }}
+              className="input_Post"
+              style={{  height: 40 }}
             >
               <MenuItem value={"An Giang"}>An Giang</MenuItem>
               <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
@@ -1201,36 +1205,37 @@ const [coordsRent, setCoordsRent] = useState({})
             <p style={{color:'red'}}>{validationMsg.AreaSell}</p>
           
 
-            <label htmlFor="">Chiều dài: </label>
-            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthSell(event.target.value)} style={{ width: 500 }} /> 
+            <label htmlFor="">Chiều dài: </label> <br />
+            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthSell(event.target.value)} className="input_Post"  /> <br /> <br />
             
             <p style={{color:'red'}}>{validationMsg.lengthSell}</p>
         
+            <label htmlFor="">Chiều rộng: </label><br />
+            <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthSell(event.target.value)} className="input_Post" /> <br /> <br />
 
-
-            <label htmlFor="">Chiều rộng: </label>
-            <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.widthSell}</p>
-            <label htmlFor="">Đơn giá: </label>
-            <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+
+            <label htmlFor="">Đơn giá: </label><br />
+            <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceSell(event.target.value)} className="input_Post" /> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.priceSell}</p>
 
-            <label htmlFor="">Diện tích tổng thể: </label>
-            <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <label htmlFor="">Diện tích tổng thể: </label><br />
+            <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageSell(event.target.value)} className="input_Post" /> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.acreageSell}</p>
-            <label htmlFor="">Địa chỉ: </label>
-            <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressSell(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <label htmlFor="">Địa chỉ: </label><br />
+            <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressSell(event.target.value)} className="input_Post" /> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.addressSell}</p>
             <Button variant="contained" color="success" onClick={fnSell}>
                        Xem vị trí
                   </Button>
                   <br /> <br />
-            <div style={{ height: '50vh', width: '90%' }}>
+            <div className="map_post" style={{ height: '50vh' }}>
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
                     defaultCenter={coordsSell}
                     center={coordsSell}
                     defaultZoom={15}
+                    
                 >
                     <AnyReactComponent
                         lat={coordsSell.lat}
@@ -1243,12 +1248,12 @@ const [coordsRent, setCoordsRent] = useState({})
 
           
 
-          <div style={{ width: '50%', marginLeft: 30 }}>
+          <div  className="post_Image" style={{ marginTop:20 }}>
           <label htmlFor="">Ảnh 1 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell1} style={{marginLeft:60}}/>
+                  <input type="file" onChange={handleImageChangeSell1} />
                   {/* <button onClick={handleUploadSell1} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell1}>
@@ -1260,7 +1265,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 2 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell2}style={{marginLeft:60}} />
+                  <input type="file" onChange={handleImageChangeSell2}/>
                   {/* <button onClick={handleUploadSell2} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell2}>
@@ -1272,7 +1277,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 3 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell3} style={{marginLeft:60}}/>
+                  <input type="file" onChange={handleImageChangeSell3} />
                   {/* <button onClick={handleUploadSell3} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell3}>
@@ -1285,7 +1290,7 @@ const [coordsRent, setCoordsRent] = useState({})
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell4}style={{marginLeft:60}} />
+                  <input type="file" onChange={handleImageChangeSell4} />
                   {/* <button onClick={handleUploadSell4} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell4}>
@@ -1297,7 +1302,7 @@ const [coordsRent, setCoordsRent] = useState({})
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg5Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell5} style={{marginLeft:60}}/>
+                  <input type="file" onChange={handleImageChangeSell5} />
                   {/* <button onClick={handleUploadSell5} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell5}>
@@ -1308,7 +1313,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 6 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg6Sell(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeSell6} style={{marginLeft:60}} />
+                  <input type="file" onChange={handleImageChangeSell6}  />
                   {/* <button onClick={handleUploadSell6} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadSell6}>
@@ -1320,7 +1325,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <br />
             <br />
             <textarea
-
+              className="description"
               name="postContent"
               rows={28}
               cols={60}
@@ -1340,20 +1345,22 @@ const [coordsRent, setCoordsRent] = useState({})
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <div className='flex postnews-form'>
-          <div style={{ width: '50%' }}>
 
-            <label htmlFor="">Tiêu đề:</label>
-            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+        <div className='grid postnews-form'>
+          <div  style={{  }}>
+
+            <label htmlFor="">Tiêu đề:</label><br />
+            <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setTittleRent(event.target.value)} className="input_Post"/> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.tittleRent}</p>
-            <label htmlFor="">Loại bài đăng: </label>
+            <label htmlFor="">Loại bài đăng: </label> <br />
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               value={idNTRent}
               label="Doanh mục"
               onChange={handleChangeSelectNewsTypeRent}
-              style={{ width: '500px', height: 40 }}
+              style={{ height: 40 }}
+              className="input_Post"
             >
 
               {
@@ -1369,7 +1376,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <p style={{color:'red'}}>{validationMsg.idNTRent}</p>
            
 
-            <label htmlFor="">Nhập khu vực: </label>
+            <label htmlFor="">Nhập khu vực: </label> <br />
 
             <Select
               labelId="demo-simple-select-label"
@@ -1377,8 +1384,8 @@ const [coordsRent, setCoordsRent] = useState({})
               value={AreaRent}
               label="Chọn khu vực"
               onChange={handleChangeAreaRent}
-
-              style={{ width: '500px', height: 40 }}
+              className="input_Post"
+              style={{  height: 40 }}
             >
               <MenuItem value={"An Giang"}>An Giang</MenuItem>
               <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
@@ -1446,28 +1453,31 @@ const [coordsRent, setCoordsRent] = useState({})
             </Select>
             <p style={{color:'red'}}>{validationMsg.AreaRent}</p>
            
-            <label htmlFor="">Chiều dài: </label>
-            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <label htmlFor="">Chiều dài: </label><br />
+            <Input placeholder="Nhập chiều dài" inputProps={ariaLabel} onChange={event => setlengthRent(event.target.value)} className="input_Post" /> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.lengthRent}</p>
 
-            <label htmlFor="">Chiều rộng: </label>
-            <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <label htmlFor="">Chiều rộng: </label><br />
+            <Input placeholder="Nhập chiều rộng" inputProps={ariaLabel} onChange={event => setwidthRent(event.target.value)} className="input_Post" /> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.widthRent}</p>
-            <label htmlFor="">Đơn giá: </label>
-            <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <label htmlFor="">Đơn giá: </label><br />
+            <Input placeholder="Nhập giá bán" inputProps={ariaLabel} onChange={event => setpriceRent(event.target.value)} className="input_Post" /> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.priceRent}</p>
 
-            <label htmlFor="">Diện tích tổng thể: </label>
-            <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <label htmlFor="">Diện tích tổng thể: </label> <br />
+            <Input placeholder="Nhập diện tích" inputProps={ariaLabel} onChange={event => setacreageRent(event.target.value)} className="input_Post" /> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.acreageRent}</p>
-            <label htmlFor="">Địa chỉ: </label>
-            <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressRent(event.target.value)} style={{ width: 500 }} /> <br /> <br />
+            <label htmlFor="">Địa chỉ: </label> <br />
+            <Input placeholder="Nhập địa chỉ" inputProps={ariaLabel} onChange={event => setaddressRent(event.target.value)} className="input_Post" /> <br /> <br />
             <p style={{color:'red'}}>{validationMsg.addressRent}</p>
             <Button variant="contained" color="success" onClick={fnRent}>
                        Xem vị trí
                   </Button>
                   <br /> <br />
-            <div style={{ height: '50vh', width: '90%' }}>
+
+
+
+            <div className="map_post" style={{ height: '50vh' }}>
                 <GoogleMapReact
                     bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
                     defaultCenter={coordsRent}
@@ -1494,23 +1504,25 @@ const [coordsRent, setCoordsRent] = useState({})
 
 
 
-          <div style={{ width: '50%', marginLeft: 30 }}>
+          <div className="post_Image" style={{ marginTop:20 }}>
           <label htmlFor="">Ảnh 1 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg1Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent1} style={{marginLeft:60}} />
+                  <input type="file" onChange={handleImageChangeRent1}  />
                   {/* <button onClick={handleUploadRent1} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent1}>
                        Upload
                   </Button>
             </div>
+
+            
             <p style={{color:'red'}}>{validationMsg.img1Rent}</p>
             <label htmlFor="">Ảnh 2 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg2Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent2} style={{marginLeft:60}} />
+                  <input type="file" onChange={handleImageChangeRent2}  />
                   {/* <button onClick={handleUploadRent2} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent2}>
                        Upload
@@ -1520,7 +1532,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 3 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg3Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent3} style={{marginLeft:60}} />
+                  <input type="file" onChange={handleImageChangeRent3}  />
                   {/* <button onClick={handleUploadRent3} >Upload</button> */}
 
                   <Button variant="contained" color="success"  onClick={handleUploadRent3}>
@@ -1531,7 +1543,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 4 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setimg4Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent4} style={{marginLeft:60}} />
+                  <input type="file" onChange={handleImageChangeRent4}  />
                   {/* <button onClick={handleUploadRent4} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent4}>
                        Upload
@@ -1541,7 +1553,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 5 : </label>
             {/* <Input placeholder="Nhập tiêu đề" inputProps={ariaLabel} onChange={event => setim5Rent(event.target.value)} style={{ width: 350 }} /> <br /> <br /> */}
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent5} style={{marginLeft:60}} />
+                  <input type="file" onChange={handleImageChangeRent5}  />
                   {/* <button onClick={handleUploadRent5} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent5}>
                        Upload
@@ -1551,7 +1563,7 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Ảnh 6 : </label>
 
             <div className="flex">
-                  <input type="file" onChange={handleImageChangeRent6} style={{marginLeft:60}} />
+                  <input type="file" onChange={handleImageChangeRent6}  />
                   {/* <button onClick={handleUploadRent6} >Upload</button> */}
                   <Button variant="contained" color="success"  onClick={handleUploadRent6}>
                        Upload
@@ -1561,17 +1573,17 @@ const [coordsRent, setCoordsRent] = useState({})
             <label htmlFor="">Mô tả:</label>
             <br />
             <br />
-            <textarea
+            <textarea className="description"
               onChange={event => setdecriptionRent(event.target.value)}
               name="postContent"
               rows={28}
               cols={60}
             />
-        <p style={{color:'red'}}>{validationMsg.decriptionRent}</p>
+             <p style={{color:'red'}}>{validationMsg.decriptionRent}</p>
           </div>
         </div>
 
-        <div style={{ textAlign: 'center' , marginTop:25}}>
+        <div style={{ textAlign: 'center' , marginTop:15, marginBottom:15}}>
           <Button variant="contained" color="success" onClick={CheckSurplusRent}>
             Đăng tin
           </Button>
@@ -1580,8 +1592,7 @@ const [coordsRent, setCoordsRent] = useState({})
 
 
     </Box>
-    <br />
-    <br />
+    
 
   </div>
 
