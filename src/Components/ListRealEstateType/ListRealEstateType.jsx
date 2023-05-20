@@ -9,7 +9,10 @@ import FormLabel from '@mui/material/FormLabel';
 import axios from "axios"
 import { useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { AiOutlineFilter } from 'react-icons/ai'
+import { AiFillCloseCircle } from 'react-icons/ai'
 function ListRealEstateType() {
     const navigate = useNavigate()
     const token = localStorage.getItem("token")
@@ -33,7 +36,7 @@ function ListRealEstateType() {
 
     useEffect(() => {
         fetchData()
-       
+
     }, [])
 
     const seemore = async () => {
@@ -79,15 +82,185 @@ function ListRealEstateType() {
         fetchData(pg, pgSize, are, priMin, priMax, acrMin, acrMax)
 
     }
+
+    const [active, setActive] = useState('navBar')
+
+    const showNav = () => {
+        setActive('navBar activeNavbar')
+    }
+
+    const removeNav = () => {
+        setActive('navBar ')
+    }
+
     return (
 
         <div>
+
+            <section className="navBarSection">
+                <header className="header-filter flex">
+
+
+                    <div className={active}>
+                        <ul style={{ margin: 0 }} className="navLists flex">
+                            <li className="navItem">
+                                <div className="navLink" >
+                                    <FormLabel id="demo-radio-buttons-group-label" style={{ color: 'black' }}>Theo giá</FormLabel>
+                                </div>
+
+
+                            </li>
+
+                            <li className="navItem">
+                                <div className="navLink" >
+                                <div style={{ textAlign: "center", display:"flex" }}>
+                            <TextField id="outlined-basic" label="Từ" variant="outlined" onChange={event => setpriceMin(event.target.value)} />
+
+                            <TextField id="outlined-basic" label="Đến" variant="outlined" onChange={event => setpriceMax(event.target.value)}  />
+                        </div>
+                                </div>
+
+
+                            </li>
+
+                            <li className="navItem">
+                                <div className="navLink" >
+                                    <FormLabel id="demo-radio-buttons-group-label" style={{ color: 'black' }}>Khu vực</FormLabel>
+                                </div>
+
+
+                            </li>
+
+                            <li className="navItem">
+                                <div className="navLink" >
+                                <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={area}
+                            label="Chọn khu vực"
+                            onChange={handleChangeArea}
+
+                            style={{ width: '200px', height: 40}}
+                        >
+                            <MenuItem value={"An Giang"}>An Giang</MenuItem>
+                            <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
+                            <MenuItem value={"Bạc Liêu"}>Bạc Liêu</MenuItem>
+                            <MenuItem value={"Bắc Giang"}>Bắc Giang</MenuItem>
+                            <MenuItem value={"Bắc Kạn"}>Bắc Kạn </MenuItem>
+                            <MenuItem value={"Bắc Ninh"}>Bắc Ninh</MenuItem>
+                            <MenuItem value={"Bến Tre"}>Bến Tre</MenuItem>
+                            <MenuItem value={"Bình Dương"}>Bình Dương</MenuItem>
+                            <MenuItem value={"Bình Định"}>Bình Định</MenuItem>
+                            <MenuItem value={"Bình Phước"}>Bình Phước</MenuItem>
+                            <MenuItem value={"Bình Thuận"}>Bình Thuận</MenuItem>
+                            <MenuItem value={"Cà Mau"}>Cà Mau</MenuItem>
+                            <MenuItem value={"Cao Bằng"}>Cao Bằng</MenuItem>
+                            <MenuItem value={"Cần Thơ"}>Cần Thơ</MenuItem>
+                            <MenuItem value={"Đà Nẵng"}>Đà Nẵng</MenuItem>
+                            <MenuItem value={"Đắk Lắk"}>Đắk Lắk</MenuItem>
+                            <MenuItem value={"Đắk Nông"}>Đắk Nông</MenuItem>
+                            <MenuItem value={"Điện Biên"}>Điện Biên</MenuItem>
+                            <MenuItem value={"Đồng Nai"}>Đồng Nai</MenuItem>
+                            <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
+                            <MenuItem value={"Đồng Tháp"}>Đồng Tháp</MenuItem>
+                            <MenuItem value={"Hà Nam"}>Hà Nam</MenuItem>
+                            <MenuItem value={"Hà Nội"}>Hà Nội</MenuItem>
+                            <MenuItem value={"Hà Tĩnh"}>Hà Tĩnh</MenuItem>
+                            <MenuItem value={"Hải Dương"}>Hải Dương</MenuItem>
+                            <MenuItem value={"Hải Phòng"}>Hải Phòng</MenuItem>
+                            <MenuItem value={"Hậu Giang"}>Hậu Giang</MenuItem>
+                            <MenuItem value={"Hòa Bình"}>Hòa Bình</MenuItem>
+                            <MenuItem value={"TP Hồ Chí Minh"}>TP Hồ Chí Minh</MenuItem>
+                            <MenuItem value={"Hưng Yên"}>Hưng Yên</MenuItem>
+                            <MenuItem value={"Khánh Hòa"}>Khánh Hòa</MenuItem>
+                            <MenuItem value={"Kiên Giang"}>Kiên Giang</MenuItem>
+                            <MenuItem value={"Kon Tum"}>Kon Tum</MenuItem>
+                            <MenuItem value={"Lai Châu"}>Lai Châu</MenuItem>
+                            <MenuItem value={"Lạng Sơn"}>Lạng Sơn</MenuItem>
+                            <MenuItem value={"Lào Cai"}>Lào Cai</MenuItem>
+                            <MenuItem value={"Lâm Đồng"}>Lâm Đồng</MenuItem>
+                            <MenuItem value={"Long An"}>Long An</MenuItem>
+                            <MenuItem value={"Nam Định"}>Nam Định</MenuItem>
+                            <MenuItem value={"Nghệ An"}>Nghệ An</MenuItem>
+                            <MenuItem value={"Ninh Bình"}>Ninh Bình</MenuItem>
+                            <MenuItem value={"Ninh Thuận"}>Ninh Thuận</MenuItem>
+                            <MenuItem value={"Phú Thọ"}>Phú Thọ</MenuItem>
+                            <MenuItem value={"Phú Yên"}>Phú Yên</MenuItem>
+                            <MenuItem value={"Quảng Bình"}>Quảng Bình</MenuItem>
+                            <MenuItem value={"Quảng Nam"}>Quảng Nam</MenuItem>
+                            <MenuItem value={"Quảng Ngãi"}>Quảng Ngãi</MenuItem>
+                            <MenuItem value={"Quảng Ninh"}>Quảng Ninh</MenuItem>
+                            <MenuItem value={"Quảng Trị"}>Quảng Trị</MenuItem>
+                            <MenuItem value={"Sóc Trăng"}>Sóc Trăng</MenuItem>
+                            <MenuItem value={"Sơn La"}>Sơn La</MenuItem>
+                            <MenuItem value={"Tây Ninh"}>Tây Ninh</MenuItem>
+                            <MenuItem value={"Thái Bình"}>Thái Bình</MenuItem>
+                            <MenuItem value={"Thái Nguyên"}>Thái Nguyên</MenuItem>
+                            <MenuItem value={"Thanh Hóa"}>Thanh Hóa</MenuItem>
+                            <MenuItem value={"Thừa Thiên Huế"}>Thừa Thiên Huế</MenuItem>
+                            <MenuItem value={"Tiền Giang"}>Tiền Giang</MenuItem>
+                            <MenuItem value={"Trà Vinh"}>Trà Vinh</MenuItem>
+                            <MenuItem value={"Tuyên Quang"}>Tuyên Quang</MenuItem>
+                            <MenuItem value={"Vĩnh Long"}>Vĩnh Long</MenuItem>
+                            <MenuItem value={"Vĩnh Phúc"}>Vĩnh Phúc</MenuItem>
+                            <MenuItem value={"Yên Bái"}>Yên Bái</MenuItem>
+
+                        </Select>
+                                </div>
+
+
+                            </li>
+
+                            <li className="navItem">
+                                <div className="navLink" >
+                                    <FormLabel id="demo-radio-buttons-group-label" style={{ color: 'black' }}>Diện tích</FormLabel>
+                                </div>
+
+
+                            </li>
+
+                            <li className="navItem">
+                                <div className="navLink" >
+                                <div style={{ textAlign: "center", display:"flex" }}>
+                            <TextField id="outlined-basic" label="Từ" variant="outlined" onChange={event => setacreageMin(event.target.value)} />
+
+                            <TextField id="outlined-basic" label="Đến" variant="outlined"  onChange={event => setacreageMax(event.target.value)} />
+                        </div>
+                                </div>
+
+
+                            </li>
+
+                            <li className="navItem">
+                                <div className="navLink" >
+                                    <div style={{ textAlign: 'center' }}>
+                                    <Button variant="contained" onClick={Filler}>Áp dụng</Button>
+                                    </div>
+                                </div>
+
+
+                            </li>
+
+                            <div className="closeNavbar" onClick={removeNav} >
+                                <AiFillCloseCircle className="icon" />
+                            </div>
+
+                        </ul>
+                    </div>
+
+                    <div onClick={showNav} className="toggleNavbar">
+                        <AiOutlineFilter className="icon" />
+                    </div>
+                </header>
+            </section>
+            <br />
+
             <div className="container">
                 <h4 style={{ color: 'black' }}>Danh sách sản phẩm</h4>
             </div>
             <div className="flex container">
 
-                <div className="main" style={{ width: '70%' }}>
+                <div className="main" style={{ width: '100%' }}>
                     <div className="list-real-estate grid">
 
                         {
@@ -123,8 +296,8 @@ function ListRealEstateType() {
 
                                             <div className="flex btn_group " >
                                                 <p className="mt-1">{Item.dateSubmitted}</p>
-                                                <button className="btn flex" onClick={()=>{
-                                                      let config = {
+                                                <button className="btn flex" onClick={() => {
+                                                    let config = {
                                                         method: 'get',
                                                         maxBodyLength: Infinity,
                                                         url: `http://localhost:8081/api/checkuser?token=${token}`,
@@ -178,8 +351,8 @@ function ListRealEstateType() {
                                                 }} >
                                                     Lưu <TbClipboardCheck className="icon"
 
-                                                      
-                                                   
+
+
 
                                                     />
                                                 </button>
@@ -205,7 +378,7 @@ function ListRealEstateType() {
                 </div>
 
 
-                <div className="filter" >
+                {/* <div className="filter" >
                     <h4 style={{ fontWeight: 'bold', paddingLeft: 20, paddingTop: 15 }}>Lọc theo tiêu chí</h4>
                     <form action="" method="post">
                         <FormLabel id="demo-radio-buttons-group-label" style={{ marginLeft: 40, color: 'black' }}>Chọn theo giá</FormLabel>
@@ -300,8 +473,10 @@ function ListRealEstateType() {
                             <Button variant="contained" onClick={Filler}>Áp dụng</Button>
                         </div>
                     </form>
-                </div>
+                </div> */}
             </div>
+            <br />
+            <br />
 
         </div>
 
