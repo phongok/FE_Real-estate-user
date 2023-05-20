@@ -147,7 +147,7 @@ function ListRealEstateCaterorySell() {
                                         label="Chọn khu vực"
                                         onChange={handleChangeArea}
 
-                                        style={{ width: '200px', height: 40, marginLeft: 45 }}
+                                        style={{ width: '200px', height: 40 }}
                                     >
                                         <MenuItem value={"An Giang"}>An Giang</MenuItem>
                                         <MenuItem value={"Bà Rịa-Vũng Tàu"}>Bà Rịa-Vũng Tàu</MenuItem>
