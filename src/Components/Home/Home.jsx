@@ -21,9 +21,9 @@ const Home = () =>{
                     <span data-aos="fade-up" className="smallTest">
                         Our Packages
                     </span>
-                    <h1 data-aos="fade-up" className="homeTittle" style={{color: 'while'}}>
-                        Seach your Holiday
-                    </h1>
+                    <h2 data-aos="fade-up" className="homeTittle" style={{color: '#FFFFFF'}}>
+                        Find real estate for you
+                    </h2>
                 </div>
                 {/* <div className="cardDiv grid">
                     <div className="destinationInput">
