@@ -35,7 +35,10 @@ table ul li {
 
 @media screen and (min-width: 1000px) {
 
-
+  .carousel-image-real-estate {
+    width: 700px;
+    text-align: center;
+  }
   .content-img-user{
     grid-template-columns: repeat(2, 1fr);
   }
