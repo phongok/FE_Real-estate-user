@@ -193,6 +193,12 @@ const Navbar = () => {
 
     }
 
+    const LogOut = async()=>{
+        localStorage.setItem("token", '')
+        
+        navigate("/login")
+    }
+
     const RealEstateUser = () => {
         let config = {
             method: 'get',
@@ -468,7 +474,7 @@ const Navbar = () => {
 
                                         <Divider />
 
-                                        <MenuItem onClick={handleClose}>
+                                        <MenuItem onClick={LogOut}>
                                             <ListItemIcon>
 
                                                 <BiLogOut style={{ fontSize: 30 }} />
