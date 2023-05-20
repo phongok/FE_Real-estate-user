@@ -301,7 +301,7 @@ function Detail() {
             </div>
 
             
-                <div style={{ height: '100vh', width: '100%', marginTop:10 , }}  >
+                <div style={{  width: '100%', marginTop:10 , }} className='map_Detail'  >
                     <GoogleMapReact
                         bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
                         defaultCenter={coords}

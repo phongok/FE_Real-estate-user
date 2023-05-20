@@ -903,7 +903,7 @@ const DeleteRe =  async()=>{
                               </Button>
                             <p style={{color:'red'}}>{validationMsg.addressUpdate}</p>
 
-                            <div style={{ height: '100vh', width: '100%', marginTop:10 , }}  >
+                            <div style={{ height: '50vh', width: '100%', marginTop:10 , }}  >
                     <GoogleMapReact
                         bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
                         defaultCenter={coords}

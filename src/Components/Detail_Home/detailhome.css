@@ -29,6 +29,10 @@ table ul li {
   margin-bottom: 100px;
 }
 
+.map_Detail{
+  height: 200px;
+}
+
  
 }
 
@@ -45,6 +49,10 @@ table ul li {
 
   .content-infor-realestate{
     grid-template-columns: repeat(5, 1fr);
+  }
+
+  .map_Detail{
+    height: 500px;
   }
 
  
