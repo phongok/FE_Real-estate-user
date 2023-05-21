@@ -955,7 +955,7 @@ const DeleteRe =  async()=>{
 
                             <div style={{ height: '50vh', width: '100%', marginTop:10 , }}  >
                     <GoogleMapReact
-                        bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
+                        bootstrapURLKeys={{ key: "AIzaSyBhDcnIzKPZBvUFveafMZv5IwViWxRYeeo" }}
                         defaultCenter={coords}
                         center={coords}
                         

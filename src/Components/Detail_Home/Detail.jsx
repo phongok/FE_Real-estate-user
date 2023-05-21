@@ -303,7 +303,7 @@ function Detail() {
             
                 <div style={{  width: '100%', marginTop:10 , }} className='map_Detail'  >
                     <GoogleMapReact
-                        bootstrapURLKeys={{ key: "AIzaSyBErMRuHihtB40IQYn42QGhlgxAnGnxOjg" }}
+                        bootstrapURLKeys={{ key: "AIzaSyBhDcnIzKPZBvUFveafMZv5IwViWxRYeeo" }}
                         defaultCenter={coords}
                         center={coords}
                         
