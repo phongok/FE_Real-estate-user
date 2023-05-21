@@ -23,53 +23,64 @@ function Register() {
 
   const [validationMsg, setValidationMsg] = useState('')
 
-  const Authen = () => {
+  
+  const Authen = async () => {
+  
+    try {
+      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+      await auth.currentUser.sendEmailVerification();
+  
+      // Thông báo cho người dùng biết email xác nhận đã được gửi
+      alert("Xác nhận email bằng cách nhấp vào link, thời gian chỉ 30s");
+  
+      setTimeout(() => {
+        waitForEmailVerification();
+      }, 30000); //
+    } catch (error) {
+      // Xử lý lỗi khi đăng ký tài khoản
+      alert('Email này đã được sử dụng');
+    }
+  };
+  
+  const deleteUser = () => {
+    const user = auth.currentUser;
+    if (user) {
+      user.delete()
+        .then(() => {
+          console.log('Xóa người dùng thành công');
+          // Thực hiện các hành động khác sau khi xóa người dùng
+        })
+        .catch((error) => {
+          console.log('Lỗi khi xóa người dùng:', error);
+          // Xử lý lỗi khi xóa người dùng
+        });
+    } else {
+      console.log('Người dùng chưa đăng nhập');
+    }
+  };
+  const waitForEmailVerification = async () => {
+    await auth.currentUser?.reload();
+  
+    console.log('Doi xac thuc');
+    if (auth.currentUser) {
+      console.log(auth.currentUser);
+      if (auth.currentUser.emailVerified) {
+        // User is signed in and email is verified
+        console.log("da xac thuc");
+        // Thực hiện các hành động khác sau khi xác thực email
+        Save()
+      } else {
 
-    
-
-
-    console.log('authen')
-    console.log(email)
-    console.log(password)
-
-    auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        auth.currentUser.sendEmailVerification()
-          .then(() => {
-            // Thông báo cho người dùng biết email xác nhận đã được gửi
-            alert("Xác nhận email bằng cách nhấp vào link")
-            Save()
-          })
-          .catch((error) => {
-            // Xử lý lỗi
-          });
-      })
-      .catch((error) => {
-        // Xử lý lỗi khi đăng ký tài khoản
-        alert('Không thể gửi link xác thực đến email này, hãy kiểm tra lại email')
-      });
-
-
-    // auth.onAuthStateChanged((user) => {
-    //   console.log('Doi xac thuc')
-    //   if (user) {
-    //     console.log(user)
-    //     if (user.emailVerified) {
-    //       // User is signed in and email is verified
-    //       console.log("da xac thuc")
-    //     } else {
-    //       // User is signed in but email is not verified
-    //       console.log("chua xac thuc")
-    //     }
-    //   } else {
-    //     // User is signed out
-    //   }
-
-    // });
-
-
-
-  }
+        deleteUser()
+        // User is signed in but email is not verified
+        alert('Xác thực không thành công hãy thử lại')
+        // Thực hiện các hành động khác khi email chưa được xác thực
+      }
+    } else {
+      // User is signed out
+      console.log("nguoi dung da dang xuat");
+    }
+  };
 
   const Save = async () => {
     let data = JSON.stringify({
@@ -92,7 +103,7 @@ function Register() {
 
         console.log(response)
         if (response.status === 200) {
-          // alert('Đăng kí thành công!')
+          alert('Đăng kí thành công!')
         }
         else {
           alert('Đăng kí không thành công hãy kiểm tra lại!')
