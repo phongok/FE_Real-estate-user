@@ -8,13 +8,13 @@ import Avatar from '@mui/material/Avatar';
 import Input from '@mui/material/Input';
 import Button from '@mui/material/Button';
 import axios from "axios"
-
+import './FormAccount.css'
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/storage';
 import isEmpty from "validator/lib/isEmpty"
 import isEmail from 'validator/lib/isEmail';
 function TabPanel(props) {
-  
+
 
 
   const { children, value, index, ...other } = props;
@@ -56,26 +56,26 @@ export default function VerticalTabs() {
     setValue(newValue);
   };
   const [validationMsg, setValidationMsg] = useState('')
-  const valibDataAll = () =>{
-    const msg ={}
-    if(isEmpty(nameUpdate)){
+  const valibDataAll = () => {
+    const msg = {}
+    if (isEmpty(nameUpdate)) {
       msg.nameUpdate = "Vui lòng nhập họ tên"
     }
 
-    if(isEmpty(emailUpdate)){
-        msg.emailUpdate = "Vui lòng nhập email"
-      }
-      else if (!isEmail(emailUpdate)){
-        msg.emailUpdate = "Vui lòng nhập đúng định dạng email"
-      }
-    
-   
-  
-  
+    if (isEmpty(emailUpdate)) {
+      msg.emailUpdate = "Vui lòng nhập email"
+    }
+    else if (!isEmail(emailUpdate)) {
+      msg.emailUpdate = "Vui lòng nhập đúng định dạng email"
+    }
+
+
+
+
     setValidationMsg(msg)
-    if (Object.keys(msg).length>0) return false
+    if (Object.keys(msg).length > 0) return false
     return true
-    
+
   }
   const token = localStorage.getItem("token")
   const [idUserUpdate, setIdUserUpdate] = useState('')
@@ -94,12 +94,12 @@ export default function VerticalTabs() {
     appId: "1:789202840133:web:ee9dce2de04deb1db1512c",
     measurementId: "G-PTFGYD7M2C"
   });
-  
+
   // Create a storage reference
   const storage = firebase.storage();
   const storageRef = storage.ref();
 
-     //////
+  //////
   const [imageSell1, setImageSell1] = useState(null);
   const [img1Update, setimg1Update] = useState("")
 
@@ -151,80 +151,80 @@ export default function VerticalTabs() {
 
 
 
-const getUser =async()=>{
-  let config = {
-    method: 'get',
-    maxBodyLength: Infinity,
-    url: `http://localhost:8081/api/checkuser?token=${token}`,
-    headers: { }
-  };
-  
-  axios.request(config)
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-    setNameUpdate(response.data.name)
-    setPhoneUpdate(response.data.phone)
-    setEmailUpdate(response.data.username)
-    setSurplusUpdate(response.data.surplus)
-    setimg1Update(response.data.url)
-    setIdUserUpdate(response.data.id)
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-}
+  const getUser = async () => {
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: `http://localhost:8081/api/checkuser?token=${token}`,
+      headers: {}
+    };
+
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setNameUpdate(response.data.name)
+        setPhoneUpdate(response.data.phone)
+        setEmailUpdate(response.data.username)
+        setSurplusUpdate(response.data.surplus)
+        setimg1Update(response.data.url)
+        setIdUserUpdate(response.data.id)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
 
-useEffect(() => {
-       
-  getUser()
+  useEffect(() => {
 
-}, [])
+    getUser()
 
-const UpdateUser = async()=>{
-  let data = JSON.stringify({
-    "idUserUpdate": idUserUpdate,
-    "nameUpdate": nameUpdate,
-    "emailUpdate": emailUpdate ,
-    "phoneUpdate": phoneUpdate,
-    "img1Update": img1Update
-  });
-  
-  let config = {
-    method: 'put',
-    maxBodyLength: Infinity,
-    url: 'http://localhost:8081/api/user/updateInfor',
-    headers: { 
-      'Content-Type': 'application/json'
-    },
-    data : data
-  };
-  
-  axios.request(config)
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-    if (response.status===200) {
-      alert('Cập nhật thành công')
-      getUser()
-    }
-    else{
-      alert('Cập nhật thất bại')
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-    alert('Cập nhật thất bại')
-  });
-  
-}
+  }, [])
+
+  const UpdateUser = async () => {
+    let data = JSON.stringify({
+      "idUserUpdate": idUserUpdate,
+      "nameUpdate": nameUpdate,
+      "emailUpdate": emailUpdate,
+      "phoneUpdate": phoneUpdate,
+      "img1Update": img1Update
+    });
+
+    let config = {
+      method: 'put',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:8081/api/user/updateInfor',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        if (response.status === 200) {
+          alert('Cập nhật thành công')
+          getUser()
+        }
+        else {
+          alert('Cập nhật thất bại')
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('Cập nhật thất bại')
+      });
+
+  }
 
 
-const UpdateUserAction =  async()=>{
-  const isValib = valibDataAll()
+  const UpdateUserAction = async () => {
+    const isValib = valibDataAll()
     if (!isValib) return
 
     UpdateUser()
-}
+  }
 
 
   return (
@@ -241,40 +241,48 @@ const UpdateUserAction =  async()=>{
 
 
       >
-        <Avatar for="image_uploads1"  alt="Remy Sharp" src={img1Update}  style={{ width: 200, height: 200, marginLeft: 20, marginTop: 20, marginRight: 20 }} />
-        <label for="image_uploads1" style={{ background: '#483D8B', padding: 6, borderRadius: 5, color: '#F8F8FF', marginLeft: 10, marginRight:10, marginTop:10 , textAlign: 'center'}}>Edit Avatar</label>
-        <Button variant="outlined" style={{marginLeft:10, marginRight:10, marginTop:10}} onClick={handleUploadSell1}>Upload</Button>
+        <Avatar for="image_uploads1" alt="Remy Sharp" src={img1Update} style={{ width: 200, height: 200, marginLeft: 20, marginTop: 20, marginRight: 20 }} />
+        <label for="image_uploads1" style={{ background: '#483D8B', padding: 6, borderRadius: 5, color: '#F8F8FF', marginLeft: 10, marginRight: 10, marginTop: 10, textAlign: 'center' }}>Edit Avatar</label>
+        <Button variant="outlined" style={{ marginLeft: 10, marginRight: 10, marginTop: 10 }} onClick={handleUploadSell1}>Upload</Button>
         <Tab label="Thông tin" {...a11yProps(3)} style={{ marginTop: 20 }} />
         <Tab label="Nạp tiền" {...a11yProps(4)} />
         <Tab label="Đổi mật khẩu" {...a11yProps(5)} />
 
       </Tabs>
 
-      
+
       <TabPanel value={value} index={3}>
         <div className='container'>
-        <input type="file" id="image_uploads1" name="image_uploads1" accept=".jpg, .jpeg, .png" style={{ display: "none" }} onClick={handleImageChangeSell1} />
+          <input type="file" id="image_uploads1" name="image_uploads1" accept=".jpg, .jpeg, .png" style={{ display: "none" }} onClick={handleImageChangeSell1} />
           <form action="" method="post">
-            <div className='flex' style={{ justifyContent: 'space-between' }}>
-              <div style={{ width: '40%' }}>
+            <div className='grid account-user-form' >
 
 
-                <label htmlFor="">Họ tên: </label>
-                <Input id="name-user" style={{ width: 400 }}  value={nameUpdate}  onChange={event => setNameUpdate(event.target.value)}/> <br /> <br />
-                <p style={{color:'red'}}>{validationMsg.nameUpdate}</p>
-                <label htmlFor="">Email: </label>
-                <Input id="username-user" style={{ width: 400 }} value={emailUpdate}  onChange={event => setEmailUpdate(event.target.value)} /> <br /> <br />
-                <p style={{color:'red'}}>{validationMsg.emailUpdate}</p>
+
+              <div>    <label htmlFor="" >Họ tên: </label>
+                <Input id="name-user" className='input_account' value={nameUpdate} onChange={event => setNameUpdate(event.target.value)} /> <br /> <br />
+                <p style={{ color: 'red' }}>{validationMsg.nameUpdate}</p></div>
+
+
+              <div>
+                <label htmlFor="" className='input_right' >Email: </label>
+                <Input id="username-user" className='input_account input_right' value={emailUpdate} onChange={event => setEmailUpdate(event.target.value)} /> <br /> <br />
+                <p style={{ color: 'red' }}>{validationMsg.emailUpdate}</p>
+
               </div>
 
-              <div style={{ width: '40%' }}>
 
+
+              <div>
                 <label htmlFor="">SDT: </label>
-                <Input id="phone-user" style={{ width: 400 }} value={phoneUpdate}  onChange={event => setPhoneUpdate(event.target.value)} /> <br /> <br />
-
-                <label htmlFor="">Số dư: </label>
-                <Input id="surplus-user" disabled style={{ width: 400 }}  value={surplusUpdate} /> <br /> <br />
+                <Input id="phone-user" className='input_account' value={phoneUpdate} onChange={event => setPhoneUpdate(event.target.value)} /> <br /> <br />
               </div>
+
+              <div>
+                <label htmlFor="" className='input_right' >Số dư: </label>
+                <Input id="surplus-user" disabled className='input_account input_right' value={surplusUpdate} /> <br /> <br />
+              </div>
+
             </div>
 
             <Button variant="contained" disableElevation onClick={UpdateUserAction}> Cập nhật</Button>
@@ -284,30 +292,30 @@ const UpdateUserAction =  async()=>{
       </TabPanel>
       <TabPanel value={value} index={4}>
 
-      
-       <div >
+
+        <div >
           <h1>Chuyển khoản</h1>
 
 
-          <div  style={{display:'flex',backgroundColor: '#F9F9F9'}} >
-            <div style={{  width:'100%', margin:30}}>
-              
-              <h5 style={{ }}>Thông tin chuyển khoản</h5>
+          <div style={{  backgroundColor: '#F9F9F9' }} >
+            <div className='form_pay'>
+
+              <h5 style={{paddingTop:20}}>Thông tin chuyển khoản</h5>
               <h5>Ngân hàng : Vietcombank</h5>
               <div className="flex">
-              <h5>STK:  </h5> <h5 style={{marginLeft:10}}>1017014474</h5>  <Button style={{marginLeft:10, marginBottom:20}} variant="outlined">Copy</Button>
+                <h5>STK:  </h5> <h5 style={{ marginLeft: 10 }}>1017014474</h5>  <Button style={{ marginLeft: 10, marginBottom: 20 }} variant="outlined">Copy</Button>
               </div>
               <h5>Người hưởng thụ: Real state VN</h5>
               <div className="flex">
-              <h5>Nội dung:  </h5> <h5 style={{marginLeft:10}}>{emailUpdate}</h5>   <Button style={{marginLeft:10, marginBottom:20}} variant="outlined">Copy</Button>
+                <h5>Nội dung:  </h5> <h5 style={{ marginLeft: 10 }}>{emailUpdate}</h5>   <Button style={{ marginLeft: 10, marginBottom: 20 }} variant="outlined">Copy</Button>
               </div>
             </div>
 
-          
 
-         
+
+
+          </div>
         </div>
-       </div>
 
 
       </TabPanel>
