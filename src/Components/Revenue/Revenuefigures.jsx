@@ -68,17 +68,19 @@ const BillManager = () => {
         console.log(f1)
         console.log(t1)
         const pg = page
-        getUsersList(f1, t1, pg)
+            const ps = pageSize
+            getUsersList(f1, t1, pg, ps)
         getRevenueFromTo(f1,t1)
     }
-    
-    const getUsersList = async (f = from, t = to, pg = page, pgSize = pageSize) => {
+    const [userName, setUsername] = useState('')
+
+    const getUsersList = async (f = from, t = to, pg = page, pgSize = pageSize,us = userName) => {
 
 
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/bills-paging?page=${pg - 1}&size=${pgSize}&from=${f}&to=${t}`,
+            url: `http://localhost:8081/api/bills-paging?page=${pg - 1}&size=${pgSize}&from=${f}&to=${t}&userName=${us}`,
             headers: {}
         };
 

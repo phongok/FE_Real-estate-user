@@ -26,6 +26,12 @@ const Navbar = () => {
         setActive('navBar ')
     }
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const handleLogin = () => {
+        
+        setIsLoggedIn(true);
+      };
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -99,6 +105,12 @@ const Navbar = () => {
 
         axios.request(config)
             .then((response) => {
+
+                if (response.status===200) {
+                    handleLogin()
+                    console.log("lgin")
+                    console.log(isLoggedIn)
+                }
                 console.log(response)
                 setusername(response.data.url)
 
@@ -111,7 +123,7 @@ const Navbar = () => {
                   
                   axios.request(config)
                   .then((response) => {
-                    console.log(JSON.stringify(response.data));
+                    // console.log(JSON.stringify(response.data));
                         setlistRealEstateSave(response.data)
                   })
                   .catch((error) => {
@@ -173,7 +185,13 @@ const Navbar = () => {
             .then((response) => {
 
                 if (response.status === 200) {
-                    navigate("/postnews")
+                    if (response.data.surplus>=50000) {
+                        navigate("/postnews")
+                    }
+                    else{
+                        alert("Số dư không đủ 50000, vui lòng nạp thêm tiền")
+                        navigate("/account")
+                    }
 
                 }
                 if (response.data==="") {
@@ -240,6 +258,10 @@ const Navbar = () => {
     }, [])
 
 
+
+    const Contact = async()=>{
+        alert('hotline : 099099099')
+    }
 
 
 
@@ -473,6 +495,13 @@ const Navbar = () => {
 
 
                                         <Divider />
+                                       
+                                        <MenuItem onClick={Contact} >
+                                            <Avatar /> Liên hệ Admin
+                                        </MenuItem>
+
+
+                                        <Divider />
 
                                         <MenuItem onClick={LogOut}>
                                             <ListItemIcon>
@@ -493,13 +522,16 @@ const Navbar = () => {
                         </button>
 
 
-                        <Link to="/login">
-
-                            <button className="btn">
-                                <a >Đăng nhập</a>
-                            </button>
-
-                        </Link>
+                        {isLoggedIn ? (
+        // Phần tử sẽ được ẩn khi isLoggedIn là true
+        null
+      ) : (
+        <Link to="/login">
+          <button className="btn btnLogin" >
+            <a>Đăng nhập</a>
+          </button>
+        </Link>
+      )}
 
                         <Link to="/register">
 
@@ -508,6 +540,9 @@ const Navbar = () => {
                             </button>
 
                         </Link>
+                        {/* <button className="btn" onClick={removeLogin}>
+                                <a  >Test</a>
+                            </button> */}
 
                         <div className="closeNavbar">
                             <AiFillCloseCircle className="icon" />
@@ -516,7 +551,7 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <div onClick={showNav} className="toggleNavbar">
+                <div  className="toggleNavbar">
                     <TbGridDots className="icon" />
                 </div>
             </header>

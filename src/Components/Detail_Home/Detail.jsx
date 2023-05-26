@@ -17,9 +17,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import GoogleMapReact from 'google-map-react';
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+
+
+import isEmpty from "validator/lib/isEmpty"
 function Detail() {
     const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
+    const [validationMsg, setValidationMsg] = useState('')
     const [coords, setCoords] = useState({})
     const { id } = useParams()
     const [dataDetail, setDataDetail] = useState()
@@ -62,7 +65,19 @@ function Detail() {
 
     
 
-
+        const valibDataAll = () =>{
+            const msg ={}
+            
+          
+            if(isEmpty(content)){
+              msg.content = "Vui lòng nhập nội dung báo cáo"
+            }
+          
+            setValidationMsg(msg)
+            if (Object.keys(msg).length>0) return false
+            return true
+            
+          }
 
 
 
@@ -140,6 +155,13 @@ function Detail() {
             });
     }
 
+    const ReportAction = async()=>{
+        const isValib = valibDataAll()
+        if (!isValib) return
+
+        Report()
+    }
+
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -149,6 +171,9 @@ function Detail() {
     const handleClose = () => {
         setOpen(false);
     };
+
+
+
 
     return (<div className="container">
         <div className='real-estate-infor'>
@@ -231,11 +256,12 @@ function Detail() {
                                         cols={65}
                                         onChange={event => setcontend(event.target.value)}
                                     />
+                                     <p style={{color:'red'}}>{validationMsg.content}</p>
                                 </div>
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={Report} >
+                            <Button onClick={ReportAction} >
                                 Báo cáo
                             </Button>
                             <Button onClick={handleClose} >
@@ -303,7 +329,7 @@ function Detail() {
             
                 <div style={{  width: '100%', marginTop:10 , }} className='map_Detail'  >
                     <GoogleMapReact
-                        bootstrapURLKeys={{ key: "AIzaSyBhDcnIzKPZBvUFveafMZv5IwViWxRYeeo" }}
+                        bootstrapURLKeys={{ key: "AIzaSyCMXhmoulmyD4oXqsGmXrim3Q7x1am4NyI" }}
                         defaultCenter={coords}
                         center={coords}
                         

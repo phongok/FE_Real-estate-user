@@ -153,7 +153,7 @@ const BillManager = () => {
                     <thead>
                         <tr>
                             <th style={{ width: 100 }} className="table-title">Id</th>
-                            <th style={{ width: 300 }} className="table-title" >Tiêu đề</th>
+                            <th style={{ width: 300 }} className="table-title" >Bài đăng</th>
                             <th style={{ width: 200 }} className="table-title" >Người dùng</th>
                             <th style={{ width: 200 }} className="table-title">Ngày thanh toán</th>
                             <th style={{ width: 200 }} className="table-title">Giờ thanh toán</th>

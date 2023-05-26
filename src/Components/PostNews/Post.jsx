@@ -755,7 +755,7 @@ const [coordsRent, setCoordsRent] = useState({})
           axios.request(config)
             .then((response) => {
               console.log(JSON.stringify(response.data));
-              alert("save bill thanh cong")
+              // alert("save bill thanh cong")
             })
             .catch((error) => {
               console.log(error);
@@ -1006,7 +1006,7 @@ const [coordsRent, setCoordsRent] = useState({})
           axios.request(config)
             .then((response) => {
               console.log(JSON.stringify(response.data));
-              alert("save bill thanh cong")
+              // alert("save bill thanh cong")
             })
             .catch((error) => {
               console.log(error);
@@ -1231,7 +1231,7 @@ const [coordsRent, setCoordsRent] = useState({})
                   <br /> <br />
             <div className="map_post" style={{ height: '50vh' }}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: "AIzaSyBhDcnIzKPZBvUFveafMZv5IwViWxRYeeo" }}
+                    bootstrapURLKeys={{ key: "AIzaSyCMXhmoulmyD4oXqsGmXrim3Q7x1am4NyI" }}
                     defaultCenter={coordsSell}
                     center={coordsSell}
                     defaultZoom={15}
@@ -1479,7 +1479,7 @@ const [coordsRent, setCoordsRent] = useState({})
 
             <div className="map_post" style={{ height: '50vh' }}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: "AIzaSyBhDcnIzKPZBvUFveafMZv5IwViWxRYeeo" }}
+                    bootstrapURLKeys={{ key: "AIzaSyCMXhmoulmyD4oXqsGmXrim3Q7x1am4NyI" }}
                     defaultCenter={coordsRent}
                     center={coordsRent}
                     defaultZoom={15}

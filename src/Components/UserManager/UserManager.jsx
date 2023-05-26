@@ -80,21 +80,7 @@ const UserManager = () => {
             msg.password = "Vui lòng nhập password"
           }
 
-        // if(isNumeric(money)===false){
-        //     msg.money = "Tiền phải nhấp số"
-        //   }
-
-
-        // if(isEmpty(EmailUpdate)){
-        //     msg.EmailUpdate = "Vui lòng nhập email"
-        //   }
-        // else if (!isEmail(EmailUpdate)){
-        //     msg.EmailUpdate = "Vui lòng nhập đúng định dạng email"
-        //   }
-
-        // if(isEmpty(NameUpdate)){
-        //     msg.NameUpdate = "Vui lòng nhập họ tên"
-        //   }
+       
           
           setValidationMsg(msg)
           if (Object.keys(msg).length>0) return false
@@ -117,8 +103,6 @@ const UserManager = () => {
       }
       const valibDataApdate = () =>{
         const msg ={}
- 
-
 
         if(isEmpty(EmailUpdate)){
             msg.EmailUpdate = "Vui lòng nhập email"
@@ -131,9 +115,9 @@ const UserManager = () => {
             msg.NameUpdate = "Vui lòng nhập họ tên"
           }
 
-        if(!isNumeric(surplusUpdate)){
-            msg.surplusUpdate = "Tiền phải nhấp số"
-          }
+        // if(!isNumeric(surplusUpdate)){
+        //     msg.surplusUpdate = "Tiền phải nhấp số"
+        //   }
 
           
           setValidationMsg(msg)
@@ -352,9 +336,7 @@ const UserManager = () => {
 
     const UpdateAction = () =>{
         const isValib = valibDataApdate()
-            if (!isValib) {
-                return 
-            }
+        if (!isValib) return
         UpdateUser()
     }
 
@@ -705,7 +687,7 @@ const UserManager = () => {
                                                         <DialogContentText id="alert-dialog-description">
                                                             <TextField id="outlined-basic" label="Số dư" variant="outlined" onChange={event => setSurplusUpdate(event.target.value)} value={surplusUpdate}/>
                                                         </DialogContentText>
-                                                           <p style={{color:'red'}}>{validationMsg.surplusUpdate}</p>
+                                                           {/* <p style={{color:'red'}}>{validationMsg.surplusUpdate}</p> */}
                                                     </DialogContent>
 
                                                     <Box sx={{ minWidth: 225 }}>

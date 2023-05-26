@@ -4,7 +4,7 @@ import './realestatemanageruser.css'
 import IconButton from '@mui/material/IconButton';
 
 import { RxUpdate } from 'react-icons/rx'
-import { AiFillLock } from 'react-icons/ai'
+import { AiFillDelete } from 'react-icons/ai'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import axios from "axios"
@@ -955,7 +955,7 @@ const DeleteRe =  async()=>{
 
                             <div style={{ height: '50vh', width: '100%', marginTop:10 , }}  >
                     <GoogleMapReact
-                        bootstrapURLKeys={{ key: "AIzaSyBhDcnIzKPZBvUFveafMZv5IwViWxRYeeo" }}
+                        bootstrapURLKeys={{ key: "AIzaSyCMXhmoulmyD4oXqsGmXrim3Q7x1am4NyI" }}
                         defaultCenter={coords}
                         center={coords}
                         
@@ -1080,7 +1080,7 @@ const DeleteRe =  async()=>{
                         handleClickOpenLock()
                       }}>
 
-                        <AiFillLock style={{ color: 'red' }} />
+                        <AiFillDelete style={{ color: 'red' }} />
                       </IconButton>
                       <Dialog
                                                 open={openLock}

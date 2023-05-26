@@ -21,19 +21,25 @@ const CheckLock =  async()=>{
       axios.request(config)
       .then((response) => {
        if (response.data.status==="Đang hoạt động") {
-            onSubmit()
+            // onSubmit()
+            alert('Đăng nhập thành công!')
+      
+            // localStorage.setItem("token", token)
+        
+        navigate("/home")
+
        }
        else{
             alert('Tài khoản bị khóa không thể đăng nhập!')
        }
       })
       .catch((error) => {
-        alert('Tài khoản bị khóa không thể đăng nhập!')
+        
         console.log(error);
       });
 }
 
-
+// const [token, settoken] = useState('')
 
 const onSubmit =()=>{
            
@@ -58,11 +64,14 @@ const onSubmit =()=>{
         console.log((response));
 
         if(response.status===200){
-        alert('Đăng nhập thành công!')
+            localStorage.setItem("token", response.data)
+            // settoken(response.data)
+            CheckLock()
+        // alert('Đăng nhập thành công!')
       
-        localStorage.setItem("token", response.data)
+        // localStorage.setItem("token", response.data)
         
-        navigate("/home")
+        // navigate("/home")
 
         } 
 
@@ -150,7 +159,7 @@ const onSubmit =()=>{
                                         </div>
                                     </div>
                                     <div className="mb-3">
-                                        <button  className="btn btn-primary d-grid w-100" type="button" onClick={CheckLock}>Đăng nhập</button>
+                                        <button  className="btn btn-primary d-grid w-100" type="button" onClick={onSubmit}>Đăng nhập</button>
                                     </div>
                                 </form>
                                 <p className="text-center">
