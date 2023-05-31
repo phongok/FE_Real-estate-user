@@ -14,7 +14,7 @@ const CheckLock =  async()=>{
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `http://localhost:8081/api/user/checkLock?userName=${payload.username}`,
+        url: `http://localhost:8094/api/user/checkLock?userName=${payload.username}`,
         headers: { }
       };
       
@@ -51,7 +51,7 @@ const onSubmit =()=>{
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8081/authen/login',
+        url: 'http://localhost:8094/authen/login',
         headers: { 
         'Content-Type': 'application/json'
         },

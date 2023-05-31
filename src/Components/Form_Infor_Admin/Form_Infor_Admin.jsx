@@ -19,7 +19,7 @@ const FormInforAdmin = () =>{
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/checkuser?token=${token}`,
+            url: `http://localhost:8094/api/checkuser?token=${token}`,
             headers: {}
         };
 
@@ -157,7 +157,7 @@ const FormInforAdmin = () =>{
     let config = {
       method: 'put',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8081/api/user/updateInfor',
+      url: 'http://localhost:8094/api/user/updateInfor',
       headers: { 
         'Content-Type': 'application/json'
       },

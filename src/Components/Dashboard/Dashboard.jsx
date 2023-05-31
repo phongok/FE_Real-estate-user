@@ -21,7 +21,7 @@ const Dashboard = () =>{
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8081/api/users/count',
+                url: 'http://localhost:8094/api/users/count',
                 headers: { }
               };
               
@@ -39,7 +39,7 @@ const Dashboard = () =>{
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8081/api/realestates/count',
+                url: 'http://localhost:8094/api/realestates/count',
                 headers: { }
               };
               
@@ -56,7 +56,7 @@ const Dashboard = () =>{
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8081/api/newsTypes/count',
+                url: 'http://localhost:8094/api/newsTypes/count',
                 headers: { }
               };
               
@@ -73,7 +73,7 @@ const Dashboard = () =>{
           let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8081/api/getRevenue',
+            url: 'http://localhost:8094/api/getRevenue',
             headers: { }
           };
           

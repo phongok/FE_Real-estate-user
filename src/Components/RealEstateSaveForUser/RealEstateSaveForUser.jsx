@@ -25,7 +25,7 @@ const RealEstateSaveForUser = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/checkuser?token=${token}`,
+            url: `http://localhost:8094/api/checkuser?token=${token}`,
             headers: {}
         };
 
@@ -35,7 +35,7 @@ const RealEstateSaveForUser = () => {
                 let config = {
                     method: 'get',
                     maxBodyLength: Infinity,
-                    url: `http://localhost:8081/api/realestatesaves/forUser?iduser=${response.data.id}`,
+                    url: `http://localhost:8094/api/realestatesaves/forUser?iduser=${response.data.id}`,
                     headers: {}
                 };
 
@@ -75,7 +75,7 @@ const RealEstateSaveForUser = () => {
         let config = {
             method: 'delete',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/realestatesaves/${idDelete}`,
+            url: `http://localhost:8094/api/realestatesaves/${idDelete}`,
             headers: { }
           };
           

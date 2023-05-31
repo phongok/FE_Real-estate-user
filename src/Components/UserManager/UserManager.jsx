@@ -131,7 +131,7 @@ const UserManager = () => {
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `http://localhost:8081/api/user/checkUser?userName=${userName}`,
+          url: `http://localhost:8094/api/user/checkUser?userName=${userName}`,
           headers: { }
         };
         
@@ -159,7 +159,7 @@ const UserManager = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/user/create?role=${roleCreate}`,
+            url: `http://localhost:8094/api/user/create?role=${roleCreate}`,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -309,7 +309,7 @@ const UserManager = () => {
           let config = {
             method: 'put',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/user/update?roleUpdate=${roleUpdate}`,
+            url: `http://localhost:8094/api/user/update?roleUpdate=${roleUpdate}`,
             headers: { 
               'Content-Type': 'application/json'
             },
@@ -368,7 +368,7 @@ const UserManager = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/users-paging?page=${pg - 1}&size=${pgSize}&keyword=${kw}`,
+            url: `http://localhost:8094/api/users-paging?page=${pg - 1}&size=${pgSize}&keyword=${kw}`,
             headers: {}
         };
 
@@ -402,7 +402,7 @@ const UserManager = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/lockuser?userid=${idUserLock}`,
+            url: `http://localhost:8094/api/lockuser?userid=${idUserLock}`,
             headers: {}
         };
 
@@ -441,7 +441,7 @@ const UserManager = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/user/publicmoney?userid=${idUserMoney}&money=${money}`,
+            url: `http://localhost:8094/api/user/publicmoney?userid=${idUserMoney}&money=${money}`,
             headers: {}
         };
 

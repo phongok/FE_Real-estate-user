@@ -53,7 +53,7 @@ function ListRealEstateType() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/realestates-newstype/${idNews}?page=${pg}&size=${pgSize}&area=${are}&priceMin=${priMin}&priceMax=${priMax}&acreageMin=${acrMin}&acreageMax=${acrMax}`,
+            url: `http://localhost:8094/api/realestates-newstype/${idNews}?page=${pg}&size=${pgSize}&area=${are}&priceMin=${priMin}&priceMax=${priMax}&acreageMin=${acrMin}&acreageMax=${acrMax}`,
             headers: {}
         };
 
@@ -300,7 +300,7 @@ function ListRealEstateType() {
                                                     let config = {
                                                         method: 'get',
                                                         maxBodyLength: Infinity,
-                                                        url: `http://localhost:8081/api/checkuser?token=${token}`,
+                                                        url: `http://localhost:8094/api/checkuser?token=${token}`,
                                                         headers: {}
                                                     };
 
@@ -324,7 +324,7 @@ function ListRealEstateType() {
                                                             let config = {
                                                                 method: 'post',
                                                                 maxBodyLength: Infinity,
-                                                                url: 'http://localhost:8081/api/realestatesaves',
+                                                                url: 'http://localhost:8094/api/realestatesaves',
                                                                 headers: {
                                                                     'Content-Type': 'application/json'
                                                                 },

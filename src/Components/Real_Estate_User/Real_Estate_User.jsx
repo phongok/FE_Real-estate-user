@@ -39,7 +39,7 @@ const RealEstateUser = () =>{
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/realestates-user/${iduser}?page=${pg}&size=${pgSize}`,
+            url: `http://localhost:8094/api/realestates-user/${iduser}?page=${pg}&size=${pgSize}`,
             headers: { }
           };
           

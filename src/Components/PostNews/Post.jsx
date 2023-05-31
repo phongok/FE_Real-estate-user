@@ -89,7 +89,7 @@ const [coordsRent, setCoordsRent] = useState({})
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8081/api/newsTypesSell/listSell',
+      url: 'http://localhost:8094/api/newsTypesSell/listSell',
       headers: {}
     };
 
@@ -112,7 +112,7 @@ const [coordsRent, setCoordsRent] = useState({})
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8081/api/newsTypesRent/listRent',
+      url: 'http://localhost:8094/api/newsTypesRent/listRent',
       headers: {}
     };
 
@@ -141,7 +141,7 @@ const [coordsRent, setCoordsRent] = useState({})
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `http://localhost:8081/api/checkuser?token=${token}`,
+      url: `http://localhost:8094/api/checkuser?token=${token}`,
       headers: {}
     };
 
@@ -714,7 +714,7 @@ const [coordsRent, setCoordsRent] = useState({})
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8081/api/realestates',
+      url: 'http://localhost:8094/api/realestates',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -745,7 +745,7 @@ const [coordsRent, setCoordsRent] = useState({})
           let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8081/api/bills',
+            url: 'http://localhost:8094/api/bills',
             headers: {
               'Content-Type': 'application/json'
             },
@@ -967,7 +967,7 @@ const [coordsRent, setCoordsRent] = useState({})
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8081/api/realestates',
+      url: 'http://localhost:8094/api/realestates',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -996,7 +996,7 @@ const [coordsRent, setCoordsRent] = useState({})
           let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8081/api/bills',
+            url: 'http://localhost:8094/api/bills',
             headers: {
               'Content-Type': 'application/json'
             },
@@ -1057,7 +1057,7 @@ const [coordsRent, setCoordsRent] = useState({})
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: `http://localhost:8081/api/deductmoneypost?idUser=${iduser}`,
+      url: `http://localhost:8094/api/deductmoneypost?idUser=${iduser}`,
       headers: {}
     };
 

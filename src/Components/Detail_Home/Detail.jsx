@@ -32,7 +32,7 @@ function Detail() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/realestates/${id}`,
+            url: `http://localhost:8094/api/realestates/${id}`,
             headers: {}
         };
 
@@ -104,7 +104,7 @@ function Detail() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/checkuser?token=${token}`,
+            url: `http://localhost:8094/api/checkuser?token=${token}`,
             headers: {}
         };
 
@@ -134,7 +134,7 @@ function Detail() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8081/api/reports',
+            url: 'http://localhost:8094/api/reports',
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -12,7 +12,7 @@ function ChartMonth() {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8081/api/getRevenueMonthChart',
+      url: 'http://localhost:8094/api/getRevenueMonthChart',
       headers: {}
     };
 

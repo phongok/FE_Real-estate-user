@@ -66,7 +66,7 @@ const NewsTypeManager = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8081/api/newsType-paging?page=${pg - 1}&size=${pgSize}&keyword=${kw}`,
+            url: `http://localhost:8094/api/newsType-paging?page=${pg - 1}&size=${pgSize}&keyword=${kw}`,
             headers: {}
         };
 
@@ -109,7 +109,7 @@ const NewsTypeManager = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8081/api/caterorys',
+            url: 'http://localhost:8094/api/caterorys',
             headers: {}
         };
 
@@ -185,7 +185,7 @@ const NewsTypeManager = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8081/api/newsTypes',
+            url: 'http://localhost:8094/api/newsTypes',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -277,7 +277,7 @@ const NewsTypeManager = () => {
         let config = {
             method: 'put',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8081/api/newsTypes',
+            url: 'http://localhost:8094/api/newsTypes',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -322,7 +322,7 @@ const LockNewsType = async()=>{
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `http://localhost:8081/api/newsTypesLock?idNewsType=${idNewsTypeLock}`,
+        url: `http://localhost:8094/api/newsTypesLock?idNewsType=${idNewsTypeLock}`,
         headers: { }
       };
       
