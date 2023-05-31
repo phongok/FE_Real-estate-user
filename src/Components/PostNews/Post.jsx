@@ -482,7 +482,7 @@ const [coordsRent, setCoordsRent] = useState({})
 
     const handleUploadRent1 = () => {
       if (imageRent1) {
-        const uploadTask = storageRef.child(`imagerealestate/${imageRent1.name}`).put(imageRent1);
+        const uploadTask = storageRef.child(`imagerealestates/${imageRent1.name}`).put(imageRent1);
         uploadTask.on(
           'state_changed',
           (snapshot) => {

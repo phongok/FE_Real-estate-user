@@ -66,12 +66,16 @@ function ListRealEstateCaterorySell() {
         console.log(priMax)
         console.log(acrMin)
         console.log(acrMax)
+
+
+
         fetchData(pg, pgSize, are, priMin, priMax, acrMin, acrMax)
 
     }
 
 
     const fetchData = async (pg = page, pgSize = pageSize, are = area, priMin = priceMin, priMax = priceMax, acrMin = acreageMin, acrMax = acreageMax) => {
+      
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
@@ -230,9 +234,9 @@ function ListRealEstateCaterorySell() {
                             <li className="navItem">
                                 <div className="navLink" >
                                     <div style={{ textAlign: "center", display: "flex" }}>
-                                        <TextField id="outlined-basic" label="Từ" variant="outlined" onChange={event => setpriceMin(event.target.value)} />
+                                        <TextField id="outlined-basic" label="Từ" variant="outlined" onChange={event => setacreageMin(event.target.value)} />
 
-                                        <TextField id="outlined-basic" label="Đến" variant="outlined" onChange={event => setpriceMax(event.target.value)} />
+                                        <TextField id="outlined-basic" label="Đến" variant="outlined" onChange={event => setacreageMax(event.target.value)} />
                                     </div>
                                 </div>
 
