@@ -1231,7 +1231,7 @@ const [coordsRent, setCoordsRent] = useState({})
                   <br /> <br />
             <div className="map_post" style={{ height: '50vh' }}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: "AIzaSyBHOsrsO0tUoUlDgdHLFB0t1yDtavbNwoA" }}
+                    bootstrapURLKeys={{ key: "AIzaSyBkI_3zC55NEZSqMIJfeitLnQP5uoaltfs" }}
                     defaultCenter={coordsSell}
                     center={coordsSell}
                     defaultZoom={15}
@@ -1479,7 +1479,7 @@ const [coordsRent, setCoordsRent] = useState({})
 
             <div className="map_post" style={{ height: '50vh' }}>
                 <GoogleMapReact
-                    bootstrapURLKeys={{ key: "AIzaSyBHOsrsO0tUoUlDgdHLFB0t1yDtavbNwoA" }}
+                    bootstrapURLKeys={{ key: "AIzaSyBkI_3zC55NEZSqMIJfeitLnQP5uoaltfs" }}
                     defaultCenter={coordsRent}
                     center={coordsRent}
                     defaultZoom={15}
