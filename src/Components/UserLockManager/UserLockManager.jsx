@@ -38,7 +38,7 @@ const UserLockManager = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/unlockuser?userid=${idUser}`,
+            url: `https://server.realestatevn.xyz/api/unlockuser?userid=${idUser}`,
             headers: {}
         };
 
@@ -88,7 +88,7 @@ const UserLockManager = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/users-lock?page=${pg - 1}&size=${pgSize}&keyword=${kw}`,
+            url: `https://server.realestatevn.xyz/api/users-lock?page=${pg - 1}&size=${pgSize}&keyword=${kw}`,
             headers: {}
         };
 

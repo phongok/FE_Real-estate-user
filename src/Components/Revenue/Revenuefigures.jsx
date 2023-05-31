@@ -80,7 +80,7 @@ const BillManager = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/bills-paging?page=${pg - 1}&size=${pgSize}&from=${f}&to=${t}&userName=${us}`,
+            url: `https://server.realestatevn.xyz/api/bills-paging?page=${pg - 1}&size=${pgSize}&from=${f}&to=${t}&userName=${us}`,
             headers: {}
         };
 
@@ -101,7 +101,7 @@ const BillManager = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/getRevenueFromTo?from=${f}&to=${t}`,
+            url: `https://server.realestatevn.xyz/api/getRevenueFromTo?from=${f}&to=${t}`,
             headers: { }
           };
           

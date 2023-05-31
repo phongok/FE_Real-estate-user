@@ -32,7 +32,7 @@ function Detail() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/realestates/${id}`,
+            url: `https://server.realestatevn.xyz/api/realestates/${id}`,
             headers: {}
         };
 
@@ -104,7 +104,7 @@ function Detail() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/checkuser?token=${token}`,
+            url: `https://server.realestatevn.xyz/api/checkuser?token=${token}`,
             headers: {}
         };
 
@@ -134,7 +134,7 @@ function Detail() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8094/api/reports',
+            url: 'https://server.realestatevn.xyz/api/reports',
             headers: {
                 'Content-Type': 'application/json'
             },

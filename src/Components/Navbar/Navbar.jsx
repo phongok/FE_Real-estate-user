@@ -57,7 +57,7 @@ const Navbar = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8094/api/newsTypesSell/listSell',
+            url: 'https://server.realestatevn.xyz/api/newsTypesSell/listSell',
             headers: {}
         };
 
@@ -77,7 +77,7 @@ const Navbar = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8094/api/newsTypesRent/listRent',
+            url: 'https://server.realestatevn.xyz/api/newsTypesRent/listRent',
             headers: {}
         };
 
@@ -99,7 +99,7 @@ const Navbar = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/checkuser?token=${token}`,
+            url: `https://server.realestatevn.xyz/api/checkuser?token=${token}`,
             headers: {}
         };
 
@@ -117,7 +117,7 @@ const Navbar = () => {
                 let config = {
                     method: 'get',
                     maxBodyLength: Infinity,
-                    url: `http://localhost:8094/api/realestatesaves/getlimit3?iduser=${response.data.id}`,
+                    url: `https://server.realestatevn.xyz/api/realestatesaves/getlimit3?iduser=${response.data.id}`,
                     headers: { }
                   };
                   
@@ -144,7 +144,7 @@ const Navbar = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/checkuser?token=${token}`,
+            url: `https://server.realestatevn.xyz/api/checkuser?token=${token}`,
             headers: {}
         };
 
@@ -177,7 +177,7 @@ const Navbar = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/checkuser?token=${token}`,
+            url: `https://server.realestatevn.xyz/api/checkuser?token=${token}`,
             headers: {}
         };
 
@@ -221,7 +221,7 @@ const Navbar = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/checkuser?token=${token}`,
+            url: `https://server.realestatevn.xyz/api/checkuser?token=${token}`,
             headers: {}
         };
 

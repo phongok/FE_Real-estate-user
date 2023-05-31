@@ -73,7 +73,7 @@ const ReportManager = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/stickreport?reportid=${idReport}`,
+            url: `https://server.realestatevn.xyz/api/stickreport?reportid=${idReport}`,
             headers: {}
         };
 
@@ -98,7 +98,7 @@ const ReportManager = () => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/reports-paging?page=${pg - 1}&size=${pgSize}&userName=${us}`,
+            url: `https://server.realestatevn.xyz/api/reports-paging?page=${pg - 1}&size=${pgSize}&userName=${us}`,
             headers: {}
         };
 

@@ -51,7 +51,7 @@ const RealEstateManager = () => {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8094/api/newsTypes',
+      url: 'https://server.realestatevn.xyz/api/newsTypes',
       headers: {}
     };
 
@@ -107,7 +107,7 @@ fetchData(pg, pgSize, nt, us)
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: `http://localhost:8094/api/realestates-paging?page=${pg - 1}&size=${pgSize}&idNewsType=${nt}&username=${us}`,
+      url: `https://server.realestatevn.xyz/api/realestates-paging?page=${pg - 1}&size=${pgSize}&idNewsType=${nt}&username=${us}`,
       headers: {}
     };
 
@@ -290,7 +290,7 @@ fetchData(pg, pgSize, nt, us)
     let config = {
       method: 'put',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8094/api/realestates',
+      url: 'https://server.realestatevn.xyz/api/realestates',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -342,7 +342,7 @@ const DeleteRe =  async()=>{
   let config = {
     method: 'put',
     maxBodyLength: Infinity,
-    url: `http://localhost:8094/api/realestate/delete?idre=${idRealEstateDelete}`,
+    url: `https://server.realestatevn.xyz/api/realestate/delete?idre=${idRealEstateDelete}`,
     headers: { }
   };
   

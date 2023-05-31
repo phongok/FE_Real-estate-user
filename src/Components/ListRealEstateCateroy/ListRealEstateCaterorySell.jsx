@@ -79,7 +79,7 @@ function ListRealEstateCaterorySell() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:8094/api/listrealestateSell?page=${pg}&size=${pgSize}&area=${are}&priceMin=${priMin}&priceMax=${priMax}&acreageMin=${acrMin}&acreageMax=${acrMax}`,
+            url: `https://server.realestatevn.xyz/api/listrealestateSell?page=${pg}&size=${pgSize}&area=${are}&priceMin=${priMin}&priceMax=${priMax}&acreageMin=${acrMin}&acreageMax=${acrMax}`,
             headers: {}
         };
 
@@ -314,7 +314,7 @@ function ListRealEstateCaterorySell() {
                                                     let config = {
                                                         method: 'get',
                                                         maxBodyLength: Infinity,
-                                                        url: `http://localhost:8094/api/checkuser?token=${token}`,
+                                                        url: `https://server.realestatevn.xyz/api/checkuser?token=${token}`,
                                                         headers: {}
                                                     };
 
@@ -338,7 +338,7 @@ function ListRealEstateCaterorySell() {
                                                             let config = {
                                                                 method: 'post',
                                                                 maxBodyLength: Infinity,
-                                                                url: 'http://localhost:8094/api/realestatesaves',
+                                                                url: 'https://server.realestatevn.xyz/api/realestatesaves',
                                                                 headers: {
                                                                     'Content-Type': 'application/json'
                                                                 },

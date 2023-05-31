@@ -20,7 +20,7 @@ const Main = () =>{
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8094/api/outstanding',
+                url: 'https://server.realestatevn.xyz/api/outstanding',
                 headers: { }
               };      
               axios.request(config)
@@ -83,7 +83,7 @@ const Main = () =>{
                                           let config = {
                                             method: 'get',
                                             maxBodyLength: Infinity,
-                                            url: `http://localhost:8094/api/checkuser?token=${token}`,
+                                            url: `https://server.realestatevn.xyz/api/checkuser?token=${token}`,
                                             headers: {}
                                         };
                                 
@@ -107,7 +107,7 @@ const Main = () =>{
                                                   let config = {
                                                     method: 'post',
                                                     maxBodyLength: Infinity,
-                                                    url: 'http://localhost:8094/api/realestatesaves',
+                                                    url: 'https://server.realestatevn.xyz/api/realestatesaves',
                                                     headers: { 
                                                       'Content-Type': 'application/json'
                                                     },

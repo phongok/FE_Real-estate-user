@@ -33,7 +33,7 @@ function TabPanel(props) {
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:8094/api/checkuser?token=${token}`,
+        url: `https://server.realestatevn.xyz/api/checkuser?token=${token}`,
         headers: {}
       };
 

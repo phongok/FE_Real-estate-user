@@ -12,7 +12,7 @@ function ChartMonth() {
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8094/api/getRevenueMonthChart',
+      url: 'https://server.realestatevn.xyz/api/getRevenueMonthChart',
       headers: {}
     };
 

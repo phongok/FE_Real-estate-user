@@ -21,7 +21,7 @@ const Dashboard = () =>{
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8094/api/users/count',
+                url: 'https://server.realestatevn.xyz/api/users/count',
                 headers: { }
               };
               
@@ -39,7 +39,7 @@ const Dashboard = () =>{
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8094/api/realestates/count',
+                url: 'https://server.realestatevn.xyz/api/realestates/count',
                 headers: { }
               };
               
@@ -56,7 +56,7 @@ const Dashboard = () =>{
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:8094/api/newsTypes/count',
+                url: 'https://server.realestatevn.xyz/api/newsTypes/count',
                 headers: { }
               };
               
@@ -73,7 +73,7 @@ const Dashboard = () =>{
           let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8094/api/getRevenue',
+            url: 'https://server.realestatevn.xyz/api/getRevenue',
             headers: { }
           };
           

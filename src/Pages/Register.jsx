@@ -91,7 +91,7 @@ function Register() {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8094/authen/register',
+      url: 'https://server.realestatevn.xyz/authen/register',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -121,7 +121,7 @@ function Register() {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: `http://localhost:8094/api/user/checkUser?userName=${email}`,
+      url: `https://server.realestatevn.xyz/api/user/checkUser?userName=${email}`,
       headers: { }
     };
     
