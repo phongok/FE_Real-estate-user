@@ -167,6 +167,8 @@ const RegisterAction =  async()=>{
   CheckUser()
 }
 
+
+
   return <div>
     <div className="container-xxl">
       <div className="authentication-wrapper authentication-basic container-p-y">
@@ -232,6 +234,8 @@ const RegisterAction =  async()=>{
                   <span>Đăng nhập</span>
                 </Link>
               </p>
+
+             
             </div>
           </div>
         </div>
